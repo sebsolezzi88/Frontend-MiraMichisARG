@@ -156,7 +156,7 @@ const Register = () => {
         </form>
 
         <div className="text-center text-sm text-gray-600">
-            ¿Ya tienes cuenta? 
+            ¿Ya tienes cuenta?&nbsp;  
             <a href="#" className="font-medium text-orange-600 hover:text-orange-500">
                 Inicia Sesión aquí
             </a>
