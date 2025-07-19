@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Login from './page/Login'
+import Register from './page/Register'
 
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
     <>
      <Routes>
         <Route  path="/login" element={<Login />} />
-        <Route  path="/register" element={<Login />} />
+        <Route  path="/register" element={<Register />} />
      </Routes>
     </>
   )
