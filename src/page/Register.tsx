@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, type ChangeEvent } from "react"
 import { Link } from "react-router-dom"
 import type { RegisterFormData } from "../types/types"
 
@@ -15,6 +15,15 @@ const Register = () => {
         city:"",
         province: "",
     });
+
+    //Funcion para cambiar el estado formData segun el inputchange
+    const handletChange = (e:ChangeEvent<HTMLInputElement>) =>{
+         setFormData({...formData,[e.target.name]:e.target.value})
+    }
+    //Funcion para cambiar el estado formData segun el select
+    const handletSelect = (e:ChangeEvent<HTMLSelectElement>) =>{
+         setFormData({...formData,[e.target.name]:e.target.value})
+    }
 
   return (
     <div className="max-w-lg w-full bg-white rounded-xl shadow-lg p-8 space-y-6">
@@ -42,11 +51,13 @@ const Register = () => {
             </div>
 
             <div>
-                <label htmlFor="nombre" className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
-                <input 
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+                <input
+                    onChange={handletChange}
+                    value={formData.name}
                     type="text" 
-                    id="nombre" 
-                    name="nombre" 
+                    id="name" 
+                    name="name" 
                     placeholder="Tu nombre"
                     className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm 
                            focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
@@ -55,11 +66,13 @@ const Register = () => {
             </div>
 
             <div>
-                <label htmlFor="apellido" className="block text-sm font-medium text-gray-700 mb-1">Apellido</label>
-                <input 
-                    type="text" 
-                    id="apellido" 
-                    name="apellido" 
+                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">Apellido</label>
+                <input
+                    onChange={handletChange}
+                    value={formData.lastName} 
+                    type="lastName" 
+                    id="lastName" 
+                    name="lastName" 
                     placeholder="Tu apellido"
                     className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm 
                            focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
@@ -69,7 +82,9 @@ const Register = () => {
 
             <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Correo Electrónico</label>
-                <input 
+                <input
+                    onChange={handletChange}
+                    value={formData.email} 
                     type="email" 
                     id="email" 
                     name="email" 
@@ -82,7 +97,9 @@ const Register = () => {
 
             <div>
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
-                <input 
+                <input
+                    onChange={handletChange}
+                    value={formData.password} 
                     type="password" 
                     id="password" 
                     name="password" 
@@ -94,11 +111,13 @@ const Register = () => {
             </div>
 
             <div>
-                <label htmlFor="repeat-password" className="block text-sm font-medium text-gray-700 mb-1">Repetir Contraseña</label>
-                <input 
+                <label htmlFor="passwordrep" className="block text-sm font-medium text-gray-700 mb-1">Repetir Contraseña</label>
+                <input
+                    onChange={handletChange}
+                    value={formData.passwordrep} 
                     type="password" 
-                    id="repeat-password" 
-                    name="repeat-password" 
+                    id="passwordrep" 
+                    name="passwordrep" 
                     placeholder="Confirma tu contraseña"
                     className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm 
                            focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
@@ -107,11 +126,13 @@ const Register = () => {
             </div>
 
             <div>
-                <label htmlFor="ciudad" className="block text-sm font-medium text-gray-700 mb-1">Ciudad</label>
+                <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">Ciudad</label>
                 <input 
+                    onChange={handletChange}
+                    value={formData.city} 
                     type="text" 
-                    id="ciudad" 
-                    name="ciudad" 
+                    id="city" 
+                    name="city" 
                     placeholder="Ej. Buenos Aires"
                     className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm 
                            focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
@@ -120,10 +141,12 @@ const Register = () => {
             </div>
 
             <div>
-                <label htmlFor="provincia" className="block text-sm font-medium text-gray-700 mb-1">Provincia</label>
-                <select 
-                    id="provincia" 
-                    name="provincia" 
+                <label htmlFor="province" className="block text-sm font-medium text-gray-700 mb-1">Provincia</label>
+                <select
+                    onChange={handletSelect}
+                    value={formData.province}  
+                    id="province" 
+                    name="province" 
                     className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm 
                            focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                     required
