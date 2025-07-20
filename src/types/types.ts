@@ -9,6 +9,18 @@ export interface ApiResponse{
     message: string;
 }
 
+export interface ApiArrayErrorResponse{
+    location: string;
+    msg: string;
+    path: string;
+    type: string;
+    value: string;
+}
+export interface ExpressValidatorErrorResponse {
+    errors: ApiArrayErrorResponse[];
+}
+
+
 //Types para usar en el registro
 export interface RegisterFormData{
     username: string;

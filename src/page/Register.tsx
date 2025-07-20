@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent, type FormEvent } from "react"
 import { Link } from "react-router-dom"
-import type { ApiResponse, RegisterData, RegisterFormData } from "../types/types"
+import type { ApiArrayErrorResponse, ApiResponse, ExpressValidatorErrorResponse, RegisterData, RegisterFormData } from "../types/types"
 import { areEmptyFields } from "../utils/utils";
 import { toast, ToastContainer } from "react-toastify";
 import { registerUser } from "../api/user";
@@ -50,19 +50,46 @@ const Register = () => {
             }
         };
         try {
-            const response = await registerUser(registerData);
-            if(response.status === 'success'){
-                toast.success(response.message,{theme: "colored",autoClose:2000});
-            }
-        } catch (error) {
-            const err = error as AxiosError<ApiResponse>;
-            if (err.response?.data?.message) {
-                toast.error('Error Desconocido',{theme: "colored",autoClose:2000});
-            } else {
-                toast.error('Error Desconocido',{theme: "colored",autoClose:2000});
+    const response = await registerUser(registerData);
+    if (response.status === 'success') {
+        toast.success(response.message, { theme: "colored", autoClose: 2000 });
+    }
+} catch (error) {
+        // ¡Ajuste aquí el tipo del error de Axios!
+        const err = error as AxiosError<ApiResponse | ExpressValidatorErrorResponse>; 
+        
+        if (err.response) {
+            const errorData = err.response.data;
+
+            // Caso 1: Error general de la API (ApiResponse)
+            if (typeof errorData === 'object' && errorData !== null && 'status' in errorData && 'message' in errorData) {
+                const apiResponse = errorData as ApiResponse;
+                toast.error(apiResponse.message || 'Error general de la API.', { theme: "colored", autoClose: 2000 });
             } 
-            console.log(err);
-        }
+            // Caso 2: Errores de validación de Express Validator (ExpressValidatorErrorResponse)
+            // Ahora comprobamos si tiene la propiedad 'errors' y si 'errors' es un array no vacío
+            else if (typeof errorData === 'object' && errorData !== null && 'errors' in errorData && Array.isArray((errorData as ExpressValidatorErrorResponse).errors) && (errorData as ExpressValidatorErrorResponse).errors.length > 0) {
+                const expressErrors = (errorData as ExpressValidatorErrorResponse).errors;
+                const validationMessages = expressErrors.map(e => e.msg).join('; ');
+                toast.error(`Errores de validación: ${validationMessages}`, { theme: "colored", autoClose: 2000 });
+            } 
+            // Caso 3: Respuesta de error inesperada del servidor (no es ApiResponse ni ExpressValidatorErrorResponse)
+            else {
+                toast.error('Respuesta de error del servidor inesperada.', { theme: "colored", autoClose: 2000 });
+            }
+        } 
+        // Caso 4: Errores que no tienen respuesta HTTP (ej. errores de red, timeouts)
+        else if (err.message) {
+            toast.error(`Error de conexión: ${err.message}`, { theme: "colored", autoClose: 2000 });
+        } 
+        // Caso 5: Cualquier otro tipo de error desconocido
+        else {
+            toast.error('Error Desconocido. Consulta la consola para más detalles.', { theme: "colored", autoClose: 2000 });
+        } 
+        
+        console.error(err); 
+    }
+
     }
 
     return (
