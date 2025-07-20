@@ -43,3 +43,14 @@ export interface RegisterData{
 }
 //Type para loguearse
 export type LoginFormData = Pick<RegisterFormData, 'username'|'password'>;
+
+//interface loginApiResponse si se loguea correctamente
+export interface LoginApiResponse {
+    
+    username: string,
+    name: string,
+    lastName: string,
+    role: string,
+    token:string
+        
+}
