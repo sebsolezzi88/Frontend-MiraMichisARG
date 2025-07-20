@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent, type FormEvent } from "react"
 import { Link } from "react-router-dom"
-import type { RegisterFormData } from "../types/types"
+import type { RegisterData, RegisterFormData } from "../types/types"
 import { areEmptyFields } from "../utils/utils";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -34,6 +34,19 @@ const Register = () => {
             toast.error('Debe Completar todos los campos',{theme: "colored",autoClose:2000});
             return;
         }
+        //Si no hay campoas vacios creamos el objeto para Registrarse
+        const registerData :RegisterData ={
+            username: formData.username,
+            name: formData.name,
+            lastName: formData.lastName,
+            email: formData.email,
+            password: formData.password,
+            passwordrep: formData.passwordrep,
+            location:{
+                city:formData.city,
+                province: formData.province
+            }
+        };
         console.log(formData);
     }
 
