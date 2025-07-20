@@ -29,6 +29,7 @@ const Login = () => {
         //login de usuario
         try {
 
+            //TODO: Guardar en el STate Y rediceccionar a la pagina de usuario o al incio
             const response = await loginUser(formData);
             console.log(response);
 
