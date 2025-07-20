@@ -4,6 +4,7 @@ import Login from './page/Login'
 import Register from './page/Register'
 import { ToastContainer } from 'react-toastify'
 import ActivateAccount from './page/ActivateAccount'
+import NotFoundPage from './page/NotFoundPage'
 
 
 function App() {
@@ -16,6 +17,8 @@ function App() {
         <Route  path="/register" element={<Register />} />
         <Route  path="/activate/:token" element={<ActivateAccount />} />
 
+        
+        <Route path="*" element={<NotFoundPage />} />
      </Routes>
     </>
   )
