@@ -1,11 +1,15 @@
 import { useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 
 const ActivateAccount = () => {
 
-    const {token} = useParams();
+    const {token} = useParams(); //Obtener token de URL
+    const navigate = useNavigate(); //Para redireccionar
+    console.log(token);
     useEffect(() => {
+
+        if(!token) navigate('/register');
         
         console.log(token)
     }, [])
