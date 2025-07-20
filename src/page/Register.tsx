@@ -46,6 +46,8 @@ const Register = () => {
             <div>
                 <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">Nombre de Usuario</label>
                 <input 
+                    onChange={handletChange}
+                    value={formData.username}
                     type="text" 
                     id="username" 
                     name="username" 
