@@ -1,8 +1,8 @@
 import { useState, type ChangeEvent, type FormEvent } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import type { ApiArrayErrorResponse, ApiResponse, ExpressValidatorErrorResponse, RegisterData, RegisterFormData } from "../types/types"
+import type { ApiResponse, ExpressValidatorErrorResponse, RegisterData, RegisterFormData } from "../types/types"
 import { areEmptyFields } from "../utils/utils";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { registerUser } from "../api/user";
 import type { AxiosError } from "axios";
 
@@ -112,7 +112,7 @@ const Register = () => {
 
     return (
         <>
-            <ToastContainer />
+            
             <div className="max-w-lg w-full bg-white rounded-xl shadow-lg p-8 space-y-6">
                 <div className="text-center">
                     <h2 className="text-3xl font-extrabold text-gray-800 mb-2">

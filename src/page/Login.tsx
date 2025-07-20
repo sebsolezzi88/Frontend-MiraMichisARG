@@ -1,7 +1,31 @@
-import React from 'react'
+
+import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
+import type { LoginFormData } from '../types/types';
+import { areEmptyFields } from '../utils/utils';
+import { toast } from 'react-toastify';
 
 const Login = () => {
+
+    //Estado del form de login
+    const [formData, setFormData] = useState<LoginFormData>({username:'',password:''});
+
+    //Funcion para cambiar el estado formData segun el inputchange
+    const handletChange = (e: ChangeEvent<HTMLInputElement>) => {
+            setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
+
+    const handletSubmit = (e:FormEvent)=>{
+        e.preventDefault();
+
+        //chequiar campos
+        if(areEmptyFields(formData)){
+            toast.error('Debe completar todos los campos', { theme: "colored", autoClose: 3000 });
+            return;
+        }
+        
+    }
+
   return (
     
     <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 space-y-6">
@@ -14,10 +38,12 @@ const Login = () => {
             </p>
         </div>
 
-        <form action="#" method="POST" className="space-y-4">
+        <form onSubmit={handletSubmit} className="space-y-4">
             <div>
                 <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">Nombre de Usuario</label>
-                <input 
+                <input
+                    onChange={handletChange}
+                    value={formData.username} 
                     type="text" 
                     id="username" 
                     name="username" 
@@ -30,7 +56,9 @@ const Login = () => {
 
             <div>
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
-                <input 
+                <input
+                    onChange={handletChange}
+                    value={formData.password}  
                     type="password" 
                     id="password" 
                     name="password" 
