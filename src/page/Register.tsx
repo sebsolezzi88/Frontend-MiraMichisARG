@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from "react"
+import { useState, type ChangeEvent, type FormEvent } from "react"
 import { Link } from "react-router-dom"
 import type { RegisterFormData } from "../types/types"
 
@@ -25,6 +25,12 @@ const Register = () => {
          setFormData({...formData,[e.target.name]:e.target.value})
     }
 
+    //Funcion submit form
+    const handletSubmit = (e:FormEvent)=>{
+        e.preventDefault();
+        console.log(formData);
+    }
+
   return (
     <div className="max-w-lg w-full bg-white rounded-xl shadow-lg p-8 space-y-6">
         <div className="text-center">
@@ -36,7 +42,7 @@ const Register = () => {
             </p>
         </div>
 
-        <form action="#" method="POST" className="space-y-4">
+        <form onSubmit={handletSubmit} className="space-y-4">
             <div>
                 <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">Nombre de Usuario</label>
                 <input 
