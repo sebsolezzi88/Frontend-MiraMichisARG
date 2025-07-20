@@ -41,3 +41,5 @@ export interface RegisterData{
     passwordrep:string;
     location: Location;
 }
+//Type para loguearse
+export type LoginFormData = Pick<RegisterFormData, 'username'|'password'>;
