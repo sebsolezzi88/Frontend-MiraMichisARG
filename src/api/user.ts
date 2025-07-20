@@ -12,3 +12,8 @@ export const loginUser = async (loginData:LoginFormData) =>{
     const res = await axios.post<LoginApiResponse>(`${URL}/user/login`, loginData);
     return res.data;
 }
+
+export const activateUserAccount = async (token:string)=>{
+    const res = await axios.get(`${URL}/user/activate?token=${token}`);
+    return res.data;
+}
