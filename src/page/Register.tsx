@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom"
 
 const Register = () => {
   return (
@@ -157,9 +157,10 @@ const Register = () => {
 
         <div className="text-center text-sm text-gray-600">
             ¿Ya tienes cuenta?&nbsp;  
-            <a href="#" className="font-medium text-orange-600 hover:text-orange-500">
-                Inicia Sesión aquí
-            </a>
+            <Link to={'/login'}><span className="font-medium text-orange-600 hover:text-orange-500">
+                Inicia Sesión aquí</span>
+            </Link>
+           
         </div>
     </div>
   )
