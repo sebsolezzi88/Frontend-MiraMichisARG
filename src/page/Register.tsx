@@ -1,8 +1,10 @@
 import { useState, type ChangeEvent, type FormEvent } from "react"
 import { Link } from "react-router-dom"
-import type { RegisterData, RegisterFormData } from "../types/types"
+import type { ApiResponse, RegisterData, RegisterFormData } from "../types/types"
 import { areEmptyFields } from "../utils/utils";
 import { toast, ToastContainer } from "react-toastify";
+import { registerUser } from "../api/user";
+import type { AxiosError } from "axios";
 
 const Register = () => {
 
@@ -28,7 +30,7 @@ const Register = () => {
     }
 
     //Funcion submit form
-    const handletSubmit = (e: FormEvent) => {
+    const handletSubmit = async (e: FormEvent) => {
         e.preventDefault();
         if (areEmptyFields(formData)) {
             toast.error('Debe Completar todos los campos',{theme: "colored",autoClose:2000});
@@ -47,7 +49,20 @@ const Register = () => {
                 province: formData.province
             }
         };
-        console.log(formData);
+        try {
+            const response = await registerUser(registerData);
+            if(response.status === 'success'){
+                toast.success(response.message,{theme: "colored",autoClose:2000});
+            }
+        } catch (error) {
+            const err = error as AxiosError<ApiResponse>;
+            if (err.response?.data?.message) {
+                toast.error('Error Desconocido',{theme: "colored",autoClose:2000});
+            } else {
+                toast.error('Error Desconocido',{theme: "colored",autoClose:2000});
+            } 
+            console.log(err);
+        }
     }
 
     return (
