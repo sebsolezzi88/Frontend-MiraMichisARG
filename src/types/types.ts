@@ -3,6 +3,12 @@ export interface Location{
     province: string;
 }
 
+//Type para respuesta de la api
+export interface ApiResponse{
+    status: string;
+    message: string;
+}
+
 //Types para usar en el registro
 export interface RegisterFormData{
     username: string;
