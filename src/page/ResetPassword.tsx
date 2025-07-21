@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 
 const ResetPassword = () => {
 
+    const navigate = useNavigate(); //Navegador
+    const [searchParams, setSearchParams] = useSearchParams(); //buscar parametro token
+    const token = searchParams.get('token'); 
     const [formData, setFormData] = useState({password:'',passwordrep:'',token:''});
+
+    useEffect(() => {
+          if(!token) navigate('/register');
+        }, [])
+    
+    if(token) setFormData({...formData, token:token})
 
   return (
     <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 space-y-6">

@@ -1,14 +1,17 @@
 import type { AxiosError } from "axios";
-import { useState, type FormEvent } from "react"
+import { useEffect, useState, type FormEvent } from "react"
 import { toast } from "react-toastify";
 import { generateNewToken } from "../api/user";
 import type { ApiResponseError, ResetPasswordFormData } from "../types/types";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 
 const RestardPassword = () => {
+    
+    
     const [formData, setFormData] = useState<ResetPasswordFormData>({email:''});
 
-
+    
     //submit form
     const handletSubmit = async (e:FormEvent) =>{
         e.preventDefault();
