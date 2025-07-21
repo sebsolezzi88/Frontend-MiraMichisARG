@@ -58,7 +58,7 @@ export interface UserData {
     token:string
 }
 export interface LoginApiResponse extends ApiResponse {
-    username: UserData;   
+    user: UserData;   
 }
 
 //type para reestablecer password
