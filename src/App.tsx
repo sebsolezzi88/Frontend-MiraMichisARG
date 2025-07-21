@@ -6,6 +6,7 @@ import ActivateAccount from './page/ActivateAccount'
 import NotFoundPage from './page/NotFoundPage'
 import RestardPassword from './page/RestardPassword'
 import ResetPassword from './page/ResetPassword'
+import MainPage from './page/MainPage'
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
     <>
     <ToastContainer />
      <Routes>
+        <Route  path="/" element={<MainPage />} />
         <Route  path="/login" element={<Login />} />
         <Route  path="/register" element={<Register />} />
         <Route  path="/activate" element={<ActivateAccount />} />
