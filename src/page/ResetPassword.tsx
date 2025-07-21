@@ -9,16 +9,13 @@ const ResetPassword = () => {
     <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 space-y-6">
             <div className="text-center">
                 <h2 className="text-2xl font-extrabold text-gray-800 mb-2">
-                    ¿No recuerdas tu contraseña?
+                    Resetea tu password
                 </h2>
-                <p className="text-gray-600">
-                    Ingresa tu email para resetear tu password.
-                </p>
             </div>
 
             <form  className="space-y-4">
                 <div>
-                    <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">password</label>
+                    <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
                     <input
                         onChange={(e)=>setFormData({...formData,[e.target.name]:e.target.value})}
                         value={formData.password}
@@ -32,7 +29,7 @@ const ResetPassword = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">password</label>
+                    <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">Repetir Password</label>
                     <input
                         onChange={(e)=>setFormData({...formData,[e.target.name]:e.target.value})}
                         value={formData.passwordrep}

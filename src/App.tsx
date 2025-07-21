@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify'
 import ActivateAccount from './page/ActivateAccount'
 import NotFoundPage from './page/NotFoundPage'
 import RestardPassword from './page/RestardPassword'
+import ResetPassword from './page/ResetPassword'
 
 
 function App() {
@@ -17,6 +18,8 @@ function App() {
         <Route  path="/register" element={<Register />} />
         <Route  path="/activate" element={<ActivateAccount />} />
         <Route  path="/reset" element={<RestardPassword />} />
+        <Route  path="/resetpassword" element={<ResetPassword />} />
+
 
 
         <Route path="*" element={<NotFoundPage />} />
