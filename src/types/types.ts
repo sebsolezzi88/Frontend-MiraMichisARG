@@ -8,7 +8,11 @@ export interface ApiResponse{
     status: string;
     message: string;
 }
-
+export interface ApiResponseError {
+    status: string; 
+    message: string;
+    
+}
 export interface ApiArrayErrorResponse{
     location: string;
     msg: string;

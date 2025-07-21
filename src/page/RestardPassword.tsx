@@ -2,7 +2,7 @@ import type { AxiosError } from "axios";
 import { useState, type FormEvent } from "react"
 import { toast } from "react-toastify";
 import { generateNewToken } from "../api/user";
-import type { ResetPasswordFormData } from "../types/types";
+import type { ApiResponseError, ResetPasswordFormData } from "../types/types";
 
 
 const RestardPassword = () => {
@@ -22,8 +22,8 @@ const RestardPassword = () => {
             }
 
         } catch (error) {
-           const err = error as AxiosError;
-           console.log(err);
+           const err = error as AxiosError<ApiResponseError>;
+           console.log(err.response?.data.message);
         }
     }
 
