@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import type { ResetPasswordFormDataWithToken } from "../types/types";
 
 
 const ResetPassword = () => {
@@ -8,7 +9,8 @@ const ResetPassword = () => {
     const navigate = useNavigate(); //Navegador
     const [searchParams, setSearchParams] = useSearchParams(); //buscar parametro token
     const token = searchParams.get('token');
-    const [formData, setFormData] = useState({ password: '', passwordrep: '', token: '' });
+    const [formData, setFormData] = useState<ResetPasswordFormDataWithToken>(
+        { password: '', passwordrep: '', token: '' });
 
     useEffect(() => {
         if (!token) {
