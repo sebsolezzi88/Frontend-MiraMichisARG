@@ -1,16 +1,28 @@
+import type { AxiosError } from "axios";
 import { useState, type FormEvent } from "react"
 import { toast } from "react-toastify";
+import { generateNewToken } from "../api/user";
 
 
 const RestardPassword = () => {
-    const [email, setEmail] = useState<string>('');
+    const [formData, setFormData] = useState({email:''});
 
 
     //submit form
     const handletSubmit = async (e:FormEvent) =>{
         e.preventDefault();
-        if(email.trim() === ''){
+        if(formData.email.trim() === ''){
             toast.error("Debe ingresar un password", { theme: "colored", autoClose: 3000 });
+        }
+        try {
+            const response = await generateNewToken(formData);
+            if(response.status==='success'){
+                 toast.success("Te enviamos un mail", { theme: "colored", autoClose: 3000 });
+            }
+
+        } catch (error) {
+           const err = error as AxiosError;
+           console.log(err);
         }
     }
 
