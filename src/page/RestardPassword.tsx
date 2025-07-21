@@ -42,8 +42,8 @@ const RestardPassword = () => {
                 <div>
                     <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
                     <input
-                        onChange={(e)=>setEmail(e.target.value)}
-                        value={email}
+                        onChange={(e)=>setFormData({...formData,[e.target.name]:e.target.value})}
+                        value={formData.email}
                         type="email"
                         id="email"
                         name="email"

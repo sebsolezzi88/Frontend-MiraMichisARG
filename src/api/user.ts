@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { ApiResponse, LoginApiResponse, LoginFormData, RegisterData } from "../types/types";
+import type { ApiResponse, LoginApiResponse, LoginFormData, RegisterData, ResetPasswordFormData } from "../types/types";
 
 const URL:string = import.meta.env.VITE_API_URL;
 
@@ -18,7 +18,7 @@ export const activateUserAccount = async (token:string)=>{
     return res.data;
 }
 
-export const generateNewToken = async(email:string)=>{
-    const res = await axios.post<ApiResponse>(`${URL}/user/generate`,email);
+export const generateNewToken = async(formData: ResetPasswordFormData)=>{
+    const res = await axios.post<ApiResponse>(`${URL}/user/generate`,formData);
     return res.data;
 }
