@@ -6,6 +6,7 @@ import { areEmptyFields } from '../utils/utils';
 import { toast } from 'react-toastify';
 import type { AxiosError } from 'axios';
 import { loginUser } from '../api/user';
+import { useAuthStore } from '../store/useAuthStore';
 
 const Login = () => {
 
@@ -29,9 +30,14 @@ const Login = () => {
         //login de usuario
         try {
 
-            //TODO: Guardar en el STate Y rediceccionar a la pagina de usuario o al incio
             const response = await loginUser(formData);
-            console.log(response);
+            if(response.status==='success'){
+                toast.success(response.message, { theme: "colored", autoClose: 2000 });
+                // Guardar en localStorage para persistencia
+                localStorage.setItem('authToken', response.user.token);
+                localStorage.setItem('userData', JSON.stringify(response.user)); // Guarda todo el objeto user
+                useAuthStore.getState().login(response.user);
+            }
 
         } catch (error) {
             const err = error as AxiosError<ApiResponse | ExpressValidatorErrorResponse>;
