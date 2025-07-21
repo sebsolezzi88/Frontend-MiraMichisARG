@@ -13,16 +13,16 @@ const ActivateAccount = () => {
 
     const navigate = useNavigate(); //Navegador
     const [searchParams, setSearchParams] = useSearchParams(); //buscar parametro token
-    const token = searchParams.get('token'); 
+    const token = searchParams.get('token');
 
     useEffect(() => {
 
-        if(!token) navigate('/register');
-        
+        if (!token) navigate('/register');
+
         const activateAccound = async () => {
             try {
                 const response = await activateUserAccount(token!);
-                if(response.status === 'success'){
+                if (response.status === 'success') {
                     setIsActivate(true);
                     setIsLoading(false);
                 }
@@ -34,7 +34,7 @@ const ActivateAccount = () => {
         activateAccound();
     }, [])
 
-     if (isLoading) {
+    if (isLoading) {
         return (
             <div className="bg-amber-50 min-h-screen flex items-center justify-center p-4">
                 <div className="max-w-xl w-full bg-white rounded-xl shadow-lg p-8 text-center space-y-6">
@@ -54,54 +54,56 @@ const ActivateAccount = () => {
 
     // 2. Mostrar mensaje de activación exitosa o error después de que la carga termine
     return (
-        <div className="bg-amber-50 min-h-screen flex items-center justify-center p-4">
-            {isActivate ? (
-                // Mensaje de éxito
-                <div className="max-w-xl w-full bg-white rounded-xl shadow-lg p-8 text-center space-y-6">
-                    <h2 className="text-6xl font-extrabold text-green-600">
-                        ¡Éxito!
-                    </h2>
-                    <h3 className="text-3xl font-bold text-gray-800 mb-2">
-                        ¡Tu cuenta fue activada!
-                    </h3>
-                    <p className="text-lg text-gray-600 mb-4">
-                        Ya puedes iniciar sesión en MiraMichis.
-                    </p>
-                    
-                    <img src={cat200Image} alt="Michi Feliz" className="mx-auto w-48 h-48 object-contain mb-6"/>
+        <div className='min-h-screen flex items-center justify-center p-4'>
+            <div className="bg-amber-50 min-h-screen flex items-center justify-center p-4">
+                {isActivate ? (
+                    // Mensaje de éxito
+                    <div className="max-w-xl w-full bg-white rounded-xl shadow-lg p-8 text-center space-y-6">
+                        <h2 className="text-6xl font-extrabold text-green-600">
+                            ¡Éxito!
+                        </h2>
+                        <h3 className="text-3xl font-bold text-gray-800 mb-2">
+                            ¡Tu cuenta fue activada!
+                        </h3>
+                        <p className="text-lg text-gray-600 mb-4">
+                            Ya puedes iniciar sesión en MiraMichis.
+                        </p>
 
-                    <Link to={'/login'} className="inline-flex items-center px-6 py-3 border border-transparent 
+                        <img src={cat200Image} alt="Michi Feliz" className="mx-auto w-48 h-48 object-contain mb-6" />
+
+                        <Link to={'/login'} className="inline-flex items-center px-6 py-3 border border-transparent 
                                 rounded-md shadow-sm text-base font-medium text-white 
                                 bg-orange-500 hover:bg-orange-600 focus:outline-none 
                                 focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 
                                 transition duration-300">
-                        Ir a Iniciar Sesión
-                    </Link>
-                </div>
-            ) : (
-                // Mensaje de error (página no encontrada o error de activación)
-                <div className="max-w-xl w-full bg-white rounded-xl shadow-lg p-8 text-center space-y-6">
-                    <h2 className="text-6xl font-extrabold text-red-600">
-                        Error
-                    </h2>
-                    <h3 className="text-3xl font-bold text-gray-800 mb-2">
-                        No se pudo activar tu cuenta.
-                    </h3>
-                    <p className="text-lg text-gray-600 mb-4">
-                        El enlace puede ser inválido o haber expirado. Por favor, verifica o intenta registrarte de nuevo.
-                    </p>
-                    
-                    <img src={cat404Image} alt="Michi Triste" className="mx-auto w-48 h-48 object-contain mb-6"/>
+                            Ir a Iniciar Sesión
+                        </Link>
+                    </div>
+                ) : (
+                    // Mensaje de error (página no encontrada o error de activación)
+                    <div className="max-w-xl w-full bg-white rounded-xl shadow-lg p-8 text-center space-y-6">
+                        <h2 className="text-6xl font-extrabold text-red-600">
+                            Error
+                        </h2>
+                        <h3 className="text-3xl font-bold text-gray-800 mb-2">
+                            No se pudo activar tu cuenta.
+                        </h3>
+                        <p className="text-lg text-gray-600 mb-4">
+                            El enlace puede ser inválido o haber expirado. Por favor, verifica o intenta registrarte de nuevo.
+                        </p>
 
-                    <Link to={'/register'} className="inline-flex items-center px-6 py-3 border border-transparent 
+                        <img src={cat404Image} alt="Michi Triste" className="mx-auto w-48 h-48 object-contain mb-6" />
+
+                        <Link to={'/register'} className="inline-flex items-center px-6 py-3 border border-transparent 
                                 rounded-md shadow-sm text-base font-medium text-white 
                                 bg-orange-500 hover:bg-orange-600 focus:outline-none 
                                 focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 
                                 transition duration-300">
-                        Volver al Registro
-                    </Link>
-                </div>
-            )}
+                            Volver al Registro
+                        </Link>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
