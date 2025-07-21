@@ -54,6 +54,7 @@ export interface UserData {
     name: string,
     lastName: string,
     role: string,
+    avatarUrl:string
     token:string
 }
 export interface LoginApiResponse extends ApiResponse {
