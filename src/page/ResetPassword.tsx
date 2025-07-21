@@ -58,6 +58,7 @@ const ResetPassword = () => {
 
 
     return (
+        <div className='min-h-screen flex items-center justify-center p-4'>
         <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 space-y-6">
             <div className="text-center">
                 <h2 className="text-2xl font-extrabold text-gray-800 mb-2">
@@ -111,6 +112,7 @@ const ResetPassword = () => {
             </form>
 
 
+        </div>
         </div>
     )
 }
