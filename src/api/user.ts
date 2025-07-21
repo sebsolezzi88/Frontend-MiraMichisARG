@@ -17,3 +17,8 @@ export const activateUserAccount = async (token:string)=>{
     const res = await axios.get(`${URL}/user/activate?token=${token}`);
     return res.data;
 }
+
+export const generateNewToken = async(email:string)=>{
+    const res = await axios.post<ApiResponse>(`${URL}/user/generate`,email);
+    return res.data;
+}
