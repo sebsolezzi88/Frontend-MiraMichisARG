@@ -7,9 +7,19 @@ import NotFoundPage from './page/NotFoundPage'
 import RestardPassword from './page/RestardPassword'
 import ResetPassword from './page/ResetPassword'
 import MainPage from './page/MainPage'
+import { useAuthStore } from './store/useAuthStore'
+import { useEffect } from 'react'
 
 
 function App() {
+  /* 
+    De todo el estado (state) que manejas en useAuthStore, solo me interesa la función initializeAuth.
+  */
+  const initializeAuth = useAuthStore((state) => state.initializeAuth);
+
+  useEffect(() => {
+    initializeAuth(); // Inicializa el estado de autenticación al montar la app
+  }, [initializeAuth]); // Dependencia para asegurar que solo se ejecute una vez al montar
 
   return (
     <>
