@@ -2,10 +2,11 @@ import type { AxiosError } from "axios";
 import { useState, type FormEvent } from "react"
 import { toast } from "react-toastify";
 import { generateNewToken } from "../api/user";
+import type { ResetPasswordFormData } from "../types/types";
 
 
 const RestardPassword = () => {
-    const [formData, setFormData] = useState({email:''});
+    const [formData, setFormData] = useState<ResetPasswordFormData>({email:''});
 
 
     //submit form
