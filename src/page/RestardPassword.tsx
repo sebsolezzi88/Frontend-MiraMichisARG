@@ -1,6 +1,19 @@
+import { useState, type FormEvent } from "react"
+import { toast } from "react-toastify";
 
 
 const RestardPassword = () => {
+    const [email, setEmail] = useState<string>('');
+
+
+    //submit form
+    const handletSubmit = async (e:FormEvent) =>{
+        e.preventDefault();
+        if(email.trim() === ''){
+            toast.error("Debe ingresar un password", { theme: "colored", autoClose: 3000 });
+        }
+    }
+
   return (
     <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 space-y-6">
             <div className="text-center">
@@ -12,11 +25,12 @@ const RestardPassword = () => {
                 </p>
             </div>
 
-            <form  className="space-y-4">
+            <form onSubmit={handletSubmit} className="space-y-4">
                 <div>
                     <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
                     <input
-                        
+                        onChange={(e)=>setEmail(e.target.value)}
+                        value={email}
                         type="email"
                         id="email"
                         name="email"
