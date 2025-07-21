@@ -1,7 +1,9 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import type { ResetPasswordFormDataWithToken } from "../types/types";
+import type { ApiResponseError, ResetPasswordFormDataWithToken } from "../types/types";
+import type { AxiosError } from "axios";
+import { resetPassword } from "../api/user";
 
 
 const ResetPassword = () => {
@@ -15,14 +17,14 @@ const ResetPassword = () => {
     useEffect(() => {
         if (!token) {
             navigate('/register');
-            return; 
+            return;
         }
-        if(formData.token !== token){
+        if (formData.token !== token) {
             setFormData({ ...formData, token: token });
         }
     }, [])
 
-  
+
     const handletSubmit = async (e: FormEvent) => {
         e.preventDefault();
         const { password, passwordrep, token } = formData;
@@ -31,6 +33,25 @@ const ResetPassword = () => {
         }
         if (!token || token.trim() === '') {
             return toast.error("Se requiere un token", { theme: "colored", autoClose: 3000 });
+        }
+        try {
+            
+            const response = await resetPassword(formData);
+            if (response.status === 'success') {
+                toast.success("Tu password a sido actualizado", { theme: "colored", autoClose: 3000 });
+                setTimeout(() => {
+                    navigate('/login');
+                }, 4000);
+            }
+
+        } catch (error) {
+            const err = error as AxiosError<ApiResponseError>;
+            toast.error(`${err.response?.data.message}`, { theme: "colored", autoClose: 3000 });
+        } finally {
+            /*  setFormData({ password: '', passwordrep: '', token: '' });
+             setTimeout(() => {
+                navigate('/login'); 
+             }, 4000); */
         }
     }
 
