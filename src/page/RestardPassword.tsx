@@ -23,7 +23,7 @@ const RestardPassword = () => {
 
         } catch (error) {
            const err = error as AxiosError<ApiResponseError>;
-           console.log(err.response?.data.message);
+           toast.error(`${err.response?.data.message}`, { theme: "colored", autoClose: 3000 });
         }
     }
 
