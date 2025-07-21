@@ -1,6 +1,6 @@
 
 import { useState, type ChangeEvent, type FormEvent } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import type { ApiResponse, ExpressValidatorErrorResponse, LoginFormData } from '../types/types';
 import { areEmptyFields } from '../utils/utils';
 import { toast } from 'react-toastify';
@@ -9,6 +9,8 @@ import { loginUser } from '../api/user';
 import { useAuthStore } from '../store/useAuthStore';
 
 const Login = () => {
+
+    const navigate = useNavigate();
 
     //Estado del form de login
     const [formData, setFormData] = useState<LoginFormData>({ username: '', password: '' });
@@ -37,6 +39,7 @@ const Login = () => {
                 localStorage.setItem('authToken', response.user.token);
                 localStorage.setItem('userData', JSON.stringify(response.user)); // Guarda todo el objeto user
                 useAuthStore.getState().login(response.user);
+                navigate('/'); //ir al main page
             }
 
         } catch (error) {
