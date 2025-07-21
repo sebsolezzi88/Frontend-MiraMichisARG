@@ -62,3 +62,9 @@ export interface LoginApiResponse extends ApiResponse {
 
 //type para reestablecer password
 export type ResetPasswordFormData = Pick<RegisterFormData, 'email'>;
+
+export interface ResetPasswordFormDataWithToken {
+    password:string;
+    passwordrep: string;
+    token: string;
+}
