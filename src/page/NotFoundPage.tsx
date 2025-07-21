@@ -3,7 +3,7 @@ import cat404Image from '../assets/cat404.png';
 const NotFoundPage = () => {
   return (
     
-    <>
+    <div className='min-h-screen flex items-center justify-center p-4'>
         <div className="max-w-xl w-full bg-white rounded-xl shadow-lg p-8 text-center space-y-6">
             <h2 className="text-6xl font-extrabold text-orange-600">
                 404
@@ -26,7 +26,7 @@ const NotFoundPage = () => {
                 Volver a la Página Principal
             </a>
         </div>
-    </>
+    </div>
   )
 }
 
