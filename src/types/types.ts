@@ -77,14 +77,12 @@ export type PublicationStatus = "activo" | "resuelto";
 
 export interface CatPostFormData{
     typeOfPublication: TypeOfPublication
-    gender: Gender;
     catName?: string;
+    gender: Gender;
     age?: string;
-    description: string;
     breed?: string; 
-    location :Location;
-    date: Date;
-    photoUrl: string;
-    photoId: string;
-    publicationStatus: PublicationStatus
+    description: string;
+    city:string;
+    province: string;
+    photo: string;
 }
