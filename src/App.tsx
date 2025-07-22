@@ -9,6 +9,7 @@ import ResetPassword from './page/ResetPassword'
 import MainPage from './page/MainPage'
 import { useAuthStore } from './store/useAuthStore'
 import { useEffect } from 'react'
+import Navbar from './components/Navbar'
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
   return (
     <>
     <ToastContainer />
+    <Navbar/>
      <Routes>
         <Route  path="/" element={<MainPage />} />
         <Route  path="/login" element={<Login />} />
