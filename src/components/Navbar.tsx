@@ -41,7 +41,7 @@ const Navbar = () => {
     return (
 
         <header className="bg-white shadow-sm p-4 rounded-lg mb-6 flex justify-between items-center relative z-10">
-            <h1 className="text-xl font-bold text-gray-800">MichiLand</h1>
+            <h1 className="text-xl font-bold text-orange-800">MiraMichis ARG</h1>
 
             {/* Menú para pantallas grandes (Desktop) */}
             <nav className="hidden md:block">
