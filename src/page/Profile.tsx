@@ -1,14 +1,14 @@
-
+import anonCat from '../assets/anoncat.png';
 
 const Profile = () => {
   return (
     <div className="bg-amber-50 min-h-screen p-6">
-        
+
     <div className="max-w-7xl mx-auto bg-white rounded-xl shadow-lg p-8 space-y-8">
         <div className="text-center pb-4 border-b border-gray-200 relative">
             <div className="absolute -top-12 left-1/2 transform -translate-x-1/2">
                 <img className="w-24 h-24 rounded-full border-4 border-white shadow-md object-cover" 
-                     src="img/profile.jpg" 
+                     src={anonCat}
                      alt="Avatar de usuario"/>
             </div>
             
