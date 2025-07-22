@@ -1,23 +1,7 @@
-
-import { useState } from 'react';
 import anonCat from '../assets/anoncat.png';
-import ReactModal from 'react-modal';
 
 
 const Profile = () => {
-
-    ReactModal.setAppElement('#root');
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-
-    // Funciones para abrir y cerrar el modal
-    const openModal = () => {
-        setModalIsOpen(true);
-    };
-
-    const closeModal = () => {
-        setModalIsOpen(false);
-    };
-
 
 
     return (
@@ -65,32 +49,14 @@ const Profile = () => {
                       hover:border-gray-300 hover:text-gray-800 font-medium text-center">
                         Michis Perdidos
                     </a>
-                    <button
-                        onClick={openModal}
+                    <a
+                         href="#"
                         className="py-2 px-4 bg-orange-500 text-white rounded-md font-semibold 
                       hover:bg-orange-600 transition duration-300 text-center">
                         + Nueva Publicación
-                    </button>
+                    </a>
                 </nav>
 
-                <ReactModal
-                    isOpen={modalIsOpen} // Controla si el modal está abierto (true) o cerrado (false)
-                    onRequestClose={closeModal} // Función que se llama cuando el usuario intenta cerrar el modal (ESC, clic fuera)
-                    contentLabel="Mi Modal de Ejemplo" // Etiqueta para lectores de pantalla
-
-                    // Opcional: Clases para estilos personalizados con Tailwind CSS
-                    className="bg-white p-8 rounded shadow-lg max-w-lg mx-auto mt-20"
-                    overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-                >
-                    <h2 className="text-2xl font-bold mb-4">¡Hola desde el Modal!</h2>
-                    <p className="mb-6">Este es un ejemplo de contenido dentro de tu modal.</p>
-                    <button
-                        onClick={closeModal}
-                        className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-                    >
-                        Cerrar Modal
-                    </button>
-                </ReactModal>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div className="rounded-lg shadow-md overflow-hidden bg-emerald-50 border-t-4 border-emerald-400">

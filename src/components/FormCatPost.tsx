@@ -2,7 +2,7 @@
 
 const FormCatPost = () => {
   return (
-    <div className="bg-amber-50 min-h-screen flex items-center justify-center p-4">
+    
 
     <div className="max-w-2xl w-full bg-white rounded-xl shadow-lg p-8 space-y-6">
         <div className="text-center">
@@ -180,7 +180,7 @@ const FormCatPost = () => {
         </form>
     </div>
 
-</div>
+   
   )
 }
 
