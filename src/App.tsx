@@ -11,6 +11,7 @@ import { useAuthStore } from './store/useAuthStore'
 import { useEffect } from 'react'
 import Navbar from './components/Navbar'
 import Contact from './page/Contact'
+import Profile from './page/Profile'
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route  path="/" element={<MainPage />} />
         <Route  path="/login" element={<Login />} />
         <Route  path="/register" element={<Register />} />
+        <Route  path="/profile" element={<Profile />} />
         <Route  path="/contact" element={<Contact />} />
         <Route  path="/activate" element={<ActivateAccount />} />
         <Route  path="/reset" element={<RestardPassword />} />
