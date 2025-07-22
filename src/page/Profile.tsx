@@ -3,17 +3,7 @@
 const Profile = () => {
   return (
     <div className="bg-amber-50 min-h-screen p-6">
-
-    <header className="bg-white shadow-sm p-4 rounded-lg mb-6 flex justify-between items-center">
-        <h1 className="text-xl font-bold text-gray-800">MichiLand</h1>
-        <nav>
-            <ul className="flex space-x-4">
-                <li><a href="#" className="text-orange-600 hover:text-orange-500 font-medium">Inicio</a></li>
-                <li><a href="#" className="text-gray-700 hover:text-gray-900 font-medium">Cerrar Sesión</a></li>
-            </ul>
-        </nav>
-    </header>
-
+        
     <div className="max-w-7xl mx-auto bg-white rounded-xl shadow-lg p-8 space-y-8">
         <div className="text-center pb-4 border-b border-gray-200 relative">
             <div className="absolute -top-12 left-1/2 transform -translate-x-1/2">
