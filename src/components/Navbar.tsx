@@ -1,10 +1,23 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 
 const Navbar = () => {
 
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const location = useLocation();// pasar saber en que ruta nos encontramos
+
+    // Función auxiliar para determinar si un enlace está activo
+    const getLinkClasses = (path: string) => {
+        // Compara el pathname actual con la ruta del enlace
+        // Si coinciden, aplica 'text-orange-600', de lo contrario 'text-gray-700'
+        const baseClasses = "font-medium hover:text-orange-500"; // Clases comunes
+        const activeClasses = "text-orange-600"; // Color para la página activa
+        const inactiveClasses = "text-gray-700"; // Color para la página inactiva
+
+        return `${baseClasses} ${location.pathname === path ? activeClasses : inactiveClasses}`;
+    };
 
     // Función para alternar el estado del menú
     const toggleMobileMenu = () => {
@@ -24,9 +37,9 @@ const Navbar = () => {
             {/* Menú para pantallas grandes (Desktop) */}
             <nav className="hidden md:block">
                 <ul className="flex space-x-4">
-                    <li><Link to="/" className="text-orange-600 hover:text-orange-500 font-medium">Inicio</Link></li>
-                    <li><Link to="/login" className="text-gray-700 hover:text-gray-900 font-medium">Login</Link></li>
-                    <li><Link to="/register" className="text-gray-700 hover:text-gray-900 font-medium">Registro</Link></li>
+                    <li><Link to="/" className={getLinkClasses('/')}>Inicio</Link></li>
+                    <li><Link to="/login" className={getLinkClasses('/login')}>Login</Link></li>
+                    <li><Link to="/register" className={getLinkClasses('/register')}>Registro</Link></li>
                     <li><Link to="/profile" className="text-gray-700 hover:text-gray-900 font-medium">Mi Perfil</Link></li>
                     <li><Link to="/contact" className="text-gray-700 hover:text-gray-900 font-medium">Contacto</Link></li>
                 </ul>
