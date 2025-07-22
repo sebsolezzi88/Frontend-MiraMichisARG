@@ -69,3 +69,22 @@ export interface ResetPasswordFormDataWithToken {
     passwordrep: string;
     token: string;
 }
+
+//Types para NewCatPost
+export type TypeOfPublication = "encontrado" | "perdido" | "adopción";
+export type Gender = "macho" | "hembra" | "desconocido";
+export type PublicationStatus = "activo" | "resuelto";
+
+export interface CatPostFormData{
+    typeOfPublication: TypeOfPublication
+    gender: Gender;
+    catName?: string;
+    age?: string;
+    description: string;
+    breed?: string; 
+    location :Location;
+    date: Date;
+    photoUrl: string;
+    photoId: string;
+    publicationStatus: PublicationStatus
+}
