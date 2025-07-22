@@ -8,19 +8,19 @@ const Profile = () => {
     const navigate = useNavigate();
 
     //Obtenemos de nuestro estado global
-    const {isAuthenticated, user} = useAuthStore( state => ({
+    /* const {isAuthenticated, user} = useAuthStore( state => ({
         isAuthenticated: state.isAuthenticated,
         user: state.user
-    }))
+    })) */
     
     //comprobar si el usuario esta autenticado
-    useEffect(() => {
+   /*  useEffect(() => {
         if (!isAuthenticated) {
             console.log("Usuario no autenticado. Redirigiendo a Login...");
             navigate('/login'); // Redirige a la página de login
         }
     }, [isAuthenticated, navigate]);
-
+ */
 
   return (
     <div className="bg-amber-50 min-h-screen p-6">
@@ -34,7 +34,7 @@ const Profile = () => {
             </div>
             
             <h2 className="text-4xl font-extrabold text-gray-800 pt-12 mb-2">
-                ¡Hola, {user?.username}!
+                ¡Hola, !
             </h2>
             <p className="text-lg text-gray-600">
                 Administra tus publicaciones y tu perfil aquí.

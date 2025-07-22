@@ -7,10 +7,14 @@ import { toast } from 'react-toastify';
 import type { AxiosError } from 'axios';
 import { loginUser } from '../api/user';
 import { useAuthStore } from '../store/useAuthStore';
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
 
     const navigate = useNavigate();
+
+    //Obtener la funcion login del contexto
+    const { login } = useAuth(); 
 
     //Estado del form de login
     const [formData, setFormData] = useState<LoginFormData>({ username: '', password: '' });
@@ -38,7 +42,7 @@ const Login = () => {
                 // Guardar en localStorage para persistencia
                 localStorage.setItem('authToken', response.user.token);
                 localStorage.setItem('userData', JSON.stringify(response.user)); // Guarda todo el objeto user
-                useAuthStore.getState().login(response.user);
+                login(response.user);
                 navigate('/'); //ir al main page
             }
 
