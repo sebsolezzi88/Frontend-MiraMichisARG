@@ -10,6 +10,7 @@ import MainPage from './page/MainPage'
 import { useAuthStore } from './store/useAuthStore'
 import { useEffect } from 'react'
 import Navbar from './components/Navbar'
+import Contact from './page/Contact'
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route  path="/" element={<MainPage />} />
         <Route  path="/login" element={<Login />} />
         <Route  path="/register" element={<Register />} />
+        <Route  path="/contact" element={<Contact />} />
         <Route  path="/activate" element={<ActivateAccount />} />
         <Route  path="/reset" element={<RestardPassword />} />
         <Route  path="/resetpassword" element={<ResetPassword />} />
