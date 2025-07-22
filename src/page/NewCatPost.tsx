@@ -1,4 +1,19 @@
+import { useState } from "react"
+import type { CatPostFormData } from "../types/types"
+
 const NewCatPost = () => {
+
+    const [formData, setFormData] = useState<CatPostFormData>({
+            typeOfPublication: "adopción",
+            catName: '',
+            gender: 'desconocido',
+            age: '',
+            breed: '', 
+            description: '',
+            city:'',
+            province: '',
+            photo: '',
+    });
   return (
     <div className="bg-amber-50 min-h-screen flex items-center justify-center p-4">
 

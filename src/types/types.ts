@@ -71,8 +71,8 @@ export interface ResetPasswordFormDataWithToken {
 }
 
 //Types para NewCatPost
-export type TypeOfPublication = "encontrado" | "perdido" | "adopción";
-export type Gender = "macho" | "hembra" | "desconocido";
+export type TypeOfPublication = "encontrado" | "perdido" | "adopción" |'';
+export type Gender = "macho" | "hembra" | "desconocido" |'';
 export type PublicationStatus = "activo" | "resuelto";
 
 export interface CatPostFormData{
