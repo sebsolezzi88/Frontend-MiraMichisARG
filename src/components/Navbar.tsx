@@ -49,7 +49,7 @@ const Navbar = () => {
                     <li><Link to="/" className={getLinkClasses('/')}>Inicio</Link></li>
                     <li><Link to="/login" className={getLinkClasses('/login')}>Login</Link></li>
                     <li><Link to="/register" className={getLinkClasses('/register')}>Registro</Link></li>
-                    <li><Link to="/profile" className={getLinkClasses('/profile')}>i Perfil</Link></li>
+                    <li><Link to="/profile" className={getLinkClasses('/profile')}>Perfil</Link></li>
                     <li><Link to="/contact" className={getLinkClasses('/register')}>Contacto</Link></li>
                 </ul>
             </nav>
