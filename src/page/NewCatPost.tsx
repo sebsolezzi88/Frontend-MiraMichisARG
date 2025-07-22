@@ -1,12 +1,12 @@
-import { useState } from "react"
+import { useState, type ChangeEvent } from "react"
 import type { CatPostFormData } from "../types/types"
 
 const NewCatPost = () => {
 
     const [formData, setFormData] = useState<CatPostFormData>({
-            typeOfPublication: "adopción",
+            typeOfPublication: '',
             catName: '',
-            gender: 'desconocido',
+            gender: '',
             age: '',
             breed: '', 
             description: '',
@@ -31,6 +31,7 @@ const NewCatPost = () => {
             <div>
                 <label htmlFor="typeOfPublication" className="block text-sm font-medium text-gray-700 mb-1">Tipo de Publicación</label>
                 <select
+                    onChange={(e:ChangeEvent<HTMLSelectElement>)=>{setFormData({...formData, [e.target.name]:e.target.value})}}
                     id="typeOfPublication"
                     name="typeOfPublication"
                     className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
@@ -47,6 +48,8 @@ const NewCatPost = () => {
             <div>
                 <label htmlFor="catName" className="block text-sm font-medium text-gray-700 mb-1">Nombre del Michi (Opcional)</label>
                 <input
+                onChange={(e:ChangeEvent<HTMLInputElement>)=>{setFormData({...formData, [e.target.name]:e.target.value})}}
+                value={formData.catName}
                     type="text"
                     id="catName"
                     name="catName"
@@ -59,6 +62,7 @@ const NewCatPost = () => {
             <div>
                 <label htmlFor="gender" className="block text-sm font-medium text-gray-700 mb-1">Género</label>
                 <select
+                    onChange={(e:ChangeEvent<HTMLSelectElement>)=>{setFormData({...formData, [e.target.name]:e.target.value})}}
                     id="gender"
                     name="gender"
                     className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
@@ -75,6 +79,8 @@ const NewCatPost = () => {
             <div>
                 <label htmlFor="age" className="block text-sm font-medium text-gray-700 mb-1">Edad (Opcional)</label>
                 <input
+                onChange={(e:ChangeEvent<HTMLInputElement>)=>{setFormData({...formData, [e.target.name]:e.target.value})}}
+                value={formData.age}
                     type="text"
                     id="age"
                     name="age"
@@ -87,6 +93,8 @@ const NewCatPost = () => {
             <div>
                 <label htmlFor="breed" className="block text-sm font-medium text-gray-700 mb-1">Raza (Opcional)</label>
                 <input
+                onChange={(e:ChangeEvent<HTMLInputElement>)=>{setFormData({...formData, [e.target.name]:e.target.value})}}
+                value={formData.breed}
                     type="text"
                     id="breed"
                     name="breed"
@@ -99,6 +107,8 @@ const NewCatPost = () => {
             <div>
                 <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">Descripción del Michi</label>
                 <textarea
+                onChange={(e:ChangeEvent<HTMLTextAreaElement>)=>{setFormData({...formData, [e.target.name]:e.target.value})}}
+                value={formData.description}
                     id="description"
                     name="description"
                     rows={4}
@@ -112,6 +122,8 @@ const NewCatPost = () => {
              <div>
                 <label htmlFor="ciudad" className="block text-sm font-medium text-gray-700 mb-1">Ciudad</label>
                 <input
+                onChange={(e:ChangeEvent<HTMLInputElement>)=>{setFormData({...formData, [e.target.name]:e.target.value})}}
+                value={formData.city}
                     type="text"
                     id="ciudad"
                     name="ciudad"
@@ -125,6 +137,8 @@ const NewCatPost = () => {
             <div>
                 <label htmlFor="provincia" className="block text-sm font-medium text-gray-700 mb-1">Provincia</label>
                 <select
+                onChange={(e:ChangeEvent<HTMLSelectElement>)=>{setFormData({...formData, [e.target.name]:e.target.value})}}
+                
                     id="provincia"
                     name="provincia"
                     className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
@@ -162,6 +176,10 @@ const NewCatPost = () => {
             <div>
                 <label htmlFor="photo" className="block text-sm font-medium text-gray-700 mb-1">Sube una foto del Michi</label>
                 <input
+                    onChange={(e) => {
+                    const file = e.target.files?.[0] || null;
+                    setFormData({ ...formData, photo: file });
+                    }}
                     type="file"
                     id="photo"
                     name="photo"
