@@ -49,8 +49,8 @@ const Navbar = () => {
                     <li><Link to="/" className={getLinkClasses('/')}>Inicio</Link></li>
                     <li><Link to="/login" className={getLinkClasses('/login')}>Login</Link></li>
                     <li><Link to="/register" className={getLinkClasses('/register')}>Registro</Link></li>
-                    <li><Link to="/profile" className="text-gray-700 hover:text-gray-900 font-medium">Mi Perfil</Link></li>
-                    <li><Link to="/contact" className="text-gray-700 hover:text-gray-900 font-medium">Contacto</Link></li>
+                    <li><Link to="/profile" className={getLinkClasses('/profile')}>i Perfil</Link></li>
+                    <li><Link to="/contact" className={getLinkClasses('/register')}>Contacto</Link></li>
                 </ul>
             </nav>
 
@@ -77,8 +77,8 @@ const Navbar = () => {
                     <li><Link to="/" className={getMobileLinkClasses('/')} onClick={closeMobileMenu}>Inicio</Link></li>
                     <li><Link to="/login" className={getMobileLinkClasses('/login')} onClick={closeMobileMenu}>Login</Link></li>
                     <li><Link to="/register" className={getMobileLinkClasses('/register')} onClick={closeMobileMenu}>Registro</Link></li>
-                    <li><Link to="/profile" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-md font-medium" onClick={closeMobileMenu}>Mi Perfil</Link></li>
-                    <li><Link to="/contact" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-md font-medium" onClick={closeMobileMenu}>Contacto</Link></li>
+                    <li><Link to="/profile" className={getMobileLinkClasses('/profile')}  onClick={closeMobileMenu}>Mi Perfil</Link></li>
+                    <li><Link to="/contact" className={getMobileLinkClasses('/contact')}  onClick={closeMobileMenu}>Contacto</Link></li>
                 </ul>
             </div>
         </header>
