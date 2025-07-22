@@ -4,6 +4,7 @@ import {type UserData} from '../types/types';
 interface AuthState {
     user: UserData | null;
     token: string | null;
+    isAuthenticated: boolean; 
     login: (userData: UserData) => void;
     logout: () => void;
     initializeAuth: () => void; //Metodo para iniciar el estado al cargar la app
@@ -12,11 +13,13 @@ interface AuthState {
 export const useAuthStore = create<AuthState>((set, get) => ({
     user: null,
     token: null,
+    isAuthenticated: false,
 
     login: (userData) => {
         set({
             user: userData,
             token: userData.token, // El token viene dentro de UserData
+            isAuthenticated: true,
         });
     },
 
@@ -24,6 +27,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         set({
             user: null,
             token: null,
+            isAuthenticated: false,
         });
         // También limpiar localStorage al hacer logout
         localStorage.removeItem('authToken');
@@ -43,6 +47,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
                 set({
                     user: user,
                     token: storedToken,
+                    isAuthenticated: true,
                 });
             } catch (e) {
                 console.error("Error parsing stored user data:", e);
