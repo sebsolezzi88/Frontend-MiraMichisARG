@@ -13,6 +13,7 @@ import Navbar from './components/Navbar'
 import Contact from './page/Contact'
 import Profile from './page/Profile'
 import ProtectedRoute from './page/ProtectedRoutes'
+import NewCatPost from './page/NewCatPost'
 
 
 function App() {
@@ -35,6 +36,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/newcatpost"
+          element={
+            <ProtectedRoute>
+              <NewCatPost />
             </ProtectedRoute>
           }
         />
