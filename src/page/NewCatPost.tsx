@@ -12,7 +12,7 @@ const NewCatPost = () => {
             description: '',
             city:'',
             province: '',
-            photo: '',
+            photo: null,
     });
   return (
     <div className="bg-amber-50 min-h-screen flex items-center justify-center p-4">
