@@ -19,6 +19,15 @@ const Navbar = () => {
         return `${baseClasses} ${location.pathname === path ? activeClasses : inactiveClasses}`;
     };
 
+    // Clase adicional para enlaces del menú móvil (si son block)
+    const getMobileLinkClasses = (path: string) => {
+        const baseMobileClasses = "block px-4 py-2 rounded-md font-medium hover:bg-gray-50";
+        const activeClasses = "text-orange-600";
+        const inactiveClasses = "text-gray-700";
+
+        return `${baseMobileClasses} ${location.pathname === path ? activeClasses : inactiveClasses}`;
+    };
+
     // Función para alternar el estado del menú
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(prevState => !prevState); // Alterna true/false
@@ -65,9 +74,9 @@ const Navbar = () => {
                 className={`mobile-menu absolute top-full left-0 w-full bg-white shadow-lg md:hidden rounded-b-lg ${isMobileMenuOpen ? 'open' : ''}`}
             >
                 <ul className="flex flex-col p-4 space-y-2">
-                    <li><Link to="/" className="block px-4 py-2 text-orange-600 hover:bg-gray-50 rounded-md font-medium" onClick={closeMobileMenu}>Inicio</Link></li>
-                    <li><Link to="/login" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-md font-medium" onClick={closeMobileMenu}>Login</Link></li>
-                    <li><Link to="/register" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-md font-medium" onClick={closeMobileMenu}>Registro</Link></li>
+                    <li><Link to="/" className={getMobileLinkClasses('/')} onClick={closeMobileMenu}>Inicio</Link></li>
+                    <li><Link to="/login" className={getMobileLinkClasses('/login')} onClick={closeMobileMenu}>Login</Link></li>
+                    <li><Link to="/register" className={getMobileLinkClasses('/register')} onClick={closeMobileMenu}>Registro</Link></li>
                     <li><Link to="/profile" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-md font-medium" onClick={closeMobileMenu}>Mi Perfil</Link></li>
                     <li><Link to="/contact" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-md font-medium" onClick={closeMobileMenu}>Contacto</Link></li>
                 </ul>
