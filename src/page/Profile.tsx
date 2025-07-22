@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import anonCat from '../assets/anoncat.png';
 
 
@@ -49,12 +50,12 @@ const Profile = () => {
                       hover:border-gray-300 hover:text-gray-800 font-medium text-center">
                         Michis Perdidos
                     </a>
-                    <a
-                         href="#"
+                    <Link
+                        to={'/newcatpost'}
                         className="py-2 px-4 bg-orange-500 text-white rounded-md font-semibold 
                       hover:bg-orange-600 transition duration-300 text-center">
                         + Nueva Publicación
-                    </a>
+                    </Link>
                 </nav>
 
 
