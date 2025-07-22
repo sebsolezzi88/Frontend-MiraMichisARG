@@ -84,5 +84,5 @@ export interface CatPostFormData{
     description: string;
     city:string;
     province: string;
-    photo: string;
+    photo: File;
 }
