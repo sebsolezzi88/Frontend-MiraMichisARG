@@ -42,7 +42,7 @@ const CatCardUser = ({catPost}:CatCardUserProps) => {
     }
 
     return (
-        <div className={`rounded-lg shadow-md overflow-hidden ${cardBgClass} border-t-4 ${cardBorderClass}`}>
+        <div key={catPost.id} className={`rounded-lg shadow-md overflow-hidden ${cardBgClass} border-t-4 ${cardBorderClass}`}>
             <img className="w-full h-48 object-cover" src={catPost.photoUrl} alt={`Michi: ${catPost.catName}`}  />
             <div className="p-4">
                 <div className="flex justify-between items-center mb-2">
