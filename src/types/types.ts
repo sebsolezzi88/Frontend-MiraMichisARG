@@ -2,10 +2,11 @@ export interface Location{
     city:string;
     province: string;
 }
+type Status = 'success' |  'error';
 
 //Type para respuesta de la api
 export interface ApiResponse{
-    status: string;
+    status: Status;
     message: string;
 }
 export interface ApiResponseError {
@@ -85,4 +86,21 @@ export interface CatPostFormData{
     city:string;
     province: string;
     photo: File | null;
+}
+export interface CatPost{
+      userId: string;
+      typeOfPublication: TypeOfPublication;
+      gender: string;
+      catName: string;
+      age?:string;
+      description:string;
+      breed?:string;
+      location:Location;
+      photoUrl:string;
+      photoId:string;
+}
+export interface ApiCatPostResponse{
+      status:Status,
+      message: string, 
+      post: CatPost 
 }
