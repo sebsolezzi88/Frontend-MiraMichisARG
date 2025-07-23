@@ -51,6 +51,7 @@ export type LoginFormData = Pick<RegisterFormData, 'username'|'password'>;
 
 //interface loginApiResponse si se loguea correctamente
 export interface UserData {
+    userId:string,
     username: string,
     name: string,
     lastName: string,
