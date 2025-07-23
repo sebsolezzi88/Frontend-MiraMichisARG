@@ -89,6 +89,7 @@ export interface CatPostFormData{
     photo: File | null;
 }
 export interface CatPost{
+      id:string;
       userId: string;
       date:Date;
       typeOfPublication: TypeOfPublication;
