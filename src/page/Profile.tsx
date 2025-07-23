@@ -1,8 +1,27 @@
 import { Link } from 'react-router-dom';
 import anonCat from '../assets/anoncat.png';
+import { useEffect, useState } from 'react';
+import type { CatPost } from '../types/types';
+import { getCatPosts } from '../api/catPost';
+import CatCardUser from '../components/CatCardUser';
 
 
 const Profile = () => {
+
+    //Estado de los catPost
+    const [catPosts, setCatPosts] = useState<CatPost[]>([]);
+
+    //Llamada para recuperar todos los CatPost del usuario logueado
+    useEffect(() => {
+        const getCatPostByUserId = async () => {
+            const response = await getCatPosts();
+            if (response.status === 'success') {
+                setCatPosts(response.posts);
+            }
+        }
+        getCatPostByUserId();
+    }, [])
+
 
 
     return (
@@ -60,123 +79,14 @@ const Profile = () => {
 
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div className="rounded-lg shadow-md overflow-hidden bg-emerald-50 border-t-4 border-emerald-400">
-                        <img className="w-full h-48 object-cover" src="img/1.jpg" alt="Michi en adopción: Mittens" />
-                        <div className="p-4">
-                            <div className="flex justify-between items-center mb-2">
-                                <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-emerald-400 text-white">
-                                    En Adopción
-                                </span>
-                                <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-blue-500 text-white">
-                                    Activa
-                                </span>
-                            </div>
 
-                            <h3 className="text-xl font-bold text-gray-800 mb-1">
-                                Mittens
-                            </h3>
-                            <p className="text-gray-600 text-sm mb-3 line-clamp-3">
-                                Mittens es una gata juguetona y cariñosa de 2 años. Le encanta perseguir láseres y tomar siestas al sol. Busca un hogar lleno de amor.
-                            </p>
 
-                            <div className="grid grid-cols-2 gap-2 text-sm text-gray-700 mb-3">
-                                <div><strong className="font-semibold">Género:</strong> Macho</div>
-                                <div><strong className="font-semibold">Edad:</strong> 3 meses</div>
-                                <div><strong className="font-semibold">Raza:</strong> Siames</div>
-                                <div><strong className="font-semibold">Ubicación:</strong> San Nicolás, BA</div>
-                            </div>
-                            <div className="text-xs text-gray-500 text-right mb-4">
-                                Publicado: 17/07/2025
-                            </div>
+                {/* Mostrar los catpost si los hay */}
+                {catPosts.length === 0 ? <p>No haz ingresado ningun gato</p>:
+                    catPosts.map(catPost => <CatCardUser catPost={catPost}/>)
+                }
 
-                            <div className="flex flex-col space-y-2">
-                                <a href="#" className="block w-full text-center py-2 px-4 rounded-md bg-blue-500 text-white font-semibold hover:bg-blue-600 transition duration-300">
-                                    Editar Publicación
-                                </a>
-                                <button className="block w-full text-center py-2 px-4 rounded-md bg-gray-200 text-gray-800 font-semibold hover:bg-gray-300 transition duration-300">
-                                    Marcar como Finalizada
-                                </button>
-                                <button className="block w-full text-center py-2 px-4 rounded-md bg-red-500 text-white font-semibold hover:bg-red-600 transition duration-300">
-                                    Eliminar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div className="rounded-lg shadow-md overflow-hidden bg-rose-50 border-t-4 border-rose-400">
-                        <img className="w-full h-48 object-cover" src="img/2.jpg" alt="Michi perdido: Luna" />
-                        <div className="p-4">
-                            <div className="flex justify-between items-center mb-2">
-                                <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-rose-400 text-white">
-                                    Perdido
-                                </span>
-                                <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-orange-500 text-white">
-                                    Activa
-                                </span>
-                            </div>
-                            <h3 className="text-xl font-bold text-gray-800 mb-1">
-                                Luna
-                            </h3>
-                            <p className="text-gray-600 text-sm mb-3 line-clamp-3">
-                                Luna se perdió cerca del parque el 15 de julio. Es de color gris, con ojos verdes y tiene un collar rosa. ¡La extrañamos mucho!
-                            </p>
-                            <div className="grid grid-cols-2 gap-2 text-sm text-gray-700 mb-3">
-                                <div><strong className="font-semibold">Género:</strong> Hembra</div>
-                                <div><strong className="font-semibold">Edad:</strong> 1 año</div>
-                                <div><strong className="font-semibold">Ubicación:</strong> Centro, San Nicolás</div>
-                            </div>
-                            <div className="text-xs text-gray-500 text-right mb-4">
-                                Publicado: 16/07/2025
-                            </div>
-                            <div className="flex flex-col space-y-2">
-                                <a href="#" className="block w-full text-center py-2 px-4 rounded-md bg-blue-500 text-white font-semibold hover:bg-blue-600 transition duration-300">
-                                    Editar Publicación
-                                </a>
-                                <button className="block w-full text-center py-2 px-4 rounded-md bg-gray-200 text-gray-800 font-semibold hover:bg-gray-300 transition duration-300">
-                                    Marcar como Finalizada
-                                </button>
-                                <button className="block w-full text-center py-2 px-4 rounded-md bg-red-500 text-white font-semibold hover:bg-red-600 transition duration-300">
-                                    Eliminar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="rounded-lg shadow-md overflow-hidden bg-yellow-50 border-t-4 border-yellow-400 opacity-60">
-                        <img className="w-full h-48 object-cover" src="img/3.jpg" alt="Michi encontrado: Sin Nombre" />
-                        <div className="p-4">
-                            <div className="flex justify-between items-center mb-2">
-                                <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-yellow-400 text-gray-800">
-                                    Encontrado
-                                </span>
-                                <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-green-500 text-white">
-                                    Finalizada
-                                </span>
-                            </div>
-                            <h3 className="text-xl font-bold text-gray-800 mb-1">
-                                Sin Nombre
-                            </h3>
-                            <p className="text-gray-600 text-sm mb-3 line-clamp-3">
-                                Michi amistoso encontrado en la Plaza Mitre. Parece un gato doméstico y está bien cuidado. ¡Ya se reunió con su familia!
-                            </p>
-                            <div className="grid grid-cols-2 gap-2 text-sm text-gray-700 mb-3">
-                                <div><strong className="font-semibold">Género:</strong> Desconocido</div>
-                                <div><strong className="font-semibold">Edad:</strong> Adulto</div>
-                                <div><strong className="font-semibold">Ubicación:</strong> Plaza Mitre, San Nicolás</div>
-                            </div>
-                            <div className="text-xs text-gray-500 text-right mb-4">
-                                Publicado: 18/07/2025
-                            </div>
-                            <div className="flex flex-col space-y-2">
-                                <span className="block w-full text-center py-2 px-4 rounded-md bg-gray-100 text-gray-500 font-semibold cursor-not-allowed">
-                                    Publicación Finalizada
-                                </span>
-                                <button className="block w-full text-center py-2 px-4 rounded-md bg-red-500 text-white font-semibold hover:bg-red-600 transition duration-300">
-                                    Eliminar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
             </div>
