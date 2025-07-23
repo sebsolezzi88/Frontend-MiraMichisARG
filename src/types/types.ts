@@ -89,6 +89,7 @@ export interface CatPostFormData{
 }
 export interface CatPost{
       userId: string;
+      date:Date;
       typeOfPublication: TypeOfPublication;
       gender: string;
       catName: string;

@@ -1,4 +1,5 @@
 import type { CatPost } from "../types/types"
+import { formatDate } from "../utils/utils"
 
 
 interface CatCardUserProps{
@@ -33,7 +34,7 @@ const CatCardUser = ({catPost}:CatCardUserProps) => {
                     <div><strong className="font-semibold">Ubicación:</strong> {catPost.location.city}, {catPost.location.province}</div>
                 </div>
                 <div className="text-xs text-gray-500 text-right mb-4">
-                    Publicado: 17/07/2025
+                    Publicado: {formatDate(catPost.date)}
                 </div>
 
                 <div className="flex flex-col space-y-2">
