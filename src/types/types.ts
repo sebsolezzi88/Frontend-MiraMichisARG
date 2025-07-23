@@ -98,6 +98,7 @@ export interface CatPost{
       location:Location;
       photoUrl:string;
       photoId:string;
+      publicationStatus: PublicationStatus
 }
 export interface ApiCatPostResponse{
       status:Status,
