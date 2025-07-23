@@ -6,14 +6,40 @@ interface CatCardUserProps{
     catPost:CatPost
 }
 
+
 const CatCardUser = ({catPost}:CatCardUserProps) => {
+
+    // --- Lógica para determinar los colores de la tarjeta y etiquetas ---
+    let cardBgClass = '';
+    let cardBorderClass = '';
+    let typeTagBgClass = '';
+    let textTagColor='';
+
+    if (catPost.typeOfPublication === 'adopción') {
+        cardBgClass = 'bg-emerald-50';
+        cardBorderClass = 'border-emerald-400';
+        typeTagBgClass = 'bg-emerald-400';
+        textTagColor = 'text-white'
+    } else if (catPost.typeOfPublication === 'encontrado') {
+        cardBgClass = 'bg-yellow-50'; 
+        cardBorderClass = 'border-yellow-400';
+        typeTagBgClass = 'bg-yellow-400';
+        textTagColor = 'text-white'
+    } else if(catPost.typeOfPublication==='perdido') {
+        
+        cardBgClass = 'bg-rose-50';
+        cardBorderClass = 'border-rose-400';
+        typeTagBgClass = 'bg-gray-400';
+        textTagColor = 'text-gray-800'
+    }
+
     return (
-        <div className="rounded-lg shadow-md overflow-hidden bg-emerald-50 border-t-4 border-emerald-400">
-            <img className="w-full h-48 object-cover" src="img/1.jpg" alt="Michi en adopción: Mittens" />
+        <div className={`rounded-lg shadow-md overflow-hidden ${cardBgClass} border-t-4 ${cardBorderClass}`}>
+            <img className="w-full h-48 object-cover" src={catPost.photoUrl} alt={`Michi: ${catPost.catName}`}  />
             <div className="p-4">
                 <div className="flex justify-between items-center mb-2">
-                    <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-emerald-400 text-white">
-                        En Adopción
+                    <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${cardBgClass} ${textTagColor}`}>
+                        {catPost.publicationStatus.charAt(0).toUpperCase() + catPost.publicationStatus.slice(1)}
                     </span>
                     <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-blue-500 text-white">
                         Activa
