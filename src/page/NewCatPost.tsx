@@ -1,5 +1,6 @@
 import { useState, type ChangeEvent, type FormEvent } from "react"
 import type { CatPostFormData } from "../types/types"
+import { toast } from "react-toastify";
 
 const NewCatPost = () => {
 
@@ -19,7 +20,24 @@ const NewCatPost = () => {
 
     const handletSubmit = async (e:FormEvent) =>{
         e.preventDefault();
-        console.log(formData)
+       if(formData.typeOfPublication === '' || 
+        formData.gender === '' ||formData.description ===''){
+            formData.city ===''|| formData.province === '' || formData.photo=== null
+            toast.error('Tipo de Publicacion, \n ciudad, provincia y foto son obligatorios', 
+                { theme: "colored", autoClose: 3000 });
+            return; 
+        }
+        //Creamos una copia para no mutar el original y agregamos Sin nombre
+        const dataToSend = {...formData};
+        if(dataToSend.catName?.trim()===''){
+            dataToSend.catName = 'Sin Nombre';
+        }
+        if(dataToSend.breed?.trim()===''){
+            dataToSend.breed = 'Sin Raza';
+        }
+        if(dataToSend.age?.trim()===''){
+            dataToSend.age = 'Desconocida';
+        }
     }
   return (
     <div className="bg-amber-50 min-h-screen flex items-center justify-center p-4">
