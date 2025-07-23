@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { ApiCatPostResponse, CatPostFormData } from "../types/types";
+import type { ApiCatPostResponse, CatPostFormData, UserData } from "../types/types";
 const URL:string = import.meta.env.VITE_API_URL;
 
 
@@ -39,3 +39,30 @@ export const addCatPost = async (registerData:CatPostFormData) =>{
         }
     }
 }
+
+export const getCatPosts = async () =>{
+    
+    const data = localStorage.getItem('userData');
+    if (!data) {
+        console.error("No hay datos de usuario logueado.");
+        throw new Error("No autenticado."); 
+    }
+    const userData = JSON.parse(data) as UserData;
+
+    try {
+       
+        const res = await axios.get<ApiCatPostResponse>(`${URL}/catpost/user/${userData.userId}`);
+        return res.data;
+
+    } catch (error) {
+        // Manejo de errores (por ejemplo, token inválido, servidor caído, etc.)
+        if (axios.isAxiosError(error)) {
+            console.error("Error al obtener los catPost", error.response?.data || error.message);
+            throw new Error(error.response?.data?.message || "Error desconocido al obtener los catPost.");
+        } else {
+            console.error("Error inesperado:", error);
+            throw new Error("Ocurrió un error inesperado.");
+        }
+    }
+}
+
