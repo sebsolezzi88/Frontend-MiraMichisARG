@@ -107,3 +107,8 @@ export interface ApiCatPostResponse{
       message: string, 
       post: CatPost 
 }
+export interface ApiCatGetResponse{
+      status:Status,
+      message: string, 
+      posts: CatPost[] 
+}
