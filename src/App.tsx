@@ -14,10 +14,11 @@ import Contact from './page/Contact'
 import Profile from './page/Profile'
 import ProtectedRoute from './page/ProtectedRoutes'
 import NewCatPost from './page/NewCatPost'
+import ReactModal from 'react-modal'
 
 
 function App() {
- 
+  ReactModal.setAppElement('#root');
   return (
     <>
       <ToastContainer />

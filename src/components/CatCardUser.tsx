@@ -1,5 +1,7 @@
+import { useState } from "react";
 import type { CatPost } from "../types/types"
 import { capitalize, formatDate } from "../utils/utils"
+import ReactModal from "react-modal";
 
 
 interface CatCardUserProps{
@@ -8,6 +10,8 @@ interface CatCardUserProps{
 
 
 const CatCardUser = ({catPost}:CatCardUserProps) => {
+
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
     // --- Lógica para determinar los colores de la tarjeta y etiquetas ---
     let cardBgClass = '';
@@ -41,6 +45,18 @@ const CatCardUser = ({catPost}:CatCardUserProps) => {
         statusTagBgClass = 'bg-green-500';
     }
 
+    const openConfirmModal = () => setIsConfirmModalOpen(true);
+    const closeConfirmModal = () => setIsConfirmModalOpen(false);
+
+    const handleConfirmDelete = () => {
+        openConfirmModal();
+        console.log('click')
+        //onDelete(catPost._id); // Llama a la función onDelete pasada desde el componente padre
+        //closeConfirmModal(); // Cierra el modal después de confirmar
+    };
+
+    
+    
     return (
         <div key={catPost.id} className={`rounded-lg shadow-md overflow-hidden ${cardBgClass} border-t-4 ${cardBorderClass}`}>
             <img className="w-full h-48 object-cover" src={catPost.photoUrl} alt={`Michi: ${catPost.catName}`}  />
@@ -78,11 +94,35 @@ const CatCardUser = ({catPost}:CatCardUserProps) => {
                     <button className="block w-full text-center py-2 px-4 rounded-md bg-gray-200 text-gray-800 font-semibold hover:bg-gray-300 transition duration-300">
                         Marcar como Finalizada
                     </button>
-                    <button className="block w-full text-center py-2 px-4 rounded-md bg-red-500 text-white font-semibold hover:bg-red-600 transition duration-300">
+                    <button onClick={handleConfirmDelete} className="block w-full text-center py-2 px-4 rounded-md bg-red-500 text-white font-semibold hover:bg-red-600 transition duration-300">
                         Eliminar
                     </button>
                 </div>
             </div>
+            <ReactModal
+                isOpen={isConfirmModalOpen}
+                onRequestClose={closeConfirmModal}
+                contentLabel="Confirmar Eliminación"
+                className="bg-white p-8 rounded shadow-lg max-w-lg mx-auto mt-20"
+                overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+            >
+                <h2 className="text-xl font-bold mb-4">Confirmar Eliminación</h2>
+                <p className="mb-6">¿Estás seguro de que deseas eliminar la publicación de "{catPost.catName}"? Esta acción no se puede deshacer.</p>
+                <div className="flex justify-end space-x-4">
+                    <button
+                        onClick={closeConfirmModal}
+                        className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+                    >
+                        Cancelar
+                    </button>
+                    <button
+                        onClick={handleConfirmDelete}
+                        className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                    >
+                        Eliminar
+                    </button>
+                </div>
+            </ReactModal>
         </div>
     )
 }
