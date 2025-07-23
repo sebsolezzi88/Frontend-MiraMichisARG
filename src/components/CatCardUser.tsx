@@ -20,17 +20,17 @@ const CatCardUser = ({catPost}:CatCardUserProps) => {
                 </div>
 
                 <h3 className="text-xl font-bold text-gray-800 mb-1">
-                    Mittens
+                    {catPost.catName}
                 </h3>
                 <p className="text-gray-600 text-sm mb-3 line-clamp-3">
-                    Mittens es una gata juguetona y cariñosa de 2 años. Le encanta perseguir láseres y tomar siestas al sol. Busca un hogar lleno de amor.
+                    {catPost.description}
                 </p>
 
                 <div className="grid grid-cols-2 gap-2 text-sm text-gray-700 mb-3">
-                    <div><strong className="font-semibold">Género:</strong> Macho</div>
-                    <div><strong className="font-semibold">Edad:</strong> 3 meses</div>
-                    <div><strong className="font-semibold">Raza:</strong> Siames</div>
-                    <div><strong className="font-semibold">Ubicación:</strong> San Nicolás, BA</div>
+                    <div><strong className="font-semibold">Género:</strong> {catPost.gender}</div>
+                    <div><strong className="font-semibold">Edad:</strong> {catPost.age}</div>
+                    <div><strong className="font-semibold">Raza:</strong> {catPost.breed}</div>
+                    <div><strong className="font-semibold">Ubicación:</strong> {catPost.location.city}, {catPost.location.province}</div>
                 </div>
                 <div className="text-xs text-gray-500 text-right mb-4">
                     Publicado: 17/07/2025
