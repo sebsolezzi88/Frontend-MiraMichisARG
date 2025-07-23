@@ -24,13 +24,13 @@ const CatCardUser = ({catPost}:CatCardUserProps) => {
         cardBgClass = 'bg-yellow-50'; 
         cardBorderClass = 'border-yellow-400';
         typeTagBgClass = 'bg-yellow-400';
-        textTagColor = 'text-white'
+        textTagColor = 'text-gray-800'
     } else if(catPost.typeOfPublication==='perdido') {
         
         cardBgClass = 'bg-rose-50';
         cardBorderClass = 'border-rose-400';
         typeTagBgClass = 'bg-gray-400';
-        textTagColor = 'text-gray-800'
+        textTagColor = 'text-white'
     }
 
     return (
@@ -41,8 +41,8 @@ const CatCardUser = ({catPost}:CatCardUserProps) => {
                     <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${cardBgClass} ${textTagColor}`}>
                         {catPost.publicationStatus.charAt(0).toUpperCase() + catPost.publicationStatus.slice(1)}
                     </span>
-                    <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-blue-500 text-white">
-                        Activa
+                    <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${typeTagBgClass} ${textTagColor}`}>
+                        {catPost.typeOfPublication}
                     </span>
                 </div>
 
