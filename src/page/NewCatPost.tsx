@@ -1,8 +1,12 @@
 import { useState, type ChangeEvent, type FormEvent } from "react"
 import type { CatPostFormData } from "../types/types"
 import { toast } from "react-toastify";
+import { addCatPost } from "../api/catPost";
+import { useNavigate } from "react-router-dom";
 
 const NewCatPost = () => {
+
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState<CatPostFormData>({
             typeOfPublication: '',
@@ -37,6 +41,18 @@ const NewCatPost = () => {
         }
         if(dataToSend.age?.trim()===''){
             dataToSend.age = 'Desconocida';
+        }
+        
+        try {
+            //Si se crea correctamente redireccionamos al perfil
+            const respose = await addCatPost(dataToSend);
+            if (respose.status === 'success'){
+                toast.success('CatPost creado', 
+                { theme: "colored", autoClose: 3000 });
+                navigate('/profile')
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
   return (
@@ -95,9 +111,9 @@ const NewCatPost = () => {
                     required
                 >
                     <option value="">Selecciona el género</option>
-                    <option value="Macho">Macho</option>
-                    <option value="Hembra">Hembra</option>
-                    <option value="Desconocido">Desconocido</option>
+                    <option value="macho">Macho</option>
+                    <option value="hembra">Hembra</option>
+                    <option value="desconocido">Desconocido</option>
                 </select>
             </div>
 
@@ -160,12 +176,12 @@ const NewCatPost = () => {
             </div>
 
             <div>
-                <label htmlFor="provincia" className="block text-sm font-medium text-gray-700 mb-1">Provincia</label>
+                <label htmlFor="province" className="block text-sm font-medium text-gray-700 mb-1">Provincia</label>
                 <select
                 onChange={(e:ChangeEvent<HTMLSelectElement>)=>{setFormData({...formData, [e.target.name]:e.target.value})}}
                 
-                    id="provincia"
-                    name="provincia"
+                    id="province"
+                    name="province"
                     className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
                            focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                     required
