@@ -1,5 +1,5 @@
 import type { CatPost } from "../types/types"
-import { formatDate } from "../utils/utils"
+import { capitalize, formatDate } from "../utils/utils"
 
 
 interface CatCardUserProps{
@@ -14,6 +14,8 @@ const CatCardUser = ({catPost}:CatCardUserProps) => {
     let cardBorderClass = '';
     let typeTagBgClass = '';
     let textTagColor='';
+    let statusTagBgClass='';
+
 
     if (catPost.typeOfPublication === 'adopción') {
         cardBgClass = 'bg-emerald-50';
@@ -33,17 +35,23 @@ const CatCardUser = ({catPost}:CatCardUserProps) => {
         textTagColor = 'text-white'
     }
 
+    if(catPost.publicationStatus === 'activo'){
+        statusTagBgClass = 'bg-orange-500';
+    }else{
+        statusTagBgClass = 'bg-green-500';
+    }
+
     return (
         <div className={`rounded-lg shadow-md overflow-hidden ${cardBgClass} border-t-4 ${cardBorderClass}`}>
             <img className="w-full h-48 object-cover" src={catPost.photoUrl} alt={`Michi: ${catPost.catName}`}  />
             <div className="p-4">
                 <div className="flex justify-between items-center mb-2">
-                    <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${cardBgClass} ${textTagColor}`}>
-                        {catPost.publicationStatus.charAt(0).toUpperCase() + catPost.publicationStatus.slice(1)}
-                    </span>
                     <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${typeTagBgClass} ${textTagColor}`}>
-                        {catPost.typeOfPublication}
+                        {capitalize(catPost.typeOfPublication)}
                     </span>
+                    <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${statusTagBgClass} text-white`}>
+                        {capitalize(catPost.publicationStatus)}
+                    </span>     
                 </div>
 
                 <h3 className="text-xl font-bold text-gray-800 mb-1">
