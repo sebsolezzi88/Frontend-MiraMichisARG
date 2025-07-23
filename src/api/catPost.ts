@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { ApiCatGetResponse, ApiCatPostResponse, CatPostFormData, UserData } from "../types/types";
+import type { ApiCatGetResponse, ApiCatPostResponse, ApiResponse, CatPostFormData, UserData } from "../types/types";
 const URL:string = import.meta.env.VITE_API_URL;
 
 
@@ -55,10 +55,47 @@ export const getCatPosts = async () =>{
         return res.data;
 
     } catch (error) {
-        // Manejo de errores (por ejemplo, token inválido, servidor caído, etc.)
+       
         if (axios.isAxiosError(error)) {
             console.error("Error al obtener los catPost", error.response?.data || error.message);
             throw new Error(error.response?.data?.message || "Error desconocido al obtener los catPost.");
+        } else {
+            console.error("Error inesperado:", error);
+            throw new Error("Ocurrió un error inesperado.");
+        }
+    }
+}
+
+export const deleteCatPost = async (id:string) =>{
+
+     const authToken = localStorage.getItem('authToken');
+
+     if (!authToken) {
+        console.error("No hay token de autenticación disponible. El usuario no está logueado.");
+        throw new Error("No autenticado."); 
+    }
+
+     const headers = {
+        'Content-Type': 'multipart/form-data', 
+        'Authorization': `Bearer ${authToken}` 
+    };
+    
+    
+    if (!id) {
+        console.error("No hay id");
+        throw new Error("Id not Found."); 
+    }
+
+    try {
+       
+        const res = await axios.delete<ApiResponse>(`${URL}/catpost/${id}`,{headers});
+        return res.data;
+
+    } catch (error) {
+        
+        if (axios.isAxiosError(error)) {
+            console.error("Error al borrar catPost", error.response?.data || error.message);
+            throw new Error(error.response?.data?.message || "Error desconocido al borrar catPost.");
         } else {
             console.error("Error inesperado:", error);
             throw new Error("Ocurrió un error inesperado.");
