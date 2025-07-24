@@ -12,30 +12,62 @@ const Profile = () => {
     //Estado de los catPost
     const [catPosts, setCatPosts] = useState<CatPost[]>([]);
 
+    //Estado para filtrar
+    const [typeOfPost, setTypeOfPost] = useState<'adopción' | 'encontrado' | 'perdido' | ''>('')
+
+    // Estado de carga
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
     //Llamada para recuperar todos los CatPost del usuario logueado
     useEffect(() => {
         const getCatPostByUserId = async () => {
-            const response = await getCatPosts();
-            if (response.status === 'success') {
-                setCatPosts(response.posts);
+            setLoading(true);
+            setError(null);
+            try {
+                const response = await getCatPosts();
+                if (response.status === 'success') {
+                    console.log(response.posts)
+                    setCatPosts(response.posts);
+                } else {
+                    setCatPosts([]);
+                }
+            } catch (error) {
+                console.error("Error al cargar publicaciones:", error);
+                setError("No se pudieron cargar tus publicaciones.");
+                setCatPosts([]);
+            } finally {
+                setLoading(false);
             }
         }
         getCatPostByUserId();
     }, [])
 
-    const onDelete = async (id:string) =>{
+    //Logica para filtrar
+    const catPostsToDisplay = typeOfPost
+        ? catPosts.filter(post => post.typeOfPublication === typeOfPost)
+        : catPosts;
+
+    const onDelete = async (id: string) => {
         try {
-           const response = await deleteCatPost(id);
-           if(response.status === 'success'){
+            const response = await deleteCatPost(id);
+            if (response.status === 'success') {
                 toast.success('Post borrado', { theme: "colored", autoClose: 3000 });
-           }
+                setCatPosts(prevPosts => prevPosts.filter(post => post._id !== id)); //Filtrar post
+            }
         } catch (error) {
             console.log(error)
             toast.error('Error al borrar el post', { theme: "colored", autoClose: 3000 })
         }
     }
 
+    if (loading) {
+        return <div className="text-center p-6 text-gray-700">Cargando tus publicaciones...</div>;
+    }
 
+    if (error) {
+        return <div className="text-center p-6 text-red-600">Error: {error}</div>;
+    }
 
     return (
         <div className="bg-amber-50 min-h-screen p-6">
@@ -65,23 +97,47 @@ const Profile = () => {
                 </div>
 
                 <nav className="flex flex-col md:flex-row md:justify-center md:space-x-4 
-            border-b border-gray-200 pb-4 space-y-2 md:space-y-0">
-                    <a href="#" className="py-2 px-4 text-orange-600 border-b-2 border-orange-600 
-                      font-semibold hover:text-orange-700 text-center">
+                            border-b border-gray-200 pb-4 space-y-2 md:space-y-0">
+                    <button 
+                        onClick={() => setTypeOfPost('')} // Filtro: Mostrar todas las publicaciones
+                        className={`py-2 px-4 text-center transition duration-300
+                            ${typeOfPost === '' 
+                                ? 'text-orange-600 border-b-2 border-orange-600 font-semibold' 
+                                : 'text-gray-600 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-800 font-medium'}`
+                        }
+                    >
                         Todas mis Publicaciones
-                    </a>
-                    <a href="#" className="py-2 px-4 text-gray-600 border-b-2 border-transparent 
-                      hover:border-gray-300 hover:text-gray-800 font-medium text-center">
+                    </button>
+                    <button 
+                        onClick={() => setTypeOfPost('adopción')} // Filtro: Michis en Adopción
+                        className={`py-2 px-4 text-center transition duration-300
+                            ${typeOfPost === 'adopción' 
+                                ? 'text-orange-600 border-b-2 border-orange-600 font-semibold' 
+                                : 'text-gray-600 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-800 font-medium'}`
+                        }
+                    >
                         Michis en Adopción
-                    </a>
-                    <a href="#" className="py-2 px-4 text-gray-600 border-b-2 border-transparent 
-                      hover:border-gray-300 hover:text-gray-800 font-medium text-center">
+                    </button>
+                    <button 
+                        onClick={() => setTypeOfPost('encontrado')} // Filtro: Michis Encontrados
+                        className={`py-2 px-4 text-center transition duration-300
+                            ${typeOfPost === 'encontrado' 
+                                ? 'text-orange-600 border-b-2 border-orange-600 font-semibold' 
+                                : 'text-gray-600 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-800 font-medium'}`
+                        }
+                    >
                         Michis Encontrados
-                    </a>
-                    <a href="#" className="py-2 px-4 text-gray-600 border-b-2 border-transparent 
-                      hover:border-gray-300 hover:text-gray-800 font-medium text-center">
+                    </button>
+                    <button 
+                        onClick={() => setTypeOfPost('perdido')} // Filtro: Michis Perdidos
+                        className={`py-2 px-4 text-center transition duration-300
+                            ${typeOfPost === 'perdido' 
+                                ? 'text-orange-600 border-b-2 border-orange-600 font-semibold' 
+                                : 'text-gray-600 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-800 font-medium'}`
+                        }
+                    >
                         Michis Perdidos
-                    </a>
+                    </button>
                     <Link
                         to={'/newcatpost'}
                         className="py-2 px-4 bg-orange-500 text-white rounded-md font-semibold 
@@ -94,10 +150,10 @@ const Profile = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
 
-                {/* Mostrar los catpost si los hay */}
-                {catPosts.length === 0 ? <p>No haz ingresado ningun gato</p>:
-                    catPosts.map(catPost => <CatCardUser catPost={catPost} onDelete={onDelete} />)
-                }
+                    {/* Mostrar los catpost si los hay */}
+                    {catPostsToDisplay.length === 0 ? <p>No haz ingresado ningun gato</p> :
+                        catPostsToDisplay.map(catPost => <CatCardUser key={catPost._id} catPost={catPost} onDelete={onDelete} />)
+                    }
 
 
 

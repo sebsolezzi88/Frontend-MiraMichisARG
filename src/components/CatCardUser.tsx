@@ -10,7 +10,7 @@ interface CatCardUserProps{
 }
 
 
-const CatCardUser = ({catPost}:CatCardUserProps) => {
+const CatCardUser = ({catPost,onDelete}:CatCardUserProps) => {
 
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
@@ -49,17 +49,16 @@ const CatCardUser = ({catPost}:CatCardUserProps) => {
     const openConfirmModal = () => setIsConfirmModalOpen(true);
     const closeConfirmModal = () => setIsConfirmModalOpen(false);
 
-    const handleConfirmDelete = () => {
+    const handleConfirmDelete = (id:string) => {
         openConfirmModal();
-        console.log('click')
-        //onDelete(catPost._id); // Llama a la función onDelete pasada desde el componente padre
-        //closeConfirmModal(); // Cierra el modal después de confirmar
+        onDelete(id); // Llama a la función onDelete pasada desde el componente padre
+        closeConfirmModal(); // Cierra el modal después de confirmar
     };
 
     
     
     return (
-        <div key={catPost.id} className={`rounded-lg shadow-md overflow-hidden ${cardBgClass} border-t-4 ${cardBorderClass}`}>
+        <div key={catPost._id} className={`rounded-lg shadow-md overflow-hidden ${cardBgClass} border-t-4 ${cardBorderClass}`}>
             <img className="w-full h-48 object-cover" src={catPost.photoUrl} alt={`Michi: ${catPost.catName}`}  />
             <div className="p-4">
                 <div className="flex justify-between items-center mb-2">
@@ -95,7 +94,7 @@ const CatCardUser = ({catPost}:CatCardUserProps) => {
                     <button className="block w-full text-center py-2 px-4 rounded-md bg-gray-200 text-gray-800 font-semibold hover:bg-gray-300 transition duration-300">
                         Marcar como Finalizada
                     </button>
-                    <button onClick={handleConfirmDelete} className="block w-full text-center py-2 px-4 rounded-md bg-red-500 text-white font-semibold hover:bg-red-600 transition duration-300">
+                    <button onClick={openConfirmModal} className="block w-full text-center py-2 px-4 rounded-md bg-red-500 text-white font-semibold hover:bg-red-600 transition duration-300">
                         Eliminar
                     </button>
                 </div>
@@ -117,7 +116,7 @@ const CatCardUser = ({catPost}:CatCardUserProps) => {
                         Cancelar
                     </button>
                     <button
-                        onClick={handleConfirmDelete}
+                        onClick={()=>handleConfirmDelete(catPost._id)}
                         className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
                     >
                         Eliminar
