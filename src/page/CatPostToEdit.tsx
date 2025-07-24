@@ -2,7 +2,7 @@ import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import type { CatPost, CatPostFormData, Gender } from "../types/types";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { getCatPostById } from "../api/catPost";
+import { getCatPostById, updateCatPost } from "../api/catPost";
 
 const CatPostToEdit = () => {
 
@@ -87,7 +87,7 @@ const CatPostToEdit = () => {
                 return;
             }
 
-            const response = await updateCatPost(id, formData); // Tu función para actualizar
+            const response = await updateCatPost(postId, formData); 
             if (response.status === 'success') {
                 toast.success('Publicación actualizada exitosamente!', { theme: "colored", autoClose: 3000 });
                 navigate('/profile'); // Redirige a la página de perfil 
@@ -158,6 +158,7 @@ const CatPostToEdit = () => {
                         <label htmlFor="gender" className="block text-sm font-medium text-gray-700 mb-1">Género</label>
                         <select
                             onChange={(e: ChangeEvent<HTMLSelectElement>) => { setFormData({ ...formData, [e.target.name]: e.target.value }) }}
+                            value={formData.gender}
                             id="gender"
                             name="gender"
                             className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
@@ -291,7 +292,7 @@ const CatPostToEdit = () => {
                              file:text-sm file:font-semibold
                              file:bg-orange-50 file:text-orange-700
                              hover:file:bg-orange-100"
-                            required
+                            
                         />
                         <p className="mt-1 text-xs text-gray-500">Deja vacío si no quieres cambiar la foto.</p>
                     </div>

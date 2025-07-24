@@ -55,7 +55,7 @@ export const updateCatPost = async (id:string,formData:CatPostFormData) =>{
 
     try {
       
-        const res = await axios.post<ApiResponse>(`${URL}/catpost/${id}`, formData, { headers } );
+        const res = await axios.put<ApiResponse>(`${URL}/catpost/${id}`, formData, { headers } );
         
         return res.data;
 
