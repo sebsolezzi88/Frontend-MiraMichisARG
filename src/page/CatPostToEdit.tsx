@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import type { CatPostFormData } from "../types/types";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
@@ -8,11 +8,17 @@ const CatPostToEdit = () => {
     const navigate = useNavigate();
 
     const [searchParams] = useSearchParams();
-    const postId = searchParams.get('postId');
+    const postId = searchParams.get('postId'); //Buscamos el parametros en la url
 
-    if(!postId){
+    useEffect(() => {
+      if(!postId){
         navigate('/profile');
     }
+
+    }, [])
+    
+
+    
   
 
 
