@@ -66,6 +66,26 @@ export const getCatPosts = async () =>{
     }
 }
 
+export const getCatPostById = async (id:string) =>{
+    
+
+    try {
+       
+        const res = await axios.get<ApiCatGetResponse>(`${URL}/catpost/${id}`);
+        return res.data;
+
+    } catch (error) {
+       
+        if (axios.isAxiosError(error)) {
+            console.error("Error al obtener el catPost", error.response?.data || error.message);
+            throw new Error(error.response?.data?.message || "Error desconocido al obtener el catPost.");
+        } else {
+            console.error("Error inesperado:", error);
+            throw new Error("Ocurrió un error inesperado.");
+        }
+    }
+}
+
 export const deleteCatPost = async (id:string) =>{
 
      const authToken = localStorage.getItem('authToken');

@@ -113,3 +113,9 @@ export interface ApiCatGetResponse{
       message: string, 
       posts: CatPost[] 
 }
+
+export interface ApiSingleCatPostResponse {
+    status: Status;
+    message: string;
+    post: CatPost; 
+}
