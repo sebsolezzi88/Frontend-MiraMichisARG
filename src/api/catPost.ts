@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { ApiCatGetResponse, ApiCatPostResponse, ApiResponse, CatPostFormData, UserData } from "../types/types";
+import type { ApiCatGetResponse, ApiCatPostResponse, ApiResponse, ApiSingleCatPostResponse, CatPostFormData, UserData } from "../types/types";
 const URL:string = import.meta.env.VITE_API_URL;
 
 
@@ -71,7 +71,7 @@ export const getCatPostById = async (id:string) =>{
 
     try {
        
-        const res = await axios.get<ApiCatGetResponse>(`${URL}/catpost/${id}`);
+        const res = await axios.get<ApiSingleCatPostResponse>(`${URL}/catpost/${id}`);
         return res.data;
 
     } catch (error) {
