@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom';
 import anonCat from '../assets/anoncat.png';
 import { useEffect, useState } from 'react';
 import type { CatPost } from '../types/types';
-import { getCatPosts } from '../api/catPost';
+import { deleteCatPost, getCatPosts } from '../api/catPost';
 import CatCardUser from '../components/CatCardUser';
+import { toast } from 'react-toastify';
 
 
 const Profile = () => {
@@ -21,6 +22,18 @@ const Profile = () => {
         }
         getCatPostByUserId();
     }, [])
+
+    const onDelete = async (id:string) =>{
+        try {
+           const response = await deleteCatPost(id);
+           if(response.status === 'success'){
+                toast.success('Post borrado', { theme: "colored", autoClose: 3000 });
+           }
+        } catch (error) {
+            console.log(error)
+            toast.error('Error al borrar el post', { theme: "colored", autoClose: 3000 })
+        }
+    }
 
 
 
