@@ -96,7 +96,7 @@ const Profile = () => {
 
                 {/* Mostrar los catpost si los hay */}
                 {catPosts.length === 0 ? <p>No haz ingresado ningun gato</p>:
-                    catPosts.map(catPost => <CatCardUser catPost={catPost}/>)
+                    catPosts.map(catPost => <CatCardUser catPost={catPost} onDelete={onDelete} />)
                 }
 
 

@@ -6,7 +6,7 @@ import ReactModal from "react-modal";
 
 interface CatCardUserProps{
     catPost:CatPost
-    onDelete: () => void
+    onDelete: (id:string) => void
 }
 
 
