@@ -15,6 +15,7 @@ import Profile from './page/Profile'
 import ProtectedRoute from './page/ProtectedRoutes'
 import NewCatPost from './page/NewCatPost'
 import ReactModal from 'react-modal'
+import CatPostToEdit from './page/CatPostToEdit'
 
 
 function App() {
@@ -45,6 +46,14 @@ function App() {
           element={
             <ProtectedRoute>
               <NewCatPost />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/editcatpost"
+          element={
+            <ProtectedRoute>
+              <CatPostToEdit />
             </ProtectedRoute>
           }
         />
