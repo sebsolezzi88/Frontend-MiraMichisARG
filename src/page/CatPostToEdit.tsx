@@ -17,28 +17,28 @@ const CatPostToEdit = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState('');
     const [formData, setFormData] = useState<CatPostFormData>({
-            typeOfPublication: '',
-            catName: '',
-            gender: '',
-            age: '',
-            breed: '', 
-            description: '',
-            city:'',
-            province: '',
-            photo: null,
+        typeOfPublication: '',
+        catName: '',
+        gender: '',
+        age: '',
+        breed: '',
+        description: '',
+        city: '',
+        province: '',
+        photo: null,
     });
 
     useEffect(() => {
         if (!postId) {
             toast.error('Debe proporcionar un id', { theme: "colored", autoClose: 3000 });
-            navigate('/profile');                    
+            navigate('/profile');
         }
         //Si hay id buscamos el post
         const getCatPost = async () => {
             try {
                 setLoading(true);
                 const response = await getCatPostById(postId!);
-                if(response.status==='success' && response.post){
+                if (response.status === 'success' && response.post) {
                     const post = response.post;
                     setFormData({
                         typeOfPublication: post.typeOfPublication,
@@ -52,14 +52,14 @@ const CatPostToEdit = () => {
                         photo: null, // No se carga el archivo aquí, el usuario debe seleccionar uno nuevo
                     });
                     setExistingPhotoUrl(post.photoUrl); // Guarda la URL de la foto existente
-                }else{
+                } else {
                     setError(response.message || "Publicación no encontrada.");
                 }
             } catch (error) {
                 console.error("Error al cargar publicaciones:", error);
                 toast.error("Error al cargar la publicación para editar.", { theme: "colored" });
                 setError("No se pudieron cargar tus publicaciones.");
-            }finally{
+            } finally {
                 setLoading(false);
             }
         }
@@ -72,6 +72,34 @@ const CatPostToEdit = () => {
 
     const handletSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        setLoading(true); // Para el botón de enviar
+        if (formData.typeOfPublication === '' || formData.gender === ''
+            || formData.description === ''
+            || formData.city === ''
+            || formData.province === '') {
+            toast.error('Tipo de Publicacion, \n ciudad, provincia son obligatorios',
+                { theme: "colored", autoClose: 3000 });
+            return;
+        }
+        try {
+            if (!postId) {
+                toast.error("ID de publicación faltante para actualizar.", { theme: "colored" });
+                return;
+            }
+
+            const response = await updateCatPost(id, formData); // Tu función para actualizar
+            if (response.status === 'success') {
+                toast.success('Publicación actualizada exitosamente!', { theme: "colored", autoClose: 3000 });
+                navigate('/profile'); // Redirige a la página de perfil 
+            } else {
+                toast.error(response.message || 'Error al actualizar la publicación.', { theme: "colored" });
+            }
+        } catch (err) {
+            console.error("Error al enviar el formulario:", err);
+            toast.error('Error al actualizar la publicación.', { theme: "colored" });
+        } finally {
+            setLoading(false);
+        }
     }
 
     if (loading) {
@@ -243,11 +271,11 @@ const CatPostToEdit = () => {
                     <div>
                         <label htmlFor="photo" className="block text-sm font-medium text-gray-700 mb-1">Foto del Michi</label>
                         {existingPhotoUrl && (
-                        <div className="mt-2 mb-4">
-                            <p className="text-xs text-gray-500 mb-1">Foto actual:</p>
-                            <img src={existingPhotoUrl} alt="Foto actual" className="w-32 h-32 object-cover rounded-md" />
-                        </div>
-                    )}
+                            <div className="mt-2 mb-4">
+                                <p className="text-xs text-gray-500 mb-1">Foto actual:</p>
+                                <img src={existingPhotoUrl} alt="Foto actual" className="w-32 h-32 object-cover rounded-md" />
+                            </div>
+                        )}
                         <input
                             onChange={(e) => {
                                 const file = e.target.files?.[0] || null;
@@ -272,13 +300,14 @@ const CatPostToEdit = () => {
                     <div>
                         <button
                             type="submit"
+                            disabled={loading}
                             className="w-full flex justify-center py-2 px-4 border border-transparent
                              rounded-md shadow-sm text-sm font-medium text-white
                              bg-orange-500 hover:bg-orange-600 focus:outline-none
                              focus:ring-2 focus:ring-offset-2 focus:ring-orange-500
                              transition duration-300"
                         >
-                            Editar
+                            {loading ? 'Guardando...' : 'Guardar Cambios'}
                         </button>
                     </div>
                 </form>
