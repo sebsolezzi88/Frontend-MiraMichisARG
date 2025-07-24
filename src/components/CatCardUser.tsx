@@ -35,7 +35,7 @@ const CatCardUser = ({catPost}:CatCardUserProps) => {
         
         cardBgClass = 'bg-rose-50';
         cardBorderClass = 'border-rose-400';
-        typeTagBgClass = 'bg-gray-400';
+        typeTagBgClass = 'bg-rose-400';
         textTagColor = 'text-white'
     }
 
