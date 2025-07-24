@@ -40,6 +40,37 @@ export const addCatPost = async (registerData:CatPostFormData) =>{
     }
 }
 
+export const updateCatPost = async (id:string,formData:CatPostFormData) =>{
+    const authToken = localStorage.getItem('authToken');
+
+     if (!authToken) {
+        console.error("No hay token de autenticación disponible. El usuario no está logueado.");
+        throw new Error("No autenticado."); 
+    }
+
+     const headers = {
+        'Content-Type': 'multipart/form-data', 
+        'Authorization': `Bearer ${authToken}` 
+    };
+
+    try {
+      
+        const res = await axios.post<ApiResponse>(`${URL}/catpost/${id}`, formData, { headers } );
+        
+        return res.data;
+
+    } catch (error) {
+        // Manejo de errores (por ejemplo, token inválido, servidor caído, etc.)
+        if (axios.isAxiosError(error)) {
+            console.error("Error al editar la publicación del gato:", error.response?.data || error.message);
+            throw new Error(error.response?.data?.message || "Error desconocido al editar la publicación.");
+        } else {
+            console.error("Error inesperado:", error);
+            throw new Error("Ocurrió un error inesperado.");
+        }
+    }
+}
+
 export const getCatPosts = async () =>{
     
     const data = localStorage.getItem('userData');
