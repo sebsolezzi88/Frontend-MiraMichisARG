@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { CatPost } from "../types/types"
 import { capitalize, formatDate } from "../utils/utils"
 import ReactModal from "react-modal";
+import { Link } from "react-router-dom";
 
 
 interface CatCardUserProps{
@@ -88,9 +89,9 @@ const CatCardUser = ({catPost,onDelete}:CatCardUserProps) => {
                 </div>
 
                 <div className="flex flex-col space-y-2">
-                    <a href="#" className="block w-full text-center py-2 px-4 rounded-md bg-blue-500 text-white font-semibold hover:bg-blue-600 transition duration-300">
+                    <Link to={`/editcatpost?postId=${catPost._id}`} className="block w-full text-center py-2 px-4 rounded-md bg-blue-500 text-white font-semibold hover:bg-blue-600 transition duration-300">
                         Editar Publicación
-                    </a>
+                    </Link>
                     <button className="block w-full text-center py-2 px-4 rounded-md bg-gray-200 text-gray-800 font-semibold hover:bg-gray-300 transition duration-300">
                         Marcar como Finalizada
                     </button>

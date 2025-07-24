@@ -1,11 +1,20 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import type { CatPostFormData } from "../types/types";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const CatPostToEdit = () => {
 
 
     const navigate = useNavigate();
+
+    const [searchParams] = useSearchParams();
+    const postId = searchParams.get('postId');
+
+    if(!postId){
+        navigate('/profile');
+    }
+  
+
 
     const [formData, setFormData] = useState<CatPostFormData>({
             typeOfPublication: '',
