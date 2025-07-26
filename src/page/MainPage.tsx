@@ -75,6 +75,15 @@ const MainPage = () => {
                     : "En estos momentos no hay michis en adopción"
                   }
              </div>
+             <div className="text-center mt-8">
+                <a href="#" className="inline-flex items-center px-6 py-3 border border-transparent 
+                                   rounded-md shadow-sm text-base font-medium text-white 
+                                   bg-orange-500 hover:bg-orange-600 focus:outline-none 
+                                   focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 
+                                   transition duration-300">
+                    Ver todos los Michis en Adopción
+                </a>
+            </div>
       </section>
 
       {/* Sección para mostrar los gatos perdidos  */}
@@ -89,6 +98,16 @@ const MainPage = () => {
                     : "En estos momentos no hay michis perdidos"
                   }
              </div>
+
+             <div className="text-center mt-8">
+                <a href="#" className="inline-flex items-center px-6 py-3 border border-transparent 
+                                   rounded-md shadow-sm text-base font-medium text-white 
+                                   bg-orange-500 hover:bg-orange-600 focus:outline-none 
+                                   focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 
+                                   transition duration-300">
+                    Ver todos los Michis Perdidos
+                </a>
+            </div>
       </section>
 
       {/* Sección para mostrar los gatos encontrados  */}
@@ -103,6 +122,16 @@ const MainPage = () => {
                     : "En estos momentos no hay michis encontrados"
                   }
              </div>
+
+             <div className="text-center mt-8">
+                <a href="#" className="inline-flex items-center px-6 py-3 border border-transparent 
+                                   rounded-md shadow-sm text-base font-medium text-white 
+                                   bg-orange-500 hover:bg-orange-600 focus:outline-none 
+                                   focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 
+                                   transition duration-300">
+                    Ver todos los Michis Encontrados
+                </a>
+            </div>
       </section>
     </div>
   )
