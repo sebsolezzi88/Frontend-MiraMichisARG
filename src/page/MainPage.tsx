@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { toast } from "react-toastify";
 import { getAllCatPosts } from "../api/catPost";
 import type { CatPost } from "../types/types";
+import CatCardAdoption from "../components/CatCardAdoption";
 
 
 const MainPage = () => {
@@ -10,7 +11,7 @@ const MainPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
-  let adoptionPost: CatPost[] = []; //Para filtrar los post de adopción
+  const [adoptionPosts, setAdoptionPosts] = useState<CatPost[]>([]); //Para filtrar los post de adopción
 
   useEffect(() => {
     const getCatPots = async () =>{
@@ -18,10 +19,8 @@ const MainPage = () => {
         setLoading(true);
         const response = await getAllCatPosts();
         if(response.status==='success' && response.posts){
-            setCatPosts(response.posts);
-            
-            //filtrar los post para mostrarlos por categoría
-            adoptionPost = catPosts.filter( post => post.typeOfPublication === 'adopción'); 
+            const filteredPosts = response.posts.filter(post => post.typeOfPublication === 'adopción');
+            setAdoptionPosts(filteredPosts);
         }else{
           toast.error('Hubo un problema al obtener Post', { theme: "colored", autoClose: 3000 });
           setError('No se pudieron obtener los Post');
@@ -61,7 +60,10 @@ const MainPage = () => {
             </h2>
 
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
+                  {adoptionPosts.length > 0 
+                    ? adoptionPosts.map(post => <CatCardAdoption key={post._id} post={post}/>)
+                    : "En estos momentos no hay michis en adopción"
+                  }
              </div>
       </section>
     </div>
