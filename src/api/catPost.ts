@@ -71,6 +71,7 @@ export const updateCatPost = async (id:string,formData:CatPostFormData) =>{
     }
 }
 
+//Obtener los post de un usuario por su ID
 export const getCatPosts = async () =>{
     
     const data = localStorage.getItem('userData');
@@ -90,6 +91,25 @@ export const getCatPosts = async () =>{
         if (axios.isAxiosError(error)) {
             console.error("Error al obtener los catPost", error.response?.data || error.message);
             throw new Error(error.response?.data?.message || "Error desconocido al obtener los catPost.");
+        } else {
+            console.error("Error inesperado:", error);
+            throw new Error("Ocurrió un error inesperado.");
+        }
+    }
+}
+
+//Obtener todos los catpost
+export const getAllCatPosts = async () =>{
+     try {
+       
+        const res = await axios.get<ApiCatGetResponse>(`${URL}/catpost`);
+        return res.data;
+
+    } catch (error) {
+       
+        if (axios.isAxiosError(error)) {
+            console.error("Error al obtener los catPosts", error.response?.data || error.message);
+            throw new Error(error.response?.data?.message || "Error desconocido al obtener los catPosts.");
         } else {
             console.error("Error inesperado:", error);
             throw new Error("Ocurrió un error inesperado.");
