@@ -24,9 +24,9 @@ const MainPage = () => {
         setLoading(true);
         const response = await getAllCatPosts();
         if(response.status==='success' && response.posts){
-            const filteredAdoptionPosts = response.posts.filter(post => post.typeOfPublication === 'adopción');
-            const filteredLostPosts = response.posts.filter(post => post.typeOfPublication === 'perdido');
-            const filteredFoundPosts = response.posts.filter(post => post.typeOfPublication === 'encontrado');
+            const filteredAdoptionPosts = response.posts.filter(post => post.typeOfPublication === 'adopción').slice(0,3);
+            const filteredLostPosts = response.posts.filter(post => post.typeOfPublication === 'perdido').slice(0,3);
+            const filteredFoundPosts = response.posts.filter(post => post.typeOfPublication === 'encontrado').slice(0,3);
 
             setAdoptionPosts(filteredAdoptionPosts);
             setLostPosts(filteredLostPosts);
