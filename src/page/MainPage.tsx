@@ -53,6 +53,7 @@ const MainPage = () => {
   if(error) return <div>{error}</div>
   
   return (
+    
     <div className="max-w-7xl mx-auto space-y-10">
       <main className="bg-orange-100 rounded-xl shadow-md p-8 text-center">
         <h2 className="text-4xl font-extrabold text-orange-800 mb-4">
@@ -133,7 +134,9 @@ const MainPage = () => {
                 </a>
             </div>
       </section>
+      
     </div>
+   
   )
 }
 

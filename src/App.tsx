@@ -16,6 +16,7 @@ import ProtectedRoute from './page/ProtectedRoutes'
 import NewCatPost from './page/NewCatPost'
 import ReactModal from 'react-modal'
 import CatPostToEdit from './page/CatPostToEdit'
+import Footer from './components/Footer'
 
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <Footer/>
     </>
   )
 }
