@@ -6,9 +6,11 @@ import type { CatPost } from "../types/types";
 
 const MainPage = () => {
 
-  const [catPost, setCatPost] = useState<CatPost[]| null >();
+  const [catPosts, setCatPosts] = useState<CatPost[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
+
+  let adoptionPost: CatPost[] = []; //Para filtrar los post de adopción
 
   useEffect(() => {
     const getCatPots = async () =>{
@@ -16,7 +18,10 @@ const MainPage = () => {
         setLoading(true);
         const response = await getAllCatPosts();
         if(response.status==='success' && response.posts){
-            setCatPost(response.posts);
+            setCatPosts(response.posts);
+            
+            //filtrar los post para mostrarlos por categoría
+            adoptionPost = catPosts.filter( post => post.typeOfPublication === 'adopción'); 
         }else{
           toast.error('Hubo un problema al obtener Post', { theme: "colored", autoClose: 3000 });
           setError('No se pudieron obtener los Post');
@@ -31,6 +36,8 @@ const MainPage = () => {
     }
     getCatPots();
   }, [])
+
+  
 
   if(loading) return <div>Cargado...</div>
 
@@ -47,6 +54,7 @@ const MainPage = () => {
         </p>
       </main>
 
+      {/* Sección para mostrar los gatos en adopción  */}
       <section>
             <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
                 Michis Buscando un Hogar
