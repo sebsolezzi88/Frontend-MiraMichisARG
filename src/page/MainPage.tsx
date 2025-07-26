@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { getAllCatPosts } from "../api/catPost";
 import type { CatPost } from "../types/types";
 import CatCardAdoption from "../components/CatCardAdoption";
+import CatCardLost from "../components/CatCardLost";
 
 
 const MainPage = () => {
@@ -12,6 +13,7 @@ const MainPage = () => {
   const [error, setError] = useState<string>('');
 
   const [adoptionPosts, setAdoptionPosts] = useState<CatPost[]>([]); //Para filtrar los post de adopción
+  const [lostPosts, setLostPosts] = useState<CatPost[]>([]); //Para filtrar los post de perdidos
 
   useEffect(() => {
     const getCatPots = async () =>{
@@ -19,8 +21,11 @@ const MainPage = () => {
         setLoading(true);
         const response = await getAllCatPosts();
         if(response.status==='success' && response.posts){
-            const filteredPosts = response.posts.filter(post => post.typeOfPublication === 'adopción');
-            setAdoptionPosts(filteredPosts);
+            const filteredAdoptionPosts = response.posts.filter(post => post.typeOfPublication === 'adopción');
+            const filteredLostPosts = response.posts.filter(post => post.typeOfPublication === 'perdido');
+
+            setAdoptionPosts(filteredAdoptionPosts);
+            setLostPosts(filteredLostPosts);
         }else{
           toast.error('Hubo un problema al obtener Post', { theme: "colored", autoClose: 3000 });
           setError('No se pudieron obtener los Post');
@@ -63,6 +68,20 @@ const MainPage = () => {
                   {adoptionPosts.length > 0 
                     ? adoptionPosts.map(post => <CatCardAdoption key={post._id} post={post}/>)
                     : "En estos momentos no hay michis en adopción"
+                  }
+             </div>
+      </section>
+
+      {/* Sección para mostrar los gatos perdidos  */}
+      <section>
+            <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+                Estos Michis se encuentran perdidos
+            </h2>
+
+             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {lostPosts.length > 0 
+                    ? adoptionPosts.map(post => <CatCardLost key={post._id} post={post}/>)
+                    : "En estos momentos no hay michis perdidos"
                   }
              </div>
       </section>
