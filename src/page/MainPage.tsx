@@ -4,6 +4,7 @@ import { getAllCatPosts } from "../api/catPost";
 import type { CatPost } from "../types/types";
 import CatCardAdoption from "../components/CatCardAdoption";
 import CatCardLost from "../components/CatCardLost";
+import CatCardFound from "../components/CatCardFound";
 
 
 const MainPage = () => {
@@ -14,6 +15,8 @@ const MainPage = () => {
 
   const [adoptionPosts, setAdoptionPosts] = useState<CatPost[]>([]); //Para filtrar los post de adopción
   const [lostPosts, setLostPosts] = useState<CatPost[]>([]); //Para filtrar los post de perdidos
+  const [foundPosts, setFoundPosts] = useState<CatPost[]>([]); //Para filtrar los post de encontrados
+
 
   useEffect(() => {
     const getCatPots = async () =>{
@@ -23,9 +26,11 @@ const MainPage = () => {
         if(response.status==='success' && response.posts){
             const filteredAdoptionPosts = response.posts.filter(post => post.typeOfPublication === 'adopción');
             const filteredLostPosts = response.posts.filter(post => post.typeOfPublication === 'perdido');
+            const filteredFoundPosts = response.posts.filter(post => post.typeOfPublication === 'encontrado');
 
             setAdoptionPosts(filteredAdoptionPosts);
             setLostPosts(filteredLostPosts);
+            setFoundPosts(filteredFoundPosts);
         }else{
           toast.error('Hubo un problema al obtener Post', { theme: "colored", autoClose: 3000 });
           setError('No se pudieron obtener los Post');
@@ -80,8 +85,22 @@ const MainPage = () => {
 
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {lostPosts.length > 0 
-                    ? adoptionPosts.map(post => <CatCardLost key={post._id} post={post}/>)
+                    ? lostPosts.map(post => <CatCardLost key={post._id} post={post}/>)
                     : "En estos momentos no hay michis perdidos"
+                  }
+             </div>
+      </section>
+
+      {/* Sección para mostrar los gatos encontrados  */}
+      <section>
+            <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+                Estos Michis fueron encontrados
+            </h2>
+
+             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {foundPosts.length > 0 
+                    ? foundPosts.map(post => <CatCardFound key={post._id} post={post}/>)
+                    : "En estos momentos no hay michis encontrados"
                   }
              </div>
       </section>
