@@ -18,6 +18,7 @@ import ReactModal from 'react-modal'
 import CatPostToEdit from './page/CatPostToEdit'
 import Footer from './components/Footer'
 import AllPosts from './page/AllPosts'
+import CatPostDetails from './page/CatPostDetails'
 
 
 function App() {
@@ -35,6 +36,8 @@ function App() {
         <Route path="/reset" element={<RestardPassword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/catpost/:type" element={<AllPosts/>}/>
+        <Route path="/catpost/post/:id" element={<CatPostDetails/>}/>
+
 
         <Route
           path="/profile"
