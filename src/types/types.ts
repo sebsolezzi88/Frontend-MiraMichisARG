@@ -119,3 +119,16 @@ export interface ApiSingleCatPostResponse {
     message: string;
     post: CatPost; 
 }
+
+//type para los comentarios
+export interface Comment {
+    catPostid: string;
+    userId: string;
+    text: string;
+    createdAt: Date;
+}
+
+export interface ApiCommentResponse extends ApiResponse {
+    post: CatPost;
+    comments: Comment
+}
