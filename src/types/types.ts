@@ -131,9 +131,7 @@ export interface UserInfo {
     _id:string;
     avatarUrl:string;
 }
-export interface ApiCommentResponse extends ApiResponse {
-    post: CatPost;
-    comments: Comment[];
+export interface PostAndCommentData{
     _id: string;
     age: string;
     breed: string;
@@ -146,4 +144,8 @@ export interface ApiCommentResponse extends ApiResponse {
     publicationStatus: PublicationStatus;
     typeOfPublication: TypeOfPublication;
     userId: UserInfo;
+}
+export interface ApiCommentResponse extends ApiResponse {
+    post: PostAndCommentData;
+    comments: Comment[];
 }
