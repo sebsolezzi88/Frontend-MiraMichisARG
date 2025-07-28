@@ -133,7 +133,7 @@ export interface UserInfo {
 }
 export interface ApiCommentResponse extends ApiResponse {
     post: CatPost;
-    comments: Comment;
+    comments: Comment[];
     _id: string;
     age: string;
     breed: string;
