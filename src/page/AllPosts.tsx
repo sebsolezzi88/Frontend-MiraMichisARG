@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import type { CatPost } from "../types/types";
 
-const Adoption = () => {
+const AllPosts = () => {
 
     const [catPosts, setCatPosts] = useState<CatPost[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -41,4 +41,4 @@ const Adoption = () => {
     )
 }
 
-export default Adoption
+export default AllPosts
