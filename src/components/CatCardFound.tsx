@@ -1,4 +1,5 @@
 
+import { Link } from 'react-router-dom'
 import type { CatPost } from '../types/types'
 
 interface CatCardFoundProps {
@@ -25,9 +26,9 @@ const CatCardFound = ({post}:CatCardFoundProps) => {
                     <div><strong className="font-semibold">Ubicación:</strong> {post.location.city}, {post.location.province}</div>
                 </div>
                 <div className="text-right">
-                    <a href="#" className="inline-flex items-center text-orange-600 hover:underline font-semibold text-sm">
+                    <Link to={`/catpost/post/${post._id}`} className="inline-flex items-center text-orange-600 hover:underline font-semibold text-sm">
                         Ver Detalles &rarr;
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>
