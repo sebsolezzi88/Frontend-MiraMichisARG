@@ -5,6 +5,7 @@ import type { CatPost } from "../types/types";
 import CatCardAdoption from "../components/CatCardAdoption";
 import CatCardLost from "../components/CatCardLost";
 import CatCardFound from "../components/CatCardFound";
+import { Link } from "react-router-dom";
 
 
 const MainPage = () => {
@@ -77,13 +78,13 @@ const MainPage = () => {
                   }
              </div>
              <div className="text-center mt-8">
-                <a href="#" className="inline-flex items-center px-6 py-3 border border-transparent 
+                <Link to={'/catpost/adopción'} className="inline-flex items-center px-6 py-3 border border-transparent 
                                    rounded-md shadow-sm text-base font-medium text-white 
                                    bg-orange-500 hover:bg-orange-600 focus:outline-none 
                                    focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 
                                    transition duration-300">
                     Ver todos los Michis en Adopción
-                </a>
+                </Link>
             </div>
       </section>
 
@@ -101,13 +102,13 @@ const MainPage = () => {
              </div>
 
              <div className="text-center mt-8">
-                <a href="#" className="inline-flex items-center px-6 py-3 border border-transparent 
+                <Link to={'/catpost/perdido'} className="inline-flex items-center px-6 py-3 border border-transparent 
                                    rounded-md shadow-sm text-base font-medium text-white 
                                    bg-orange-500 hover:bg-orange-600 focus:outline-none 
                                    focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 
                                    transition duration-300">
                     Ver todos los Michis Perdidos
-                </a>
+                </Link>
             </div>
       </section>
 
@@ -125,13 +126,13 @@ const MainPage = () => {
              </div>
 
              <div className="text-center mt-8">
-                <a href="#" className="inline-flex items-center px-6 py-3 border border-transparent 
+                <Link to={'/catpost/encontrado'} className="inline-flex items-center px-6 py-3 border border-transparent 
                                    rounded-md shadow-sm text-base font-medium text-white 
                                    bg-orange-500 hover:bg-orange-600 focus:outline-none 
                                    focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 
                                    transition duration-300">
                     Ver todos los Michis Encontrados
-                </a>
+                </Link>
             </div>
       </section>
       
