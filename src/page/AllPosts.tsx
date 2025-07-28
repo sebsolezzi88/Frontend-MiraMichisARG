@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import type { CatPost } from "../types/types";
+import { useParams } from "react-router-dom";
 
 const AllPosts = () => {
 
@@ -8,8 +9,12 @@ const AllPosts = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
 
+    const {type} = useParams() //obtener parametro de tipo de la URL
+
+
+
   
-    useEffect(() => {
+    /* useEffect(() => {
         const getCatPots = async () => {
             try {
                 setLoading(true);
@@ -30,14 +35,14 @@ const AllPosts = () => {
             }
         }
         getCatPots();
-    }, [])
+    }, []) */
 
     if (loading) return <div>Cargado...</div>
 
     if (error) return <div>{error}</div>
 
     return (
-        <div>Adoption</div>
+        <div>{type}</div>
     )
 }
 
