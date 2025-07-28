@@ -121,7 +121,7 @@ export interface ApiSingleCatPostResponse {
 }
 
 //type para los comentarios
-export interface Comment {
+export interface PostComment {
     catPostid: string;
     userId: string;
     text: string;
@@ -147,5 +147,5 @@ export interface PostFullData{
 }
 export interface ApiCommentResponse extends ApiResponse {
     post: PostFullData;
-    comments: Comment[];
+    comments: PostComment[];
 }

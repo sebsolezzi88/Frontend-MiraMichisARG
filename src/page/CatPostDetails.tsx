@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getCatPosAndCommentstById } from "../api/comment";
+import type { PostComment, PostFullData } from "../types/types";
 
 
 const CatPostDetails = () => {
 
 
-    const [catPosts, setCatPosts] = useState();
+    const [postData, setPostData] = useState<PostFullData | null>(null);
+    const [commentData, setCommentData] = useState<PostComment[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
     const navigate = useNavigate();
@@ -29,11 +31,11 @@ const CatPostDetails = () => {
                 setLoading(true);
                 const response = await getCatPosAndCommentstById(id);
                 if (response.status === 'success' && response.post) {
-                    console.log(response);
-
+                    setPostData(response.post);
+                    setCommentData(response.comments);
                 } else {
-                    toast.error('Hubo un problema al obtener Post de adopción', { theme: "colored", autoClose: 3000 });
-                    setError('No se pudieron obtener los Post de adopción');
+                    toast.error('Hubo un problema al obtener Post ', { theme: "colored", autoClose: 3000 });
+                    setError('No se pudieron obtener el Post ni comentarios ');
                 }
             } catch (error) {
                 console.log(error);
