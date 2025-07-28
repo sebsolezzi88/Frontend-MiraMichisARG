@@ -127,8 +127,23 @@ export interface Comment {
     text: string;
     createdAt: Date;
 }
-
+export interface UserInfo {
+    _id:string;
+    avatarUrl:string;
+}
 export interface ApiCommentResponse extends ApiResponse {
     post: CatPost;
-    comments: Comment
+    comments: Comment;
+    _id: string;
+    age: string;
+    breed: string;
+    catName:string;
+    date: Date
+    description: string;
+    gender: Gender;
+    location: Location;
+    photoUrl: string;
+    publicationStatus: PublicationStatus;
+    typeOfPublication: TypeOfPublication;
+    userId: UserInfo;
 }
