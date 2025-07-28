@@ -36,9 +36,7 @@ function App() {
         <Route path="/reset" element={<RestardPassword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/catpost/:type" element={<AllPosts/>}/>
-        <Route path="/catpost/post/:id" element={<CatPostDetails/>}/>
-
-
+      
         <Route
           path="/profile"
           element={
@@ -60,6 +58,14 @@ function App() {
           element={
             <ProtectedRoute>
               <CatPostToEdit />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/catpost/post/:id"
+          element={
+            <ProtectedRoute>
+              <CatPostDetails />
             </ProtectedRoute>
           }
         />
