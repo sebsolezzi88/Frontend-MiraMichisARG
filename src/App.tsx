@@ -17,6 +17,7 @@ import NewCatPost from './page/NewCatPost'
 import ReactModal from 'react-modal'
 import CatPostToEdit from './page/CatPostToEdit'
 import Footer from './components/Footer'
+import AllPosts from './page/AllPosts'
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <Route path="/activate" element={<ActivateAccount />} />
         <Route path="/reset" element={<RestardPassword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
+        <Route path="/catpost/:type" element={<AllPosts/>}/>
 
         <Route
           path="/profile"
