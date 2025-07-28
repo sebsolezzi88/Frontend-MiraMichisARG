@@ -3,6 +3,9 @@ import { toast } from "react-toastify";
 import type { CatPost, TypeOfPublication } from "../types/types";
 import { useNavigate, useParams } from "react-router-dom";
 import { getAllCatPostsByType } from "../api/catPost";
+import CatCardFound from "../components/CatCardFound";
+import CatCardLost from "../components/CatCardLost";
+import CatCardAdoption from "../components/CatCardAdoption";
 
 const AllPosts = () => {
 
@@ -29,7 +32,7 @@ const AllPosts = () => {
                 const response = await getAllCatPostsByType(type);
                 if (response.status === 'success' && response.posts) {
                     setCatPosts(response.posts);
-                    console.log(catPosts)
+
                 } else {
                     toast.error('Hubo un problema al obtener Post de adopción', { theme: "colored", autoClose: 3000 });
                     setError('No se pudieron obtener los Post de adopción');
@@ -43,14 +46,50 @@ const AllPosts = () => {
             }
         }
         getCatPots();
-    }, []) 
+    }, [])
+    
+    const getHeading = (type: string) => {
+        switch (type) {
+            case 'encontrado':
+                return 'Michis Encontrados';
+            case 'perdido':
+                return 'Michis Perdidos';
+            case 'adopción':
+                return 'Michis en Adopción';
+            default:
+                return 'Publicaciones';
+        }
+    };
 
     if (loading) return <div>Cargado...</div>
 
     if (error) return <div>{error}</div>
 
     return (
-        <div>{type}</div>
+        <>
+            <div className="max-w-7xl mx-auto space-y-10">
+                <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+                   {getHeading(type!)}
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {catPosts.length > 0 
+                        ? catPosts.map((post) => {
+                            switch (post.typeOfPublication) {
+                            case 'encontrado':
+                                return <CatCardFound key={post._id} post={post} />;
+                            case 'perdido':
+                                return <CatCardLost key={post._id} post={post} />;
+                            case 'adopción':
+                                return <CatCardAdoption key={post._id} post={post} />;
+                            default:
+                                return null; // O algún componente de fallback
+                            }
+                        })
+                        : <p className="text-center col-span-full">En estos momentos no hay publicaciones</p>
+                    }
+                </div>
+            </div>
+        </>
     )
 }
 
