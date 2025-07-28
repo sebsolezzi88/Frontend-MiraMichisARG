@@ -117,6 +117,27 @@ export const getAllCatPosts = async () =>{
     }
 }
 
+//Obtener todos los catpost por su type
+export const getAllCatPostsByType = async (type:string) =>{
+     try {
+        if(!type || type.trim()===''){
+            throw new Error("Tipo de publicación requerido."); 
+        }
+        const res = await axios.get<ApiCatGetResponse>(`${URL}/catpost/type/${type}`);
+        return res.data;
+
+    } catch (error) {
+       
+        if (axios.isAxiosError(error)) {
+            console.error(`Error al obtener los catPosts de ${type}`, error.response?.data || error.message);
+            throw new Error(error.response?.data?.message || "Error desconocido al obtener los catPosts.");
+        } else {
+            console.error("Error inesperado:", error);
+            throw new Error("Ocurrió un error inesperado.");
+        }
+    }
+}
+
 export const getCatPostById = async (id:string) =>{
     
 
