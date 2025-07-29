@@ -7,9 +7,10 @@ import { addCommentToCatPost } from "../api/comment";
 interface CatPostCommentsProps {
   postData: PostFullData;
   commentData: PostComment[];
+  setCommentData: React.Dispatch<React.SetStateAction<PostComment[]>>;
 }
 
-const CatPostComments = ({ postData, commentData }: CatPostCommentsProps) => {
+const CatPostComments = ({ postData, commentData, setCommentData }: CatPostCommentsProps) => {
 
   //Estado para mostrar o ocultar comentarios
   const [isHidden, setIsHidden] = useState<boolean>(true);
