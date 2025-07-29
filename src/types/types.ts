@@ -130,6 +130,7 @@ export interface PostComment {
 export interface UserInfo {
     _id:string;
     avatarUrl:string;
+    username:string;
 }
 export interface PostFullData{
     _id: string;

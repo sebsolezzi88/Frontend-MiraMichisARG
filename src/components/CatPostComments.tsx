@@ -8,34 +8,40 @@ interface CatPostCommentsProps {
 
 const CatPostComments = ({ postData, commentData }: CatPostCommentsProps) => {
 
-   
-    // --- Lógica para determinar los colores de la tarjeta y etiquetas ---
-    let typeTagBgClass = '';
-    let textTagColor='';
- 
-    if (postData.typeOfPublication === 'adopción') {
 
-        typeTagBgClass = 'bg-emerald-400';
-        textTagColor = 'text-white'
-    } else if (postData.typeOfPublication === 'encontrado') {
-        
-        typeTagBgClass = 'bg-yellow-400';
-        textTagColor = 'text-gray-800'
-    } else if(postData.typeOfPublication==='perdido') {
-        
-        typeTagBgClass = 'bg-rose-400';
-        textTagColor = 'text-white'
-    }
+  // --- Lógica para determinar los colores de la tarjeta y etiquetas ---
+  let typeTagBgClass = '';
+  let textTagColor = '';
+
+  if (postData.typeOfPublication === 'adopción') {
+
+    typeTagBgClass = 'bg-emerald-400';
+    textTagColor = 'text-white'
+  } else if (postData.typeOfPublication === 'encontrado') {
+
+    typeTagBgClass = 'bg-yellow-400';
+    textTagColor = 'text-gray-800'
+  } else if (postData.typeOfPublication === 'perdido') {
+
+    typeTagBgClass = 'bg-rose-400';
+    textTagColor = 'text-white'
+  }
   return (
     <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
-      <img className="w-full h-96 object-cover" src={postData.photoUrl} alt={`Imagen del ${postData.catName}` }/>
+      <img className="w-full h-96 object-cover" src={postData.photoUrl} alt={`Imagen del ${postData.catName}`} />
       <div className="p-8">
-        <div className="flex justify-between items-center mb-4">
-          <span className={`inline-block px-3 py-1 text-sm font-semibold rounded-full ${typeTagBgClass} ${textTagColor}`}>
-            {capitalize(postData.typeOfPublication)}
-          </span>
-          <span className="text-gray-600 text-sm">Publicado: {formatDate(postData.date)}</span>
-        </div>
+       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
+  <span className={`inline-block px-3 py-1 text-sm font-semibold rounded-full ${typeTagBgClass} ${textTagColor}`}>
+    {capitalize(postData.typeOfPublication)}
+  </span>
+
+  <div className="flex items-center flex-wrap gap-1 text-sm text-gray-600">
+    <span>Publicado: {formatDate(postData.date)} por</span>
+    <span className="bg-blue-500 text-white px-3 py-1 font-semibold rounded-full">
+      {postData.userId.username}
+    </span>
+  </div>
+</div>
         <h2 className="text-3xl font-bold text-gray-800 mb-2">
           {postData.catName}
         </h2>
