@@ -53,7 +53,10 @@ const CatPostComments = ({ postData, commentData, setCommentData }: CatPostComme
       const response = await addCommentToCatPost(commentFormData, postData._id);
       if (response.status === 'success') {
         console.log(response.comment);
+        setCommentData(prev => [response.comment, ...prev]);
+        toast.success('Comentario publicado', { theme: "colored", autoClose: 3000 });
         setCommentFormData({ ...commentFormData, text: '' });
+        
       } else {
         toast.error('No se logró agregar tu comentario', { theme: "colored", autoClose: 3000 });
       }
