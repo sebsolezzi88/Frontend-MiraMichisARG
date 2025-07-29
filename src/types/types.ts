@@ -155,5 +155,6 @@ export interface ApiCommentResponse extends ApiResponse {
 }
 export interface ApiPostCommentResponse extends ApiResponse{
     comment:PostComment;
+    userId: UserInfo;
 }
 
