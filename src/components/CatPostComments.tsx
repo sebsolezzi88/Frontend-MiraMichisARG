@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { PostComment, PostCommentFormData, PostFullData } from "../types/types";
 import { capitalize, formatDate } from "../utils/utils";
 import { toast } from "react-toastify";
+import { addCommentToCatPost } from "../api/comment";
 
 interface CatPostCommentsProps {
   postData: PostFullData;
@@ -41,7 +42,21 @@ const CatPostComments = ({ postData, commentData }: CatPostCommentsProps) => {
   const handletSubmit = async () => {
     
     if(!commentFormData.text || commentFormData.text.trim() === ''){
-      toast.error('Debe ingresar un comentario primero', { theme: "colored", autoClose: 3000 });
+      return toast.error('Debe ingresar un comentario primero', { theme: "colored", autoClose: 3000 });
+    }
+
+    try {
+      console.log(commentFormData)
+      const response = await addCommentToCatPost(commentFormData,postData._id);
+      if(response.status === 'success'){
+        console.log(response.comment);
+        setCommentFormData({...commentFormData,text:''});
+      }else{
+        toast.error('No se logró agregar tu comentario', { theme: "colored", autoClose: 3000 });
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error('Ocurrió un error al crear el comenario', { theme: "colored", autoClose: 3000 });
     }
   }
   return (
