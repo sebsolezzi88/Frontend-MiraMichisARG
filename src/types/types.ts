@@ -128,7 +128,7 @@ export interface PostComment {
     createdAt: Date;
 }
 
-export type PostCommentFormData = Pick<PostComment, 'catPostid' | 'text'>; //Type para crear los comentarios
+export type PostCommentFormData = Pick<PostComment, 'text'>; //Type para crear los comentarios
 
 export interface UserInfo {
     _id:string;
