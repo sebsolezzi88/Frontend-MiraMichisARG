@@ -107,12 +107,12 @@ const CatPostComments = ({ postData, commentData, setCommentData }: CatPostComme
               ? commentData.map(comment =>
                 <div key={comment._id} className="flex space-x-3">
                   <div className="flex-shrink-0">
-                    <img className="h-8 w-8 rounded-full object-cover" src="img/profile.jpg" alt="Avatar de Usuario 1" />
+                    <img className="h-8 w-8 rounded-full object-cover" src={comment.userId.avatarUrl} alt="Avatar de Usuario 1" />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between">
-                      <h4 className="text-sm font-semibold text-gray-800">j</h4>
-                      <span className="text-xs text-gray-500">Hace 2 días</span>
+                      <h4 className="text-sm font-semibold text-gray-800">{comment.userId.username}</h4>
+                      <span className="text-xs text-gray-500">{formatDate(comment.createdAt)}</span>
                     </div>
                     <p className="text-sm text-gray-600">{comment.text}</p>
                   </div>
