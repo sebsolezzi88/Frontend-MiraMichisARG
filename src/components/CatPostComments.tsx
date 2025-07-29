@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { PostComment, PostFullData } from "../types/types";
 import { capitalize, formatDate } from "../utils/utils";
 
@@ -7,6 +8,9 @@ interface CatPostCommentsProps {
 }
 
 const CatPostComments = ({ postData, commentData }: CatPostCommentsProps) => {
+
+  //Estado para mostrar o ocultar comentarios
+  const [isHidden, setIsHidden] = useState<boolean>(true);
 
 
   // --- Lógica para determinar los colores de la tarjeta y etiquetas ---
@@ -26,22 +30,26 @@ const CatPostComments = ({ postData, commentData }: CatPostCommentsProps) => {
     typeTagBgClass = 'bg-rose-400';
     textTagColor = 'text-white'
   }
+
+  const handleHidden = () => {
+    setIsHidden(!isHidden);
+  }
   return (
     <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
       <img className="w-full h-96 object-cover" src={postData.photoUrl} alt={`Imagen del ${postData.catName}`} />
       <div className="p-8">
-       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
-  <span className={`inline-block px-3 py-1 text-sm font-semibold rounded-full ${typeTagBgClass} ${textTagColor}`}>
-    {capitalize(postData.typeOfPublication)}
-  </span>
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
+          <span className={`inline-block px-3 py-1 text-sm font-semibold rounded-full ${typeTagBgClass} ${textTagColor}`}>
+            {capitalize(postData.typeOfPublication)}
+          </span>
 
-  <div className="flex items-center flex-wrap gap-1 text-sm text-gray-600">
-    <span>Publicado: {formatDate(postData.date)} por</span>
-    <span className="bg-blue-500 text-white px-3 py-1 font-semibold rounded-full">
-      {postData.userId.username}
-    </span>
-  </div>
-</div>
+          <div className="flex items-center flex-wrap gap-1 text-sm text-gray-600">
+            <span>Publicado: {formatDate(postData.date)} por</span>
+            <span className="bg-blue-500 text-white px-3 py-1 font-semibold rounded-full">
+              {postData.userId.username}
+            </span>
+          </div>
+        </div>
         <h2 className="text-3xl font-bold text-gray-800 mb-2">
           {postData.catName}
         </h2>
@@ -60,11 +68,13 @@ const CatPostComments = ({ postData, commentData }: CatPostCommentsProps) => {
         </button>
 
         <div className="mt-8 border-t border-gray-200 pt-6">
-          <button id="toggleComments" className="w-full py-2 px-4 rounded-md bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition duration-300 text-center">
+          <button
+            onClick={handleHidden}
+            id="toggleComments" className="w-full py-2 px-4 rounded-md bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition duration-300 text-center">
             Mostrar Comentarios (3)
           </button>
 
-          <div id="commentsSection" className="comment-section mt-4 space-y-4">
+          <div id="commentsSection" className={`comment-section mt-4 space-y-4 ${isHidden ? 'hidden' : ''}`} >
             <div className="flex space-x-3">
               <div className="flex-shrink-0">
                 <img className="h-8 w-8 rounded-full object-cover" src="img/profile.jpg" alt="Avatar de Usuario 1" />
