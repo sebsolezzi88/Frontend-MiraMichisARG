@@ -127,6 +127,9 @@ export interface PostComment {
     text: string;
     createdAt: Date;
 }
+
+export type PostCommentFormData = Pick<PostComment, 'catPostid' | 'text'>; //Type para crear los comentarios
+
 export interface UserInfo {
     _id:string;
     avatarUrl:string;
@@ -150,3 +153,4 @@ export interface ApiCommentResponse extends ApiResponse {
     post: PostFullData;
     comments: PostComment[];
 }
+
