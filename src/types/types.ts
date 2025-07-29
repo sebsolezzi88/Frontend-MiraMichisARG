@@ -153,4 +153,7 @@ export interface ApiCommentResponse extends ApiResponse {
     post: PostFullData;
     comments: PostComment[];
 }
+export interface ApiPostCommentResponse extends ApiResponse{
+    comment:PostComment;
+}
 
