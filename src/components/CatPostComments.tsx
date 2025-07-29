@@ -12,10 +12,12 @@ interface CatPostCommentsProps {
 
 const CatPostComments = ({ postData, commentData, setCommentData }: CatPostCommentsProps) => {
 
+  console.log(commentData)
+
   //Estado para mostrar o ocultar comentarios
   const [isHidden, setIsHidden] = useState<boolean>(true);
   //Estado para creación de comentario
-  const [commentFormData, setCommentFormData] = useState<PostCommentFormData>({  text: '' });
+  const [commentFormData, setCommentFormData] = useState<PostCommentFormData>({ text: '' });
 
 
   // --- Lógica para determinar los colores de la tarjeta y etiquetas ---
@@ -41,18 +43,18 @@ const CatPostComments = ({ postData, commentData, setCommentData }: CatPostComme
   }
 
   const handletSubmit = async () => {
-    
-    if(!commentFormData.text || commentFormData.text.trim() === ''){
+
+    if (!commentFormData.text || commentFormData.text.trim() === '') {
       return toast.error('Debe ingresar un comentario primero', { theme: "colored", autoClose: 3000 });
     }
 
     try {
       console.log(commentFormData)
-      const response = await addCommentToCatPost(commentFormData,postData._id);
-      if(response.status === 'success'){
+      const response = await addCommentToCatPost(commentFormData, postData._id);
+      if (response.status === 'success') {
         console.log(response.comment);
-        setCommentFormData({...commentFormData,text:''});
-      }else{
+        setCommentFormData({ ...commentFormData, text: '' });
+      } else {
         toast.error('No se logró agregar tu comentario', { theme: "colored", autoClose: 3000 });
       }
     } catch (error) {
@@ -97,48 +99,29 @@ const CatPostComments = ({ postData, commentData, setCommentData }: CatPostComme
           <button
             onClick={handleHidden}
             id="toggleComments" className="w-full py-2 px-4 rounded-md bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition duration-300 text-center">
-            Mostrar Comentarios (3)
+            Mostrar Comentarios ({commentData.length})
           </button>
 
           <div id="commentsSection" className={`comment-section mt-4 space-y-4 ${isHidden ? 'hidden' : ''}`} >
-            <div className="flex space-x-3">
-              <div className="flex-shrink-0">
-                <img className="h-8 w-8 rounded-full object-cover" src="img/profile.jpg" alt="Avatar de Usuario 1" />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-sm font-semibold text-gray-800">UsuarioUno</h4>
-                  <span className="text-xs text-gray-500">Hace 2 días</span>
-                </div>
-                <p className="text-sm text-gray-600">¡Qué hermoso michi! Espero que encuentre un hogar pronto.</p>
-              </div>
-            </div>
+            {commentData.length > 0
+              ? commentData.map(comment =>
+                <div key={comment._id} className="flex space-x-3">
+                  <div className="flex-shrink-0">
+                    <img className="h-8 w-8 rounded-full object-cover" src="img/profile.jpg" alt="Avatar de Usuario 1" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-sm font-semibold text-gray-800">j</h4>
+                      <span className="text-xs text-gray-500">Hace 2 días</span>
+                    </div>
+                    <p className="text-sm text-gray-600">{comment.text}</p>
+                  </div>
+                </div>)
+              : null
+            }
 
-            <div className="flex space-x-3">
-              <div className="flex-shrink-0">
-                <img className="h-8 w-8 rounded-full object-cover" src="img/profile.jpg" alt="Avatar de Usuario 2" />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-sm font-semibold text-gray-800">FanDeMichis</h4>
-                  <span className="text-xs text-gray-500">Ayer</span>
-                </div>
-                <p className="text-sm text-gray-600">Me encanta su pelaje. ¿Dónde se encuentra exactamente?</p>
-              </div>
-            </div>
 
-            <div className="flex space-x-3">
-              <div className="flex-shrink-0">
-                <img className="h-8 w-8 rounded-full object-cover" src="img/profile.jpg" alt="Avatar de Usuario 3" />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-sm font-semibold text-gray-800">AmanteDeLosGatos</h4>
-                  <span className="text-xs text-gray-500">Hace 1 hora</span>
-                </div>
-                <p className="text-sm text-gray-600">Ojalá pudiera adoptarlo. ¡Es perfecto!</p>
-              </div>
-            </div>
+
           </div>
 
           <div className="mt-6">

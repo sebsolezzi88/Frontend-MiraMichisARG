@@ -123,7 +123,7 @@ export interface ApiSingleCatPostResponse {
 //type para los comentarios
 export interface PostComment {
     catPostid: string;
-    userId: string;
+    userId: UserInfo;
     text: string;
     createdAt: Date;
 }
