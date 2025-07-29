@@ -13,7 +13,7 @@ const CatPostComments = ({ postData, commentData }: CatPostCommentsProps) => {
   //Estado para mostrar o ocultar comentarios
   const [isHidden, setIsHidden] = useState<boolean>(true);
   //Estado para creación de comentario
-  const [commentFormData, setCommentFormData] = useState<PostCommentFormData>({ catPostid: '', text: '' });
+  const [commentFormData, setCommentFormData] = useState<PostCommentFormData>({  text: '' });
 
 
   // --- Lógica para determinar los colores de la tarjeta y etiquetas ---
@@ -39,8 +39,7 @@ const CatPostComments = ({ postData, commentData }: CatPostCommentsProps) => {
   }
 
   const handletSubmit = async () => {
-    //obtener el id del catpost y agregarlo al estado
-    setCommentFormData({...commentFormData,catPostid:postData._id})
+    
     if(!commentFormData.text || commentFormData.text.trim() === ''){
       toast.error('Debe ingresar un comentario primero', { theme: "colored", autoClose: 3000 });
     }
