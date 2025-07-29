@@ -56,7 +56,7 @@ const CatPostDetails = () => {
     if (!postData) return <div>Cargando datos del michi...</div>;
 
   return (
-     <CatPostComments postData={postData} commentData={commentData}/>
+     <CatPostComments postData={postData} commentData={commentData} setCommentData={setCommentData}/>
   )
 }
 
