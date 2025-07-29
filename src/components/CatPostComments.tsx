@@ -1,6 +1,7 @@
 import { useState } from "react";
-import type { PostComment, PostFullData } from "../types/types";
+import type { PostComment, PostCommentFormData, PostFullData } from "../types/types";
 import { capitalize, formatDate } from "../utils/utils";
+import { toast } from "react-toastify";
 
 interface CatPostCommentsProps {
   postData: PostFullData;
@@ -11,6 +12,8 @@ const CatPostComments = ({ postData, commentData }: CatPostCommentsProps) => {
 
   //Estado para mostrar o ocultar comentarios
   const [isHidden, setIsHidden] = useState<boolean>(true);
+  //Estado para creación de comentario
+  const [commentFormData, setCommentFormData] = useState<PostCommentFormData>({ catPostid: '', text: '' });
 
 
   // --- Lógica para determinar los colores de la tarjeta y etiquetas ---
@@ -33,6 +36,14 @@ const CatPostComments = ({ postData, commentData }: CatPostCommentsProps) => {
 
   const handleHidden = () => {
     setIsHidden(!isHidden);
+  }
+
+  const handletSubmit = async () => {
+    //obtener el id del catpost y agregarlo al estado
+    setCommentFormData({...commentFormData,catPostid:postData._id})
+    if(!commentFormData.text || commentFormData.text.trim() === ''){
+      toast.error('Debe ingresar un comentario primero', { theme: "colored", autoClose: 3000 });
+    }
   }
   return (
     <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
@@ -123,11 +134,16 @@ const CatPostComments = ({ postData, commentData }: CatPostCommentsProps) => {
               </div>
               <div className="flex-1">
                 <textarea
+                  name="text"
+                  value={commentFormData.text}
+                  onChange={(e) => setCommentFormData({ ...commentFormData, [e.target.name]: e.target.value })}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                   rows={3}
                   placeholder="Escribe tu comentario aquí..."
                 ></textarea>
-                <button className="mt-2 py-2 px-4 rounded-md bg-orange-500 text-white font-semibold hover:bg-orange-600 transition duration-300 text-sm">
+                <button
+                  onClick={handletSubmit}
+                  className="mt-2 py-2 px-4 rounded-md bg-orange-500 text-white font-semibold hover:bg-orange-600 transition duration-300 text-sm">
                   Publicar Comentario
                 </button>
               </div>
