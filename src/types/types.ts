@@ -122,6 +122,7 @@ export interface ApiSingleCatPostResponse {
 
 //type para los comentarios
 export interface PostComment {
+    _id:string
     catPostid: string;
     userId: UserInfo;
     text: string;
