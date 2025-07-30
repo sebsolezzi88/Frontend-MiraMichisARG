@@ -55,6 +55,7 @@ export interface UserData {
     username: string;
     name: string;
     lastName: string;
+    location:Location;
     bio: string;
     role: string;
     avatarUrl:string;

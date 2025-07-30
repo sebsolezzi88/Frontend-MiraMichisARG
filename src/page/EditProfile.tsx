@@ -1,4 +1,44 @@
+import { useEffect, useState } from "react"
+import type { ProfileFormData, UserData } from "../types/types";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 const EditProfile = () => {
+
+    const navigate = useNavigate();
+
+    //Estado del EditForm
+    const [profileFormData, setProfileFormData] = useState<ProfileFormData>(
+        {
+            name: '',
+            lastName: '',
+            bio: '',
+            location: { city: '', province: '' },
+            photo: null
+        }
+    );
+
+
+    //Obtener del local Storage datos del perfil
+    useEffect(() => {
+
+        try {
+            const data = localStorage.getItem('userData');
+            const userData = JSON.parse(data!) as UserData;
+
+            if(!userData){
+                navigate('/login');
+                toast.error('Debe loguearse', { theme: "colored", autoClose: 3000 });
+                return;
+            }
+
+        } catch (error) {
+            toast.error('No se logró obtener Avatar', { theme: "colored", autoClose: 3000 });
+        }
+
+
+    }, [])
+
     return (
         <div className="bg-amber-50 min-h-screen flex items-center justify-center p-4">
             <div className="max-w-xl w-full bg-white rounded-xl shadow-lg p-8 space-y-6">
@@ -17,7 +57,7 @@ const EditProfile = () => {
                             <img className="w-full h-full object-cover"
                                 src="img/profile.jpg"
                                 alt="Avatar actual del usuario" />
-                        
+
                         </div>
                         <label htmlFor="profile_picture" className="block text-sm font-medium text-gray-700 mb-2">Cambiar Foto de Perfil</label>
                         <input
@@ -32,7 +72,7 @@ const EditProfile = () => {
                            file:bg-orange-50 file:text-orange-700
                            hover:file:bg-orange-100 cursor-pointer"
                         />
-                       
+
                     </div>
 
                     <div>
