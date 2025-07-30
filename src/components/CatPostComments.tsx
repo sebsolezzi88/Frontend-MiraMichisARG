@@ -1,8 +1,9 @@
-import { useState } from "react";
-import type { PostComment, PostCommentFormData, PostFullData } from "../types/types";
+import { useEffect, useState } from "react";
+import type { PostComment, PostCommentFormData, PostFullData, UserData } from "../types/types";
 import { capitalize, formatDate } from "../utils/utils";
 import { toast } from "react-toastify";
 import { addCommentToCatPost } from "../api/comment";
+import anonCat from '../assets/anoncat.png';
 
 interface CatPostCommentsProps {
   postData: PostFullData;
@@ -18,6 +19,21 @@ const CatPostComments = ({ postData, commentData, setCommentData }: CatPostComme
   const [isHidden, setIsHidden] = useState<boolean>(true);
   //Estado para creación de comentario
   const [commentFormData, setCommentFormData] = useState<PostCommentFormData>({ text: '' });
+
+  const [avatar,setAvatar] = useState<string>('');
+
+  //useEffect para obtener la imagen de localStorage
+  useEffect(() => {
+     try {
+        const data = localStorage.getItem('userData');
+        const userData = JSON.parse(data!) as UserData;
+        setAvatar(userData.avatarUrl);
+     } catch (error) {
+        toast.error('No se logró obtener Avatar', { theme: "colored", autoClose: 3000 });
+     }
+    
+  }, [])
+  
 
 
   // --- Lógica para determinar los colores de la tarjeta y etiquetas ---
@@ -131,7 +147,7 @@ const CatPostComments = ({ postData, commentData, setCommentData }: CatPostComme
             <h3 className="text-lg font-semibold text-gray-800 mb-2">Dejar un Comentario</h3>
             <div className="flex space-x-3">
               <div className="flex-shrink-0">
-                <img className="h-8 w-8 rounded-full object-cover" src="img/default_avatar.png" alt="Tu Avatar" />
+                <img className="h-8 w-8 rounded-full object-cover" src={avatar ? avatar : anonCat} alt="Tu Avatar" />
               </div>
               <div className="flex-1">
                 <textarea
