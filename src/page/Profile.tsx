@@ -98,13 +98,13 @@ const Profile = () => {
                         Administra tus publicaciones y tu perfil aquí.
                     </p>
 
-                    <a href="#" className="inline-flex items-center mt-4 px-4 py-2 border border-transparent 
+                    <Link to={'edit'} className="inline-flex items-center mt-4 px-4 py-2 border border-transparent 
                                rounded-md shadow-sm text-sm font-medium text-white 
                                bg-blue-500 hover:bg-blue-600 focus:outline-none 
                                focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 
                                transition duration-300">
                         Editar Perfil
-                    </a>
+                    </Link>
                 </div>
 
                 <nav className="flex flex-col md:flex-row md:justify-center md:space-x-4 
