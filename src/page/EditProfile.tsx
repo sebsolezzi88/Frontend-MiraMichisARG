@@ -1,7 +1,145 @@
 const EditProfile = () => {
-  return (
-    <div>EditProfile</div>
-  )
+    return (
+        <div className="bg-amber-50 min-h-screen flex items-center justify-center p-4">
+            <div className="max-w-xl w-full bg-white rounded-xl shadow-lg p-8 space-y-6">
+                <div className="text-center">
+                    <h2 className="text-3xl font-extrabold text-gray-800 mb-2">
+                        Editar Tu Perfil
+                    </h2>
+                    <p className="text-gray-600">
+                        Actualiza tu información personal y tu foto de perfil.
+                    </p>
+                </div>
+
+                <form action="#" method="POST" encType="multipart/form-data" className="space-y-4">
+                    <div className="flex flex-col items-center mb-6">
+                        <div className="w-32 h-32 rounded-full border-4 border-gray-200 shadow-md overflow-hidden mb-4 relative group">
+                            <img className="w-full h-full object-cover"
+                                src="img/profile.jpg"
+                                alt="Avatar actual del usuario" />
+                        
+                        </div>
+                        <label htmlFor="profile_picture" className="block text-sm font-medium text-gray-700 mb-2">Cambiar Foto de Perfil</label>
+                        <input
+                            type="file"
+                            id="profile_picture"
+                            name="profile_picture"
+                            accept="image/*"
+                            className="block w-full text-sm text-gray-500
+                           file:mr-4 file:py-2 file:px-4
+                           file:rounded-md file:border-0
+                           file:text-sm file:font-semibold
+                           file:bg-orange-50 file:text-orange-700
+                           hover:file:bg-orange-100 cursor-pointer"
+                        />
+                       
+                    </div>
+
+                    <div>
+                        <label htmlFor="bio" className="block text-sm font-medium text-gray-700 mb-1">Bio</label>
+                        <textarea
+
+                            value=""
+                            id="bio"
+                            name="bio"
+                            rows={4}
+                            maxLength={150}
+                            placeholder="Cuenta lo que quieras sobre ti."
+                            className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
+                                               focus:ring-orange-500 focus:border-orange-500 sm:text-sm resize-y"
+                            required
+                        ></textarea>
+                    </div>
+                    <div>
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+                        <input
+                            type="text"
+                            id="nombre"
+                            name="name"
+                            value="Juan" className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
+                           focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Apellido</label>
+                        <input
+                            type="text"
+                            id="apellido"
+                            name="username"
+                            value="Pérez" className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
+                           focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">Ciudad</label>
+                        <input
+                            type="text"
+                            id="city"
+                            name="city"
+                            value="San Nicolás de los Arroyos" className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
+                           focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="province" className="block text-sm font-medium text-gray-700 mb-1">Provincia</label>
+                        <select
+                            id="province"
+                            name="province"
+                            className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
+                           focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+                            required
+                        >
+                            <option value="">Selecciona una provincia</option>
+                            <option value="Buenos Aires" selected>Buenos Aires</option> <option value="CABA">Ciudad Autónoma de Buenos Aires (CABA)</option>
+                            <option value="Catamarca">Catamarca</option>
+                            <option value="Chaco">Chaco</option>
+                            <option value="Chubut">Chubut</option>
+                            <option value="Córdoba">Córdoba</option>
+                            <option value="Corrientes">Corrientes</option>
+                            <option value="Entre Ríos">Entre Ríos</option>
+                            <option value="Formosa">Formosa</option>
+                            <option value="Jujuy">Jujuy</option>
+                            <option value="La Pampa">La Pampa</option>
+                            <option value="La Rioja">La Rioja</option>
+                            <option value="Mendoza">Mendoza</option>
+                            <option value="Misiones">Misiones</option>
+                            <option value="Neuquén">Neuquén</option>
+                            <option value="Río Negro">Río Negro</option>
+                            <option value="Salta">Salta</option>
+                            <option value="San Juan">San Juan</option>
+                            <option value="San Luis">San Luis</option>
+                            <option value="Santa Cruz">Santa Cruz</option>
+                            <option value="Santa Fe">Santa Fe</option>
+                            <option value="Santiago del Estero">Santiago del Estero</option>
+                            <option value="Tierra del Fuego">Tierra del Fuego</option>
+                            <option value="Tucumán">Tucumán</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <button
+                            type="submit"
+                            className="w-full flex justify-center py-2 px-4 border border-transparent
+                           rounded-md shadow-sm text-sm font-medium text-white
+                           bg-orange-500 hover:bg-orange-600 focus:outline-none
+                           focus:ring-2 focus:ring-offset-2 focus:ring-orange-500
+                           transition duration-300"
+                        >
+                            Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    )
 }
 
 export default EditProfile
