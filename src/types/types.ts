@@ -51,13 +51,14 @@ export type LoginFormData = Pick<RegisterFormData, 'username'|'password'>;
 
 //interface loginApiResponse si se loguea correctamente
 export interface UserData {
-    userId:string,
-    username: string,
-    name: string,
-    lastName: string,
-    role: string,
-    avatarUrl:string
-    token:string
+    userId:string;
+    username: string;
+    name: string;
+    lastName: string;
+    bio: string;
+    role: string;
+    avatarUrl:string;
+    token:string;
 }
 export interface LoginApiResponse extends ApiResponse {
     user: UserData;   
