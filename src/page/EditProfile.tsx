@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, type FormEvent } from "react"
 import type { ProfileFormData, UserData } from "../types/types";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -31,6 +31,17 @@ const EditProfile = () => {
                 toast.error('Debe loguearse', { theme: "colored", autoClose: 3000 });
                 return;
             }
+            setProfileFormData(prevData => ({
+                ...prevData, 
+                name: userData.name || '',
+                lastName: userData.lastName || '',
+                bio: userData.bio || '', 
+                location: {
+                    city: userData.location?.city || '', 
+                    province: userData.location?.province || ''
+                }
+            }));
+            console.log(profileFormData)
 
         } catch (error) {
             toast.error('No se logró obtener Avatar', { theme: "colored", autoClose: 3000 });
@@ -38,6 +49,28 @@ const EditProfile = () => {
 
 
     }, [])
+
+    //handleChage
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    if (name === 'city' || name === 'province') {
+        setProfileFormData(prev => ({
+            ...prev,
+            location: {
+                ...prev.location,
+                [name]: value
+            }
+        }));
+    } else {
+        setProfileFormData(prev => ({ ...prev, [name]: value }));
+    }
+};
+
+    //Handled submit
+    const handletSubmit = async (e:FormEvent) =>{
+        e.preventDefault();
+        console.log(profileFormData);
+    }
 
     return (
         <div className="bg-amber-50 min-h-screen flex items-center justify-center p-4">
@@ -51,7 +84,7 @@ const EditProfile = () => {
                     </p>
                 </div>
 
-                <form action="#" method="POST" encType="multipart/form-data" className="space-y-4">
+                <form onSubmit={handletSubmit} method="POST" encType="multipart/form-data" className="space-y-4">
                     <div className="flex flex-col items-center mb-6">
                         <div className="w-32 h-32 rounded-full border-4 border-gray-200 shadow-md overflow-hidden mb-4 relative group">
                             <img className="w-full h-full object-cover"
@@ -78,8 +111,8 @@ const EditProfile = () => {
                     <div>
                         <label htmlFor="bio" className="block text-sm font-medium text-gray-700 mb-1">Bio</label>
                         <textarea
-
-                            value=""
+                            onChange={handleChange}
+                            value={profileFormData.bio}
                             id="bio"
                             name="bio"
                             rows={4}
@@ -93,22 +126,26 @@ const EditProfile = () => {
                     <div>
                         <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
                         <input
+                            onChange={handleChange}
+                            value={profileFormData.name}
                             type="text"
                             id="nombre"
                             name="name"
-                            value="Juan" className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
+                            className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
                            focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                             required
                         />
                     </div>
 
                     <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Apellido</label>
+                        <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">Apellido</label>
                         <input
+                            onChange={handleChange}
                             type="text"
-                            id="apellido"
-                            name="username"
-                            value="Pérez" className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
+                            id="lastName"
+                            name="lastName"
+                            value={profileFormData.lastName}
+                            className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
                            focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                             required
                         />
@@ -117,10 +154,12 @@ const EditProfile = () => {
                     <div>
                         <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">Ciudad</label>
                         <input
+                            onChange={handleChange}
                             type="text"
                             id="city"
                             name="city"
-                            value="San Nicolás de los Arroyos" className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
+                            value={profileFormData.location.city}
+                            className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
                            focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                             required
                         />
@@ -129,14 +168,16 @@ const EditProfile = () => {
                     <div>
                         <label htmlFor="province" className="block text-sm font-medium text-gray-700 mb-1">Provincia</label>
                         <select
+                            onChange={handleChange}
                             id="province"
                             name="province"
+                            value={profileFormData.location.province}
                             className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
                            focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                             required
                         >
                             <option value="">Selecciona una provincia</option>
-                            <option value="Buenos Aires" selected>Buenos Aires</option> <option value="CABA">Ciudad Autónoma de Buenos Aires (CABA)</option>
+                            <option value="Buenos Aires">Buenos Aires</option> <option value="CABA">Ciudad Autónoma de Buenos Aires (CABA)</option>
                             <option value="Catamarca">Catamarca</option>
                             <option value="Chaco">Chaco</option>
                             <option value="Chubut">Chubut</option>
