@@ -159,4 +159,12 @@ export interface ApiPostCommentResponse extends ApiResponse{
     comment:PostComment;
     userId: UserInfo;
 }
+//Para edición del perfil
+export interface ProfileFormData{
+    name:string;
+    lastName:string;
+    bio?:string;
+    location:Location;
+    photo?: File | null;
+}
 
