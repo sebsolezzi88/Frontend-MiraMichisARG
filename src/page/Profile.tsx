@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import anonCat from '../assets/anoncat.png';
 import { useEffect, useState } from 'react';
-import type { CatPost } from '../types/types';
+import type { CatPost, UserData } from '../types/types';
 import { deleteCatPost, getCatPosts } from '../api/catPost';
 import CatCardUser from '../components/CatCardUser';
 import { toast } from 'react-toastify';
@@ -14,13 +14,24 @@ const Profile = () => {
 
     //Estado para filtrar
     const [typeOfPost, setTypeOfPost] = useState<'adopción' | 'encontrado' | 'perdido' | ''>('')
+    
+    //Estado para la imagen del avatar
+    const [avatar,setAvatar] = useState<string>('');
 
     // Estado de carga
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    //Llamada para recuperar todos los CatPost del usuario logueado
     useEffect(() => {
+        //Obtener el avatar del usuario
+        try {
+            const data = localStorage.getItem('userData');
+            const userData = JSON.parse(data!) as UserData;
+            setAvatar(userData.avatarUrl);
+        } catch (error) {
+            toast.error('No se logró obtener Avatar', { theme: "colored", autoClose: 3000 });
+        }
+        //Llamada para recuperar todos los CatPost del usuario logueado
         const getCatPostByUserId = async () => {
             setLoading(true);
             setError(null);
@@ -76,7 +87,7 @@ const Profile = () => {
                 <div className="text-center pb-4 border-b border-gray-200 relative">
                     <div className="absolute -top-12 left-1/2 transform -translate-x-1/2">
                         <img className="w-24 h-24 rounded-full border-4 border-white shadow-md object-cover"
-                            src={anonCat}
+                            src={avatar? avatar: anonCat}
                             alt="Avatar de usuario" />
                     </div>
 
