@@ -19,6 +19,7 @@ import CatPostToEdit from './page/CatPostToEdit'
 import Footer from './components/Footer'
 import AllPosts from './page/AllPosts'
 import CatPostDetails from './page/CatPostDetails'
+import EditProfile from './page/EditProfile'
 
 
 function App() {
@@ -42,6 +43,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile/edit"
+          element={
+            <ProtectedRoute>
+              <EditProfile />
             </ProtectedRoute>
           }
         />
