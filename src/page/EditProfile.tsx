@@ -2,10 +2,14 @@ import { useEffect, useState, type FormEvent } from "react"
 import type { ProfileFormData, UserData } from "../types/types";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import anonCat from '../assets/anoncat.png';
 
 const EditProfile = () => {
 
     const navigate = useNavigate();
+
+    //EStado de la foto
+    const [avatar, setAvatar] = useState<string>("");
 
     //Estado del EditForm
     const [profileFormData, setProfileFormData] = useState<ProfileFormData>(
@@ -26,22 +30,24 @@ const EditProfile = () => {
             const data = localStorage.getItem('userData');
             const userData = JSON.parse(data!) as UserData;
 
-            if(!userData){
+            if (!userData) {
                 navigate('/login');
                 toast.error('Debe loguearse', { theme: "colored", autoClose: 3000 });
                 return;
             }
+            setAvatar(userData.avatarUrl);
             setProfileFormData(prevData => ({
-                ...prevData, 
+                ...prevData,
                 name: userData.name || '',
                 lastName: userData.lastName || '',
-                bio: userData.bio || '', 
+                bio: userData.bio || '',
                 location: {
-                    city: userData.location?.city || '', 
+                    city: userData.location?.city || '',
                     province: userData.location?.province || ''
                 }
             }));
             console.log(profileFormData)
+
 
         } catch (error) {
             toast.error('No se logró obtener Avatar', { theme: "colored", autoClose: 3000 });
@@ -52,22 +58,31 @@ const EditProfile = () => {
 
     //handleChage
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    if (name === 'city' || name === 'province') {
-        setProfileFormData(prev => ({
-            ...prev,
-            location: {
-                ...prev.location,
-                [name]: value
-            }
-        }));
-    } else {
-        setProfileFormData(prev => ({ ...prev, [name]: value }));
-    }
-};
+        const { name, value } = e.target;
+        if (name === 'city' || name === 'province') {
+            setProfileFormData(prev => ({
+                ...prev,
+                location: {
+                    ...prev.location,
+                    [name]: value
+                }
+            }));
+        } else {
+            setProfileFormData(prev => ({ ...prev, [name]: value }));
+        }
+    };
+
+    //handle Change para la foto
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setProfileFormData(prev => ({ ...prev, photo: e.target.files![0] }));
+        } else {
+            setProfileFormData(prev => ({ ...prev, photo: null }));
+        }
+    };
 
     //Handled submit
-    const handletSubmit = async (e:FormEvent) =>{
+    const handletSubmit = async (e: FormEvent) => {
         e.preventDefault();
         console.log(profileFormData);
     }
@@ -88,12 +103,13 @@ const EditProfile = () => {
                     <div className="flex flex-col items-center mb-6">
                         <div className="w-32 h-32 rounded-full border-4 border-gray-200 shadow-md overflow-hidden mb-4 relative group">
                             <img className="w-full h-full object-cover"
-                                src="img/profile.jpg"
+                                src={avatar ? avatar : anonCat}
                                 alt="Avatar actual del usuario" />
 
                         </div>
                         <label htmlFor="profile_picture" className="block text-sm font-medium text-gray-700 mb-2">Cambiar Foto de Perfil</label>
                         <input
+                            onChange={handleFileChange}
                             type="file"
                             id="profile_picture"
                             name="profile_picture"
@@ -177,7 +193,8 @@ const EditProfile = () => {
                             required
                         >
                             <option value="">Selecciona una provincia</option>
-                            <option value="Buenos Aires">Buenos Aires</option> <option value="CABA">Ciudad Autónoma de Buenos Aires (CABA)</option>
+                            <option value="Buenos Aires">Buenos Aires</option>
+                            <option value="CABA">Ciudad Autónoma de Buenos Aires (CABA)</option>
                             <option value="Catamarca">Catamarca</option>
                             <option value="Chaco">Chaco</option>
                             <option value="Chubut">Chubut</option>
