@@ -168,4 +168,9 @@ export interface ProfileFormData{
     location:Location;
     photo?: File | null;
 }
+export interface ApiEditProfileResponse extends ApiResponse{
+    user:UserData;
+}
+
+
 

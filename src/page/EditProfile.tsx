@@ -3,6 +3,7 @@ import type { ProfileFormData, UserData } from "../types/types";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import anonCat from '../assets/anoncat.png';
+import { editProfile } from "../api/user";
 
 const EditProfile = () => {
 
@@ -84,7 +85,27 @@ const EditProfile = () => {
     //Handled submit
     const handletSubmit = async (e: FormEvent) => {
         e.preventDefault();
+
         console.log(profileFormData);
+
+        try {
+            if (profileFormData.name === '' ||
+                profileFormData.lastName === '' ||
+                profileFormData.location.city === '' ||
+                profileFormData.location.province === ''
+            ) {
+                return toast.error('Nombre, Apellido,  \n Ciudad y Provincia son obligatorios', { theme: "colored", autoClose: 3000 });
+            }
+
+            //Guardar Cambios
+            const response = await editProfile(profileFormData);
+            if(response.status=== 'success'){
+                toast.success('Perfil actulizado', { theme: "colored", autoClose: 3000 });
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error('Error al actulizar perfil', { theme: "colored", autoClose: 3000 });
+        }
     }
 
     return (
