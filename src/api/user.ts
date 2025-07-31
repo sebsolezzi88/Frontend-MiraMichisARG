@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { ApiResponse, LoginApiResponse, LoginFormData, ProfileFormData, RegisterData, ResetPasswordFormData, ResetPasswordFormDataWithToken } from "../types/types";
+import type { ApiEditProfileResponse, ApiResponse, LoginApiResponse, LoginFormData, ProfileFormData, RegisterData, ResetPasswordFormData, ResetPasswordFormDataWithToken } from "../types/types";
 
 const URL:string = import.meta.env.VITE_API_URL;
 
@@ -28,7 +28,7 @@ export const editProfile = async(profileData:ProfileFormData)=>{
 
     try {
         
-        const res = await axios.put<ApiResponse>(
+        const res = await axios.put<ApiEditProfileResponse>(
             `${URL}/user/profile`, 
             profileData, // Los datos de tu formulario de editar
             { headers } 

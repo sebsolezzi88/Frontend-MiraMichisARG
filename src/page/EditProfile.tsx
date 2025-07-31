@@ -101,6 +101,8 @@ const EditProfile = () => {
             const response = await editProfile(profileFormData);
             if(response.status=== 'success'){
                 toast.success('Perfil actulizado', { theme: "colored", autoClose: 3000 });
+                //guardar en local stora los Cambios
+                localStorage.setItem('userData',JSON.stringify(response.user));
             }
         } catch (error) {
             console.log(error);
