@@ -17,6 +17,8 @@ const Profile = () => {
     
     //Estado para la imagen del avatar
     const [avatar,setAvatar] = useState<string>('');
+    const [userName,setUserName] = useState<string>('');
+
 
     // Estado de carga
     const [loading, setLoading] = useState(true);
@@ -28,6 +30,7 @@ const Profile = () => {
             const data = localStorage.getItem('userData');
             const userData = JSON.parse(data!) as UserData;
             setAvatar(userData.avatarUrl);
+            setUserName(userData.username);
         } catch (error) {
             toast.error('No se logró obtener Avatar', { theme: "colored", autoClose: 3000 });
         }
@@ -92,7 +95,7 @@ const Profile = () => {
                     </div>
 
                     <h2 className="text-4xl font-extrabold text-gray-800 pt-12 mb-2">
-                        ¡Hola, !
+                        ¡Hola, {userName} !
                     </h2>
                     <p className="text-lg text-gray-600">
                         Administra tus publicaciones y tu perfil aquí.
