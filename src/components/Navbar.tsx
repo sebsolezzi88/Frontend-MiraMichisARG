@@ -1,5 +1,7 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 
 const Navbar = () => {
@@ -7,6 +9,19 @@ const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const location = useLocation();// pasar saber en que ruta nos encontramos
+    const navigate = useNavigate(); //Para navegar 
+
+
+    const { isAuthenticated, logout } = useAuth();
+
+    const handleLogoutClick = () => {
+        logout(); // Llama a la función logout del contexto
+        closeMobileMenu(); // Cierra el menú móvil
+        toast.success('Haz cerrado sesión', { theme: "colored", autoClose: 3000 });
+        navigate('/login');
+    };
+
+
 
     // Función auxiliar para determinar si un enlace está activo
     const getLinkClasses = (path: string) => {
@@ -47,16 +62,25 @@ const Navbar = () => {
             <nav className="hidden md:block">
                 <ul className="flex space-x-4">
                     <li><Link to="/" className={getLinkClasses('/')}>Inicio</Link></li>
-                    <li><Link to="/login" className={getLinkClasses('/login')}>Login</Link></li>
-                    <li><Link to="/register" className={getLinkClasses('/register')}>Registro</Link></li>
-                    <li><Link to="/profile" className={getLinkClasses('/profile')}>Perfil</Link></li>
+
+                    {isAuthenticated
+                        ? <>
+                            <li><Link to="/profile" className={getLinkClasses('/profile')}>Perfil</Link></li>
+                            <li><button onClick={handleLogoutClick} className={getLinkClasses('/logout')}>Logout</button></li>
+                        </>
+                        : <>
+                            <li><Link to="/login" className={getLinkClasses('/login')}>Login</Link></li>
+                            <li><Link to="/register" className={getLinkClasses('/register')}>Registro</Link></li>
+                        </>
+                    }
+
                     <li><Link to="/contact" className={getLinkClasses('/contact')}>Contacto</Link></li>
                 </ul>
             </nav>
 
             {/* Botón para abrir/cerrar el menú móvil */}
             <button
-               
+
                 className="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-orange-500"
                 onClick={toggleMobileMenu} // Asignamos el handler de React
                 aria-expanded={isMobileMenuOpen} // Mejora la accesibilidad
@@ -69,16 +93,24 @@ const Navbar = () => {
 
             {/* Menú móvil */}
             <div
-                
-                id="mobile-menu-panel" 
+
+                id="mobile-menu-panel"
                 className={`mobile-menu absolute top-full left-0 w-full bg-white shadow-lg md:hidden rounded-b-lg ${isMobileMenuOpen ? 'open' : ''}`}
             >
                 <ul className="flex flex-col p-4 space-y-2">
                     <li><Link to="/" className={getMobileLinkClasses('/')} onClick={closeMobileMenu}>Inicio</Link></li>
-                    <li><Link to="/login" className={getMobileLinkClasses('/login')} onClick={closeMobileMenu}>Login</Link></li>
-                    <li><Link to="/register" className={getMobileLinkClasses('/register')} onClick={closeMobileMenu}>Registro</Link></li>
-                    <li><Link to="/profile" className={getMobileLinkClasses('/profile')}  onClick={closeMobileMenu}>Mi Perfil</Link></li>
-                    <li><Link to="/contact" className={getMobileLinkClasses('/contact')}  onClick={closeMobileMenu}>Contacto</Link></li>
+                    {isAuthenticated
+                        ? <>
+                            <li><Link to="/profile" className={getMobileLinkClasses('/profile')} onClick={closeMobileMenu}>Mi Perfil</Link></li>
+                            <li><button onClick={handleLogoutClick} className={getMobileLinkClasses('/logout')}>Logout</button></li>
+                        </>
+                        : <>
+                            <li><Link to="/login" className={getMobileLinkClasses('/login')} onClick={closeMobileMenu}>Login</Link></li>
+                            <li><Link to="/register" className={getMobileLinkClasses('/register')} onClick={closeMobileMenu}>Registro</Link></li>
+                        </>
+                    }
+
+                    <li><Link to="/contact" className={getMobileLinkClasses('/contact')} onClick={closeMobileMenu}>Contacto</Link></li>
                 </ul>
             </div>
         </header>
