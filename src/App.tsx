@@ -20,6 +20,8 @@ import Footer from './components/Footer'
 import AllPosts from './page/AllPosts'
 import CatPostDetails from './page/CatPostDetails'
 import EditProfile from './page/EditProfile'
+import ProtectedRouteAdmin from './page/ProtectedRouteAdmin'
+import BlogAdmin from './page/BlogAdmin'
 
 
 function App() {
@@ -76,6 +78,14 @@ function App() {
             <ProtectedRoute>
               <CatPostDetails />
             </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/adminblog"
+          element={
+            <ProtectedRouteAdmin>
+              <BlogAdmin/>
+            </ProtectedRouteAdmin>
           }
         />
 
