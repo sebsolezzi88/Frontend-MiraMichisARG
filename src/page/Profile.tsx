@@ -5,6 +5,7 @@ import type { CatPost, UserData } from '../types/types';
 import { deleteCatPost, getCatPosts } from '../api/catPost';
 import CatCardUser from '../components/CatCardUser';
 import { toast } from 'react-toastify';
+import { useAuth } from '../context/AuthContext';
 
 
 const Profile = () => {
@@ -12,12 +13,14 @@ const Profile = () => {
     //Estado de los catPost
     const [catPosts, setCatPosts] = useState<CatPost[]>([]);
 
+    const { user } = useAuth(); //Usar context para saber si es admin
+
     //Estado para filtrar
     const [typeOfPost, setTypeOfPost] = useState<'adopción' | 'encontrado' | 'perdido' | ''>('')
-    
+
     //Estado para la imagen del avatar
-    const [avatar,setAvatar] = useState<string>('');
-    const [userName,setUserName] = useState<string>('');
+    const [avatar, setAvatar] = useState<string>('');
+    const [userName, setUserName] = useState<string>('');
 
 
     // Estado de carga
@@ -90,7 +93,7 @@ const Profile = () => {
                 <div className="text-center pb-4 border-b border-gray-200 relative">
                     <div className="absolute -top-12 left-1/2 transform -translate-x-1/2">
                         <img className="w-24 h-24 rounded-full border-4 border-white shadow-md object-cover"
-                            src={avatar? avatar: anonCat}
+                            src={avatar ? avatar : anonCat}
                             alt="Avatar de usuario" />
                     </div>
 
@@ -112,41 +115,41 @@ const Profile = () => {
 
                 <nav className="flex flex-col md:flex-row md:justify-center md:space-x-4 
                             border-b border-gray-200 pb-4 space-y-2 md:space-y-0">
-                    <button 
+                    <button
                         onClick={() => setTypeOfPost('')} // Filtro: Mostrar todas las publicaciones
                         className={`py-2 px-4 text-center transition duration-300
-                            ${typeOfPost === '' 
-                                ? 'text-orange-600 border-b-2 border-orange-600 font-semibold' 
+                            ${typeOfPost === ''
+                                ? 'text-orange-600 border-b-2 border-orange-600 font-semibold'
                                 : 'text-gray-600 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-800 font-medium'}`
                         }
                     >
                         Todas mis Publicaciones
                     </button>
-                    <button 
+                    <button
                         onClick={() => setTypeOfPost('adopción')} // Filtro: Michis en Adopción
                         className={`py-2 px-4 text-center transition duration-300
-                            ${typeOfPost === 'adopción' 
-                                ? 'text-orange-600 border-b-2 border-orange-600 font-semibold' 
+                            ${typeOfPost === 'adopción'
+                                ? 'text-orange-600 border-b-2 border-orange-600 font-semibold'
                                 : 'text-gray-600 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-800 font-medium'}`
                         }
                     >
                         Michis en Adopción
                     </button>
-                    <button 
+                    <button
                         onClick={() => setTypeOfPost('encontrado')} // Filtro: Michis Encontrados
                         className={`py-2 px-4 text-center transition duration-300
-                            ${typeOfPost === 'encontrado' 
-                                ? 'text-orange-600 border-b-2 border-orange-600 font-semibold' 
+                            ${typeOfPost === 'encontrado'
+                                ? 'text-orange-600 border-b-2 border-orange-600 font-semibold'
                                 : 'text-gray-600 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-800 font-medium'}`
                         }
                     >
                         Michis Encontrados
                     </button>
-                    <button 
+                    <button
                         onClick={() => setTypeOfPost('perdido')} // Filtro: Michis Perdidos
                         className={`py-2 px-4 text-center transition duration-300
-                            ${typeOfPost === 'perdido' 
-                                ? 'text-orange-600 border-b-2 border-orange-600 font-semibold' 
+                            ${typeOfPost === 'perdido'
+                                ? 'text-orange-600 border-b-2 border-orange-600 font-semibold'
                                 : 'text-gray-600 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-800 font-medium'}`
                         }
                     >
@@ -158,6 +161,15 @@ const Profile = () => {
                       hover:bg-orange-600 transition duration-300 text-center">
                         + Nueva Publicación
                     </Link>
+                    {user?.role === 'admin' &&
+                        <Link
+                            to={'/blog/new'}
+                            className="py-2 px-4 bg-orange-500 text-white rounded-md font-semibold 
+                      hover:bg-orange-600 transition duration-300 text-center">
+                            + Nueva Entrada de Blog
+                        </Link>
+                    }
+
                 </nav>
 
 
