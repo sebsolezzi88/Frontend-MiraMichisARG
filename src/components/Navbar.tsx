@@ -14,7 +14,6 @@ const Navbar = () => {
 
     const { isAuthenticated, logout, user } = useAuth();
 
-    console.log(user)
 
     const handleLogoutClick = () => {
         logout(); // Llama a la función logout del contexto
