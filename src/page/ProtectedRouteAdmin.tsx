@@ -18,9 +18,13 @@ const ProtectedRouteAdmin: React.FC<ProtectedRouteProps> = ({ children }) => {
     return <div>Cargando autenticación...</div>; 
   }
 
-  // 2. Si la autenticación ha terminado de cargar Y el usuario NO está autenticado y no es admin
-  if (!isAuthenticated && user?.role ==='admin') {
-    console.log("ProtectedRoute: Sin permisos de Administracdor ");
+  // 2. Si la autenticación ha terminado de cargar Y el usuario NO está autenticado o no es admin
+  if (!isAuthenticated) {
+    console.log("ProtectedRoute: No autenticado ");
+    return <Navigate to="/" replace />; 
+  }
+  if( user?.role !=='admin'){
+    console.log("ProtectedRoute: Sin permisos de Administrador ");
     return <Navigate to="/" replace />; 
   }
 
