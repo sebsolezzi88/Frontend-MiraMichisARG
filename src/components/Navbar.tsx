@@ -12,7 +12,9 @@ const Navbar = () => {
     const navigate = useNavigate(); //Para navegar 
 
 
-    const { isAuthenticated, logout } = useAuth();
+    const { isAuthenticated, logout, user } = useAuth();
+
+    console.log(user)
 
     const handleLogoutClick = () => {
         logout(); // Llama a la función logout del contexto
@@ -63,8 +65,10 @@ const Navbar = () => {
                 <ul className="flex space-x-4">
                     <li><Link to="/" className={getLinkClasses('/')}>Inicio</Link></li>
 
+                    
                     {isAuthenticated
                         ? <>
+                            {user?.role === 'admin' && <li><Link to="/adminblog" className={getLinkClasses('/adminblog')}>Blog Adm</Link></li>}
                             <li><Link to="/profile" className={getLinkClasses('/profile')}>Perfil</Link></li>
                             <li><button onClick={handleLogoutClick} className={getLinkClasses('/logout')}>Logout</button></li>
                         </>
@@ -101,6 +105,7 @@ const Navbar = () => {
                     <li><Link to="/" className={getMobileLinkClasses('/')} onClick={closeMobileMenu}>Inicio</Link></li>
                     {isAuthenticated
                         ? <>
+                            {user?.role === 'admin' && <li><Link to="/adminblog" className={getMobileLinkClasses('/adminblog')} onClick={closeMobileMenu}>Blod Adm</Link></li>}
                             <li><Link to="/profile" className={getMobileLinkClasses('/profile')} onClick={closeMobileMenu}>Mi Perfil</Link></li>
                             <li><button onClick={handleLogoutClick} className={getMobileLinkClasses('/logout')}>Logout</button></li>
                         </>
