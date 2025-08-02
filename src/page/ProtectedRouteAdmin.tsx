@@ -6,7 +6,7 @@ interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+const ProtectedRouteAdmin: React.FC<ProtectedRouteProps> = ({ children }) => {
   console.log('protector de ruta'); 
 
   // Consume el estado del contexto de autenticación
@@ -28,4 +28,4 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   return <>{children}</>;
 };
 
-export default ProtectedRoute;
+export default ProtectedRouteAdmin;
