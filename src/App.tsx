@@ -81,7 +81,7 @@ function App() {
           }
         />
         <Route
-          path="/adminblog"
+          path="/blog/new"
           element={
             <ProtectedRouteAdmin>
               <NewBlogPost/>
