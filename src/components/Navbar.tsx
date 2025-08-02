@@ -12,7 +12,7 @@ const Navbar = () => {
     const navigate = useNavigate(); //Para navegar 
 
 
-    const { isAuthenticated, logout, user } = useAuth();
+    const { isAuthenticated, logout } = useAuth();
 
 
     const handleLogoutClick = () => {
@@ -66,8 +66,7 @@ const Navbar = () => {
 
                     
                     {isAuthenticated
-                        ? <>
-                            {user?.role === 'admin' && <li><Link to="/adminblog" className={getLinkClasses('/adminblog')}>Blog Adm</Link></li>}
+                        ? <>                           
                             <li><Link to="/profile" className={getLinkClasses('/profile')}>Perfil</Link></li>
                             <li><button onClick={handleLogoutClick} className={getLinkClasses('/logout')}>Logout</button></li>
                         </>
@@ -104,7 +103,6 @@ const Navbar = () => {
                     <li><Link to="/" className={getMobileLinkClasses('/')} onClick={closeMobileMenu}>Inicio</Link></li>
                     {isAuthenticated
                         ? <>
-                            {user?.role === 'admin' && <li><Link to="/adminblog" className={getMobileLinkClasses('/adminblog')} onClick={closeMobileMenu}>Blod Adm</Link></li>}
                             <li><Link to="/profile" className={getMobileLinkClasses('/profile')} onClick={closeMobileMenu}>Mi Perfil</Link></li>
                             <li><button onClick={handleLogoutClick} className={getMobileLinkClasses('/logout')}>Logout</button></li>
                         </>
