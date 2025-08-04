@@ -1,9 +1,11 @@
 import { useState, type ChangeEvent, type FormEvent } from "react"
 import type { BlogPostFormData } from "../types/types"
 import { toast } from "react-toastify"
+import { addBlogPost } from "../api/blog"
 
 
 const NewBlogPost = () => {
+    
     const [blogFormData, setBlogFormData] = useState<BlogPostFormData>({
         title: "",
         text: "",
@@ -13,9 +15,9 @@ const NewBlogPost = () => {
     const handletChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         setBlogFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
     }
-    const handletSubmit = (e: FormEvent) => {
+    const handletSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        toast.success('listo')
+
         if (blogFormData.text.trim() === '' ||
             blogFormData.title.trim() === '' ||
             blogFormData.typeOfBlogPost.trim() === '') {
@@ -25,9 +27,15 @@ const NewBlogPost = () => {
         }
         //Guardar publicación
         try {
-            
+            const response = await addBlogPost(blogFormData);
+            if(response.status === 'success'){
+                toast.success('Nota de blog creada',
+                { theme: "colored", autoClose: 3000 });
+            }
         } catch (error) {
-            
+            console.log(error);
+            toast.error('Error inesperado al crear Nota de Blog',
+                { theme: "colored", autoClose: 3000 });
         }
     }
     return (
