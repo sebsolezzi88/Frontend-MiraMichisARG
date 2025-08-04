@@ -171,6 +171,22 @@ export interface ProfileFormData{
 export interface ApiEditProfileResponse extends ApiResponse{
     user:UserData;
 }
+//Types para los  blogpost
 
+export type TypeOfBlogPost = "noticia" | "evento" | "salud" | "educación" | "video"
 
+export interface BlogPostFormData{
+    title: string;
+    text:string;
+    typeOfBlogPost: TypeOfBlogPost;
+    link?: string;
+}
+export interface BlogPost extends BlogPostFormData{
+    userId:string;
+    date: Date;
+}
+//Respuesta cuando agregado un blog post correctamente 
+export interface ApiBlogPostResponse extends ApiResponse{
+    blogPost:BlogPost;
+}
 
