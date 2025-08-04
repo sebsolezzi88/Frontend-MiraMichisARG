@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, type ChangeEvent } from "react"
 import type { BlogPostFormData } from "../types/types"
 
 
@@ -9,7 +9,9 @@ const NewBlogPost = () => {
             typeOfBlogPost: "",
             link:"",
     })
-    
+    const handletChange = (e:ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>{
+        setBlogFormData(prev =>({...prev,[e.target.name]:e.target.value}))
+    }
   return (
     <div className="bg-amber-50 min-h-screen flex items-center justify-center p-4">
 
@@ -27,6 +29,8 @@ const NewBlogPost = () => {
             <div>
                 <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">Título</label>
                 <input
+                    onChange={handletChange}
+                    value={blogFormData.title}
                     type="text"
                     id="title"
                     name="title"
@@ -40,6 +44,8 @@ const NewBlogPost = () => {
             <div>
                 <label htmlFor="text" className="block text-sm font-medium text-gray-700 mb-1">Contenido de la Publicación</label>
                 <textarea
+                    onChange={handletChange}
+                    value={blogFormData.text}
                     id="text"
                     name="text"
                     rows={8}
@@ -53,6 +59,8 @@ const NewBlogPost = () => {
             <div>
                 <label htmlFor="typeOfBlogPost" className="block text-sm font-medium text-gray-700 mb-1">Tipo de Publicación</label>
                 <select
+                    onChange={handletChange}
+                    value={blogFormData.typeOfBlogPost}
                     id="typeOfBlogPost"
                     name="typeOfBlogPost"
                     className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
@@ -71,6 +79,8 @@ const NewBlogPost = () => {
             <div>
                 <label htmlFor="link" className="block text-sm font-medium text-gray-700 mb-1">Enlace Relacionado (Opcional)</label>
                 <input
+                    onChange={handletChange}
+                    value={blogFormData.link}
                     type="url"
                     id="link"
                     name="link"
