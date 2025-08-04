@@ -173,7 +173,7 @@ export interface ApiEditProfileResponse extends ApiResponse{
 }
 //Types para los  blogpost
 
-export type TypeOfBlogPost = "noticia" | "evento" | "salud" | "educación" | "video"
+export type TypeOfBlogPost = "noticia" | "evento" | "salud" | "educación" | "video" | ""
 
 export interface BlogPostFormData{
     title: string;
