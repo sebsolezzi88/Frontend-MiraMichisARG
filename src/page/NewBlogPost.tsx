@@ -2,10 +2,13 @@ import { useState, type ChangeEvent, type FormEvent } from "react"
 import type { BlogPostFormData } from "../types/types"
 import { toast } from "react-toastify"
 import { addBlogPost } from "../api/blog"
+import { useNavigate } from "react-router-dom"
 
 
 const NewBlogPost = () => {
-    
+
+    const navigate = useNavigate();
+
     const [blogFormData, setBlogFormData] = useState<BlogPostFormData>({
         title: "",
         text: "",
@@ -28,9 +31,10 @@ const NewBlogPost = () => {
         //Guardar publicación
         try {
             const response = await addBlogPost(blogFormData);
-            if(response.status === 'success'){
+            if(response.status === 'success' && response.blogPost){
                 toast.success('Nota de blog creada',
                 { theme: "colored", autoClose: 3000 });
+                navigate('/profile');
             }
         } catch (error) {
             console.log(error);
