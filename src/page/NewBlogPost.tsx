@@ -1,6 +1,15 @@
+import { useState } from "react"
+import type { BlogPostFormData } from "../types/types"
 
 
 const NewBlogPost = () => {
+    const [blogFormData, setBlogFormData] = useState<BlogPostFormData>({
+            title: "",
+            text:"",
+            typeOfBlogPost: "",
+            link:"",
+    })
+    
   return (
     <div className="bg-amber-50 min-h-screen flex items-center justify-center p-4">
 
