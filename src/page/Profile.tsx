@@ -163,7 +163,7 @@ const Profile = () => {
                     </Link>
                     {user?.role === 'admin' &&
                         <Link
-                            to={'/blog/new'}
+                        to={'/blog/new'}
                             className="py-2 px-4 bg-orange-500 text-white rounded-md font-semibold 
                       hover:bg-orange-600 transition duration-300 text-center">
                             + Nueva Entrada de Blog

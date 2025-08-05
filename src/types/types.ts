@@ -189,4 +189,8 @@ export interface BlogPost extends BlogPostFormData{
 export interface ApiBlogPostResponse extends ApiResponse{
     blogPost:BlogPost;
 }
+//Respuesta al obtener Blogpost
+export interface ApiBlogGetResponse extends ApiResponse{
+    blogPost:BlogPost[];
+}
 
