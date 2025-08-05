@@ -1,5 +1,5 @@
 import axios from "axios";
-import type {ApiBlogPostResponse, BlogPostFormData} from "../types/types";
+import type {ApiBlogGetResponse, ApiBlogPostResponse, BlogPostFormData, UserData} from "../types/types";
 
 const URL: string = import.meta.env.VITE_API_URL;
 
@@ -42,4 +42,31 @@ export const addBlogPost = async (data: BlogPostFormData) => {
       throw new Error("Ocurrió un error inesperado.");
     }
   }
-};
+}
+
+//Obtener los blog post para el usuario admin logueado
+export const getBlogPosts = async () =>{
+    
+    const data = localStorage.getItem('userData');
+    if (!data) {
+        console.error("No hay datos de usuario logueado.");
+        throw new Error("No autenticado."); 
+    }
+    const userData = JSON.parse(data) as UserData;
+
+    try {
+       
+        const res = await axios.get<ApiBlogGetResponse>(`${URL}/blog/user/${userData.userId}`);
+        return res.data;
+
+    } catch (error) {
+       
+        if (axios.isAxiosError(error)) {
+            console.error("Error al obtener los blogPost", error.response?.data || error.message);
+            throw new Error(error.response?.data?.message || "Error desconocido al obtener los blogPost.");
+        } else {
+            console.error("Error inesperado:", error);
+            throw new Error("Ocurrió un error inesperado.");
+        }
+    }
+}
