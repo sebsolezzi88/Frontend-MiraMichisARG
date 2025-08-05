@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import anonCat from '../assets/anoncat.png';
 import { useEffect, useState } from 'react';
-import type { CatPost, UserData } from '../types/types';
+import type { BlogPost, CatPost, UserData } from '../types/types';
 import { deleteCatPost, getCatPosts } from '../api/catPost';
 import CatCardUser from '../components/CatCardUser';
 import { toast } from 'react-toastify';
@@ -12,6 +12,8 @@ const Profile = () => {
 
     //Estado de los catPost
     const [catPosts, setCatPosts] = useState<CatPost[]>([]);
+    //Estado de los NewBlogPost
+    const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
 
     const { user } = useAuth(); //Usar context para saber si es admin
 
