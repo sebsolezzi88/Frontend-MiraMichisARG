@@ -48,15 +48,25 @@ export const addBlogPost = async (data: BlogPostFormData) => {
 export const getBlogPosts = async () =>{
     
     const data = localStorage.getItem('userData');
+    const authToken = localStorage.getItem('authToken');
+
     if (!data) {
         console.error("No hay datos de usuario logueado.");
         throw new Error("No autenticado."); 
     }
+    
+    if (!authToken) {
+      console.error("No hay token de autenticación disponible. El usuario no está logueado.");
+      throw new Error("No autenticado."); 
+    }
     const userData = JSON.parse(data) as UserData;
 
+    const headers = {
+        'Authorization': `Bearer ${authToken}` 
+    };
+
     try {
-       
-        const res = await axios.get<ApiBlogGetResponse>(`${URL}/blog/user/${userData.userId}`);
+        const res = await axios.get<ApiBlogGetResponse>(`${URL}/blog/user/${userData.userId}`,{headers});
         return res.data;
 
     } catch (error) {

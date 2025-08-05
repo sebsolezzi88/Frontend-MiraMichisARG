@@ -6,6 +6,7 @@ import { deleteCatPost, getCatPosts } from '../api/catPost';
 import CatCardUser from '../components/CatCardUser';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
+import { getBlogPosts } from '../api/blog';
 
 
 const Profile = () => {
@@ -59,7 +60,32 @@ const Profile = () => {
                 setLoading(false);
             }
         }
+        //Llamada para recuperar todos los blogpost del usuario admin logueado
+        const getBlogPostByUserId = async () => {
+
+            if (user?.role === 'admin') {
+                setLoading(true);
+                setError(null);
+                try {
+                    const response = await getBlogPosts();
+                    if (response.status === 'success') {
+                        console.log(response.blogPost)
+                        setBlogPosts(response.blogPost);
+                    } else {
+                        setBlogPosts([]);
+                    }
+                } catch (error) {
+                    console.error("Error al cargar publicaciones de blog:", error);
+                    setError("No se pudieron cargar tus publicaciones de blog.");
+                    setCatPosts([]);
+                } finally {
+                    setLoading(false);
+                }
+            }
+
+        }
         getCatPostByUserId();
+        getBlogPostByUserId();
     }, [])
 
     //Logica para filtrar
@@ -165,7 +191,7 @@ const Profile = () => {
                     </Link>
                     {user?.role === 'admin' &&
                         <Link
-                        to={'/blog/new'}
+                            to={'/blog/new'}
                             className="py-2 px-4 bg-orange-500 text-white rounded-md font-semibold 
                       hover:bg-orange-600 transition duration-300 text-center">
                             + Nueva Entrada de Blog
