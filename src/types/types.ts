@@ -182,6 +182,7 @@ export interface BlogPostFormData{
     link?: string;
 }
 export interface BlogPost extends BlogPostFormData{
+    _id:string;
     userId:string;
     date: Date;
 }
