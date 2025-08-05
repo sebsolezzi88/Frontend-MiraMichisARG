@@ -69,8 +69,8 @@ const Profile = () => {
                 try {
                     const response = await getBlogPosts();
                     if (response.status === 'success') {
-                        console.log(response.blogPost)
-                        setBlogPosts(response.blogPost);
+                        console.log("BLog post",response.blogPosts)
+                        setBlogPosts(response.blogPosts);
                     } else {
                         setBlogPosts([]);
                     }
