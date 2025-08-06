@@ -11,7 +11,7 @@ const BlogCard = ({post}:BlogCardProps) => {
             <div className="p-6">
                 <h3 className="text-2xl font-bold text-gray-800 mb-2 leading-tight">{post.title}</h3>
 
-                <p className="text-gray-500 text-sm mt-1">Creado: {post.date}</p>
+                <p className="text-gray-500 text-sm mt-1">Creado: {formatDate(post.createdAt)}</p>
 
                 <span className="inline-block bg-orange-100 text-orange-700 text-xs font-semibold rounded-full px-3 py-1 mt-4">
                     Video
