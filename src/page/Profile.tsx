@@ -194,7 +194,7 @@ const Profile = () => {
                     {user?.role === 'admin' &&
                         <>
                             <button
-                                onClick={() => setViewBlogPost(true)}
+                                onClick={() => setViewBlogPost(!viewBlogPost)}
                                 className="py-2 px-4 bg-orange-500 text-white rounded-md font-semibold 
                             hover:bg-orange-600 transition duration-300 text-center">
                                 Ver Entradas de blog
@@ -210,6 +210,13 @@ const Profile = () => {
 
                 </nav>
 
+                {/* Mostrar los blog post */}
+
+                {viewBlogPost &&
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                       
+                    </div>
+                }
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
