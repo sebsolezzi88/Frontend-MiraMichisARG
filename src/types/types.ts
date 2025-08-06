@@ -184,7 +184,7 @@ export interface BlogPostFormData{
 export interface BlogPost extends BlogPostFormData{
     _id:string;
     userId:string;
-    date: Date;
+    createdAt: Date;
 }
 //Respuesta cuando agregado un blog post correctamente 
 export interface ApiBlogPostResponse extends ApiResponse{
