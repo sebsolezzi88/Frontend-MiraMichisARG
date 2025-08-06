@@ -7,6 +7,7 @@ import CatCardUser from '../components/CatCardUser';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
 import { getBlogPosts } from '../api/blog';
+import BlogCard from '../components/BlogCard';
 
 
 const Profile = () => {
@@ -214,7 +215,11 @@ const Profile = () => {
 
                 {viewBlogPost &&
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                       
+                        {
+                            blogPosts.length === 0 ? <p>No hay notas de blog</p>    :
+                            blogPosts.map(post => <BlogCard/>)
+
+                        }
                     </div>
                 }
 
