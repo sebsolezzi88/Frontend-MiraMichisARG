@@ -13,8 +13,10 @@ const Profile = () => {
 
     //Estado de los catPost
     const [catPosts, setCatPosts] = useState<CatPost[]>([]);
-    //Estado de los NewBlogPost
+    //Estado de los BlogPost
     const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+    //Estado para ver las entradas de blog
+    const [viewBlogPost, setViewBlogPost] = useState<boolean>(false);
 
     const { user } = useAuth(); //Usar context para saber si es admin
 
