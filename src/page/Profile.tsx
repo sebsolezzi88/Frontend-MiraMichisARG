@@ -71,7 +71,7 @@ const Profile = () => {
                 try {
                     const response = await getBlogPosts();
                     if (response.status === 'success') {
-                        console.log("BLog post",response.blogPosts)
+                        console.log("BLog post", response.blogPosts)
                         setBlogPosts(response.blogPosts);
                     } else {
                         setBlogPosts([]);
@@ -192,12 +192,20 @@ const Profile = () => {
                         + Nueva Publicación
                     </Link>
                     {user?.role === 'admin' &&
-                        <Link
-                            to={'/blog/new'}
-                            className="py-2 px-4 bg-orange-500 text-white rounded-md font-semibold 
-                      hover:bg-orange-600 transition duration-300 text-center">
-                            + Nueva Entrada de Blog
-                        </Link>
+                        <>
+                            <button
+                                onClick={() => setViewBlogPost(true)}
+                                className="py-2 px-4 bg-orange-500 text-white rounded-md font-semibold 
+                            hover:bg-orange-600 transition duration-300 text-center">
+                                Ver Entradas de blog
+                            </button>
+                            <Link
+                                to={'/blog/new'}
+                                className="py-2 px-4 bg-orange-500 text-white rounded-md font-semibold 
+                            hover:bg-orange-600 transition duration-300 text-center">
+                                + Nueva Entrada de Blog
+                            </Link>
+                        </>
                     }
 
                 </nav>
