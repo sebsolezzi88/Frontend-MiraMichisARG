@@ -2,6 +2,7 @@ import { useState } from "react"
 import type { BlogPost } from "../types/types"
 import { formatDate } from "../utils/utils"
 import ReactModal from "react-modal"
+import { Link } from "react-router-dom"
 
 interface BlogCardProps {
     post: BlogPost
@@ -61,12 +62,12 @@ const BlogCard = ({ post, onDeleteBlogPost }: BlogCardProps) => {
 
 
             <div className="bg-gray-50 border-t border-gray-200 px-6 py-4 flex justify-end items-center space-x-3">
-                <a href="#" className="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors duration-200">
+                <Link to={`/`} className="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors duration-200">
                     Ver
-                </a>
-                <button className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                </Link>
+                <Link to={`/blog/edit?postId=${post._id}`} className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
                     Editar
-                </button>
+                </Link>
                 <button 
                 onClick={openConfirmModal}
                 className="px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition-colors duration-200">

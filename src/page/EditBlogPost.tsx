@@ -37,7 +37,7 @@ const EditBlogPost = () => {
                             title: response.blogPost.title!,
                             text: response.blogPost.link!,
                             typeOfBlogPost: response.blogPost.typeOfBlogPost!,
-                            link: response.blogPost.title || ""
+                            link: response.blogPost.link || ""
 
                         });
                         
