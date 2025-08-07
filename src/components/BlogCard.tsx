@@ -3,6 +3,7 @@ import { formatDate } from "../utils/utils"
 
 interface BlogCardProps {
     post: BlogPost
+    onDeleteBlogPost: (id:string)=>void
 }
 const BlogCard = ({post}:BlogCardProps) => {
 
