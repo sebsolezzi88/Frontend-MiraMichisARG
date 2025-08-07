@@ -35,7 +35,7 @@ const EditBlogPost = () => {
                         
                         setBlogFormData({
                             title: response.blogPost.title!,
-                            text: response.blogPost.link!,
+                            text: response.blogPost.text!,
                             typeOfBlogPost: response.blogPost.typeOfBlogPost!,
                             link: response.blogPost.link || ""
 
