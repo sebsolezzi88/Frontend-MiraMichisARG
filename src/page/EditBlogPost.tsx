@@ -1,13 +1,18 @@
-import { useState, type ChangeEvent, type FormEvent } from "react"
+import { useEffect, useState, type ChangeEvent, type FormEvent } from "react"
 import type { BlogPostFormData } from "../types/types"
 import { toast } from "react-toastify"
-import { addBlogPost } from "../api/blog"
-import { useNavigate } from "react-router-dom"
+import { addBlogPost, getBlogPostById } from "../api/blog"
+import { useNavigate, useSearchParams } from "react-router-dom"
 
 
 const EditBlogPost = () => {
 
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const postId = searchParams.get('postId'); //Buscamos el parametros en la url
+
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState('');
 
     const [blogFormData, setBlogFormData] = useState<BlogPostFormData>({
         title: "",
@@ -15,6 +20,41 @@ const EditBlogPost = () => {
         typeOfBlogPost: "",
         link: "",
     })
+
+     useEffect(() => {
+            if (!postId) {
+                toast.error('Debe proporcionar un id', { theme: "colored", autoClose: 3000 });
+                navigate('/profile');
+            }
+            //Si hay id buscamos el post
+            const getBlogPost = async () => {
+                try {
+                    setLoading(true);
+                    const response = await getBlogPostById(postId!);
+                    if (response.status === 'success' && response.blogPost) {
+                        
+                        setBlogFormData({
+                            title: response.blogPost.title!,
+                            text: response.blogPost.link!,
+                            typeOfBlogPost: response.blogPost.typeOfBlogPost!,
+                            link: response.blogPost.title || ""
+
+                        });
+                        
+                    } else {
+                        setError(response.message || "Publicación no encontrada.");
+                    }
+                } catch (error) {
+                    console.error("Error al cargar publicaciones:", error);
+                    toast.error("Error al cargar la publicación para editar.", { theme: "colored" });
+                    setError("No se pudieron cargar tus publicaciones.");
+                } finally {
+                    setLoading(false);
+                }
+            }
+            getBlogPost();
+    
+        }, [])
     const handletChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         setBlogFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
     }
@@ -42,6 +82,15 @@ const EditBlogPost = () => {
                 { theme: "colored", autoClose: 3000 });
         }
     }
+
+    if (loading) {
+        return <div className="text-center p-6 text-gray-700">Cargando tu publicación...</div>;
+    }
+
+    if (error) {
+        return <div className="text-center p-6 text-red-600">Error: {error}</div>;
+    }
+
     return (
         <div className="bg-amber-50 min-h-screen flex items-center justify-center p-4">
 
