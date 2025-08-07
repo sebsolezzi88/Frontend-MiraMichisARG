@@ -194,4 +194,8 @@ export interface ApiBlogPostResponse extends ApiResponse{
 export interface ApiBlogGetResponse extends ApiResponse{
     blogPosts:BlogPost[];
 }
+//Respuesta al obtener Blogpost
+export interface ApiBlogGetOneResponse extends ApiResponse{
+    blogPost:BlogPost;
+}
 
