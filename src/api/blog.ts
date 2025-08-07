@@ -1,5 +1,5 @@
 import axios from "axios";
-import type {ApiBlogGetResponse, ApiBlogPostResponse, ApiResponse, BlogPostFormData, UserData} from "../types/types";
+import type {ApiBlogGetOneResponse, ApiBlogGetResponse, ApiBlogPostResponse, ApiResponse, BlogPostFormData, UserData} from "../types/types";
 
 const URL: string = import.meta.env.VITE_API_URL;
 
@@ -74,6 +74,26 @@ export const getBlogPosts = async () =>{
         if (axios.isAxiosError(error)) {
             console.error("Error al obtener los blogPost", error.response?.data || error.message);
             throw new Error(error.response?.data?.message || "Error desconocido al obtener los blogPost.");
+        } else {
+            console.error("Error inesperado:", error);
+            throw new Error("Ocurrió un error inesperado.");
+        }
+    }
+}
+
+//Obtener un solo blogpost por su id 
+
+export const getBlogPostById = async (idBlogPost:string) =>{
+    
+    try {
+        const res = await axios.get<ApiBlogGetOneResponse>(`${URL}/blog/${idBlogPost}`);
+        return res.data;
+
+    } catch (error) {
+       
+        if (axios.isAxiosError(error)) {
+            console.error("Error al obtener  blogPost", error.response?.data || error.message);
+            throw new Error(error.response?.data?.message || "Error desconocido al obtener blogPost.");
         } else {
             console.error("Error inesperado:", error);
             throw new Error("Ocurrió un error inesperado.");
