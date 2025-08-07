@@ -22,6 +22,7 @@ import CatPostDetails from './page/CatPostDetails'
 import EditProfile from './page/EditProfile'
 import ProtectedRouteAdmin from './page/ProtectedRouteAdmin'
 import NewBlogPost from './page/NewBlogPost'
+import EditBlogPost from './page/EditBlogPost'
 
 
 function App() {
@@ -85,6 +86,14 @@ function App() {
           element={
             <ProtectedRouteAdmin>
               <NewBlogPost/>
+            </ProtectedRouteAdmin>
+          }
+        />
+        <Route
+          path="/blog/edit"
+          element={
+            <ProtectedRouteAdmin>
+              <EditBlogPost/>
             </ProtectedRouteAdmin>
           }
         />
