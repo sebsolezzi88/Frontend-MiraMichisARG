@@ -1,5 +1,5 @@
 import axios from "axios";
-import type {ApiBlogGetResponse, ApiBlogPostResponse, BlogPostFormData, UserData} from "../types/types";
+import type {ApiBlogGetResponse, ApiBlogPostResponse, ApiResponse, BlogPostFormData, UserData} from "../types/types";
 
 const URL: string = import.meta.env.VITE_API_URL;
 
@@ -74,6 +74,38 @@ export const getBlogPosts = async () =>{
         if (axios.isAxiosError(error)) {
             console.error("Error al obtener los blogPost", error.response?.data || error.message);
             throw new Error(error.response?.data?.message || "Error desconocido al obtener los blogPost.");
+        } else {
+            console.error("Error inesperado:", error);
+            throw new Error("Ocurrió un error inesperado.");
+        }
+    }
+}
+
+//borrar blogpost por su id 
+export const deleteBlogPost = async (idBlogPost:string) =>{
+  const authToken = localStorage.getItem("authToken");
+
+  if (!authToken) {
+    console.error(
+      "No hay token de autenticación disponible. El usuario no está logueado."
+    );
+    throw new Error("No autenticado.");
+  }
+
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${authToken}`,
+  };
+
+  try {
+        const res = await axios.delete<ApiResponse>(`${URL}/blog/${idBlogPost}`,{headers});
+        return res.data;
+
+    } catch (error) {
+       
+        if (axios.isAxiosError(error)) {
+            console.error("Error al borrar blogPost", error.response?.data || error.message);
+            throw new Error(error.response?.data?.message || "Error desconocido al borrar posteo.");
         } else {
             console.error("Error inesperado:", error);
             throw new Error("Ocurrió un error inesperado.");
