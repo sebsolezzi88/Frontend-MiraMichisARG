@@ -6,7 +6,7 @@ import { deleteCatPost, getCatPosts } from '../api/catPost';
 import CatCardUser from '../components/CatCardUser';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
-import { getBlogPosts } from '../api/blog';
+import { deleteBlogPost, getBlogPosts } from '../api/blog';
 import BlogCard from '../components/BlogCard';
 
 
@@ -110,9 +110,14 @@ const Profile = () => {
     }
     const onDeleteBlogPost = async (id:string) => {
         try {
-            
+            const response = await deleteBlogPost(id);
+            if (response.status === 'success') {
+                toast.success('Post borrado', { theme: "colored", autoClose: 3000 });
+                setBlogPosts(prevPosts => prevPosts.filter(post => post._id !== id)); //Filtrar post
+            }
         } catch (error) {
-            
+            console.log(error)
+            toast.error('Error al borrar el post', { theme: "colored", autoClose: 3000 })
         }
     }
 
