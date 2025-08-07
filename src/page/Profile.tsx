@@ -108,6 +108,13 @@ const Profile = () => {
             toast.error('Error al borrar el post', { theme: "colored", autoClose: 3000 })
         }
     }
+    const onDeleteBlogPost = async (id:string) => {
+        try {
+            
+        } catch (error) {
+            
+        }
+    }
 
     if (loading) {
         return <div className="text-center p-6 text-gray-700">Cargando tus publicaciones...</div>;
