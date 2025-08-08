@@ -62,9 +62,9 @@ const BlogCardMain = ({ post }: BlogCardProps) => {
                         {post.typeOfBlogPost}
                     </span>
                 </div>
-                <div className="border-t border-purple-200 pt-4">
+                <div className="border-t border-purple-200 pt-4 flex  justify-center">
                     <Link to={"/"} className="inline-flex items-center text-orange-600 hover:underline font-semibold text-sm">
-                        Leer
+                        Leer →
                     </Link>
                 </div>
             </div>

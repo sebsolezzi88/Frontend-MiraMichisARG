@@ -95,7 +95,7 @@ const MainPage = () => {
       </main>
 
       {/* Sección de notas de blog */}
-      <section>
+      <section className="px-2">
         <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
           Últimas Notas
         </h2>
@@ -118,7 +118,7 @@ const MainPage = () => {
         </div>
       </section>
       {/* Sección para mostrar los gatos en adopción  */}
-      <section>
+      <section className="px-2">
         <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
           Michis Buscando un Hogar
         </h2>
@@ -141,7 +141,7 @@ const MainPage = () => {
       </section>
 
       {/* Sección para mostrar los gatos perdidos  */}
-      <section>
+      <section className="px-2">
         <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
           Estos Michis se encuentran perdidos
         </h2>
@@ -165,7 +165,7 @@ const MainPage = () => {
       </section>
 
       {/* Sección para mostrar los gatos encontrados  */}
-      <section>
+      <section className="px-2">
         <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
           Estos Michis fueron encontrados
         </h2>
