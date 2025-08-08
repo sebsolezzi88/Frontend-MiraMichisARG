@@ -3,6 +3,26 @@ import type {ApiBlogGetOneResponse, ApiBlogGetResponse, ApiBlogPostResponse, Api
 
 const URL: string = import.meta.env.VITE_API_URL;
 
+
+//Obtener todos los blog post
+export const getAllBlogPosts = async () =>{
+    
+    try {
+        const res = await axios.get<ApiBlogGetResponse>(`${URL}/blog`);
+        return res.data;
+
+    } catch (error) {
+       
+        if (axios.isAxiosError(error)) {
+            console.error("Error al obtener los blogPost", error.response?.data || error.message);
+            throw new Error(error.response?.data?.message || "Error desconocido al obtener los blogPost.");
+        } else {
+            console.error("Error inesperado:", error);
+            throw new Error("Ocurrió un error inesperado.");
+        }
+    }
+}
+
 export const addBlogPost = async (data: BlogPostFormData) => {
   const authToken = localStorage.getItem("authToken");
 
