@@ -7,6 +7,7 @@ import CatCardLost from "../components/CatCardLost";
 import CatCardFound from "../components/CatCardFound";
 import { Link } from "react-router-dom";
 import { getAllBlogPosts } from "../api/blog";
+import BlogCardMain from "../components/BlogCardMain";
 
 
 const MainPage = () => {
@@ -101,7 +102,7 @@ const MainPage = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {blogPosts.length > 0
-            ? blogPosts.map(post => "mostrar componente")
+            ? blogPosts.map(post => <BlogCardMain key={post._id} post={post}/>)
             : "No hay notas de blog para mostrar."
           }
         </div>
