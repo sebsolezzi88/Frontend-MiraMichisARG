@@ -58,7 +58,7 @@ const BlogCardMain = ({ post }: BlogCardProps) => {
                 <div>
                     <h3 className="text-xl font-bold text-gray-800 mb-1 leading-tight">{post.title}</h3>
                     <p className="text-gray-500 text-sm mt-0.5">Creado: {formatDate(post.createdAt)}</p>
-                    <span className={`inline - block text-xs font-semibold rounded-full px-2 py-0.5 mt-2 ${typeTagBgClass} ${typeTagTextColor}`}>
+                    <span className={`inline-block text-xs font-semibold rounded-full px-2 py-0.5 mt-2 ${typeTagBgClass} ${typeTagTextColor}`}>
                         {post.typeOfBlogPost}
                     </span>
                 </div>
