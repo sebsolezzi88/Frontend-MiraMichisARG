@@ -62,7 +62,7 @@ export const updateBlogPost = async (idBlogPost:string, data: BlogPostFormData) 
 
   try {
     // El primer argumento es la URL, el segundo son los datos, el tercero es el objeto de configuración.
-    const res = await axios.post<ApiBlogPostResponse>(
+    const res = await axios.put<ApiBlogPostResponse>(
       `${URL}/blog/${idBlogPost}`,
       JSON.stringify(data),
       { headers }

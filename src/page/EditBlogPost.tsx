@@ -1,7 +1,7 @@
 import { useEffect, useState, type ChangeEvent, type FormEvent } from "react"
 import type { BlogPostFormData } from "../types/types"
 import { toast } from "react-toastify"
-import { addBlogPost, getBlogPostById } from "../api/blog"
+import { addBlogPost, getBlogPostById, updateBlogPost } from "../api/blog"
 import { useNavigate, useSearchParams } from "react-router-dom"
 
 
@@ -21,40 +21,40 @@ const EditBlogPost = () => {
         link: "",
     })
 
-     useEffect(() => {
-            if (!postId) {
-                toast.error('Debe proporcionar un id', { theme: "colored", autoClose: 3000 });
-                navigate('/profile');
-            }
-            //Si hay id buscamos el post
-            const getBlogPost = async () => {
-                try {
-                    setLoading(true);
-                    const response = await getBlogPostById(postId!);
-                    if (response.status === 'success' && response.blogPost) {
-                        
-                        setBlogFormData({
-                            title: response.blogPost.title!,
-                            text: response.blogPost.text!,
-                            typeOfBlogPost: response.blogPost.typeOfBlogPost!,
-                            link: response.blogPost.link || ""
+    useEffect(() => {
+        if (!postId) {
+            toast.error('Debe proporcionar un id', { theme: "colored", autoClose: 3000 });
+            navigate('/profile');
+        }
+        //Si hay id buscamos el post
+        const getBlogPost = async () => {
+            try {
+                setLoading(true);
+                const response = await getBlogPostById(postId!);
+                if (response.status === 'success' && response.blogPost) {
 
-                        });
-                        
-                    } else {
-                        setError(response.message || "Publicación no encontrada.");
-                    }
-                } catch (error) {
-                    console.error("Error al cargar publicaciones:", error);
-                    toast.error("Error al cargar la publicación para editar.", { theme: "colored" });
-                    setError("No se pudieron cargar tus publicaciones.");
-                } finally {
-                    setLoading(false);
+                    setBlogFormData({
+                        title: response.blogPost.title!,
+                        text: response.blogPost.text!,
+                        typeOfBlogPost: response.blogPost.typeOfBlogPost!,
+                        link: response.blogPost.link || ""
+
+                    });
+
+                } else {
+                    setError(response.message || "Publicación no encontrada.");
                 }
+            } catch (error) {
+                console.error("Error al cargar publicaciones:", error);
+                toast.error("Error al cargar la publicación para editar.", { theme: "colored" });
+                setError("No se pudieron cargar tus publicaciones.");
+            } finally {
+                setLoading(false);
             }
-            getBlogPost();
-    
-        }, [])
+        }
+        getBlogPost();
+
+    }, [])
     const handletChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         setBlogFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
     }
@@ -70,15 +70,15 @@ const EditBlogPost = () => {
         }
         //Guardar publicación
         try {
-            const response = await addBlogPost(blogFormData);
-            if(response.status === 'success' && response.blogPost){
-                toast.success('Nota de blog creada',
-                { theme: "colored", autoClose: 3000 });
+            const response = await updateBlogPost(postId!, blogFormData);
+            if (response.status === 'success' && response.blogPost) {
+                toast.success('Nota de blog actualizada',
+                    { theme: "colored", autoClose: 3000 });
                 navigate('/profile');
             }
         } catch (error) {
             console.log(error);
-            toast.error('Error inesperado al crear Nota de Blog',
+            toast.error('Error inesperado al actulizar Nota de Blog',
                 { theme: "colored", autoClose: 3000 });
         }
     }
@@ -170,7 +170,6 @@ const EditBlogPost = () => {
                         <p className="mt-1 text-xs text-gray-500">Si tu publicación incluye un video o recurso externo.</p>
                     </div>
 
-                    <input type="hidden" name="userId" value="ID_DEL_ADMIN_ACTUAL" />
 
                     <div>
                         <button
