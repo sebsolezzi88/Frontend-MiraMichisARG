@@ -57,16 +57,16 @@ const Navbar = () => {
     return (
 
         <header className="bg-white shadow-sm p-4 rounded-lg mb-6 flex justify-between items-center relative z-10">
-            <h1 className="text-xl font-bold text-orange-800">MiraMichis ARG</h1>
+            <h1 className="text-xl font-bold text-orange-500 hover:text-orange-600"><Link to="/">MiraMichis ARG</Link></h1>
 
             {/* Menú para pantallas grandes (Desktop) */}
             <nav className="hidden md:block">
                 <ul className="flex space-x-4">
                     <li><Link to="/" className={getLinkClasses('/')}>Inicio</Link></li>
 
-                    
+
                     {isAuthenticated
-                        ? <>                           
+                        ? <>
                             <li><Link to="/profile" className={getLinkClasses('/profile')}>Perfil</Link></li>
                             <li><button onClick={handleLogoutClick} className={getLinkClasses('/logout')}>Logout</button></li>
                         </>
