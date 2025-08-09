@@ -24,7 +24,7 @@ import ProtectedRouteAdmin from './page/ProtectedRouteAdmin'
 import NewBlogPost from './page/NewBlogPost'
 import EditBlogPost from './page/EditBlogPost'
 import BlogPosts from './components/BlogPosts'
-import BlogPostPage from './page/BlogPost'
+import BlogPostPage from './page/BlogPostPage'
 
 
 function App() {
