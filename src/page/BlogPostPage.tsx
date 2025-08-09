@@ -67,23 +67,24 @@ const BlogPostPage = () => {
     if (error) return <div className="text-center mt-10 text-red-500">{error}</div>;
 
     return (
-        <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8 px-4 sm:px-8 space-y-6 mt-10">
+        <div className="px-4">
+        <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8 sm:px-8 space-y-6 mt-10">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                 <h1 className="text-4xl font-extrabold text-gray-800 leading-tight mb-2 sm:mb-0">
                     {blogPost?.title}
                 </h1>
                 {blogPost?.typeOfBlogPost && (
-                    <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getTagClasses(blogPost.typeOfBlogPost)}`}>
+                    <span className={`px-3 py-1 rounded-full text-sm font-semibold max-w-[150px] truncate text-center ${getTagClasses(blogPost.typeOfBlogPost)}`}>
                         {blogPost.typeOfBlogPost}
                     </span>
                 )}
             </div>
 
-            {blogPost?.createdAt && <p className="text-gray-500 text-sm">
-                Creado el <span className="block font-semibold">{formatDate(blogPost.createdAt)}</span>
-            </p>
-            }
-
+            {blogPost?.createdAt && (
+                <p className="text-gray-500 text-sm">
+                    Creado el <span className="block font-semibold">{formatDate(blogPost.createdAt)}</span>
+                </p>
+            )}
 
             <hr className="my-6 border-gray-200" />
 
@@ -100,14 +101,16 @@ const BlogPostPage = () => {
                         rel="noopener noreferrer"
                     >
                         Visitar enlace
-                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
                     </a>
                 </div>
             )}
         </div>
-    )
+    </div>
+);
+    
 }
 
 export default BlogPostPage;
