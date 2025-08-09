@@ -24,7 +24,7 @@ import ProtectedRouteAdmin from './page/ProtectedRouteAdmin'
 import NewBlogPost from './page/NewBlogPost'
 import EditBlogPost from './page/EditBlogPost'
 import BlogPosts from './components/BlogPosts'
-import BlogPost from './page/BlogPost'
+import BlogPostPage from './page/BlogPost'
 
 
 function App() {
@@ -90,7 +90,7 @@ function App() {
         />
         <Route
           path="/blog/:id"
-          element={<BlogPost />
+          element={<BlogPostPage />
           }
         />
         <Route
