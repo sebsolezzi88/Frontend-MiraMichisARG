@@ -23,6 +23,7 @@ import EditProfile from './page/EditProfile'
 import ProtectedRouteAdmin from './page/ProtectedRouteAdmin'
 import NewBlogPost from './page/NewBlogPost'
 import EditBlogPost from './page/EditBlogPost'
+import BlogPosts from './components/BlogPosts'
 
 
 function App() {
@@ -39,8 +40,8 @@ function App() {
         <Route path="/activate" element={<ActivateAccount />} />
         <Route path="/reset" element={<RestardPassword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
-        <Route path="/catpost/:type" element={<AllPosts/>}/>
-      
+        <Route path="/catpost/:type" element={<AllPosts />} />
+
         <Route
           path="/profile"
           element={
@@ -82,10 +83,15 @@ function App() {
           }
         />
         <Route
+          path="/blog"
+          element={<BlogPosts />
+          }
+        />
+        <Route
           path="/blog/new"
           element={
             <ProtectedRouteAdmin>
-              <NewBlogPost/>
+              <NewBlogPost />
             </ProtectedRouteAdmin>
           }
         />
@@ -93,7 +99,7 @@ function App() {
           path="/blog/edit"
           element={
             <ProtectedRouteAdmin>
-              <EditBlogPost/>
+              <EditBlogPost />
             </ProtectedRouteAdmin>
           }
         />
@@ -102,7 +108,7 @@ function App() {
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </>
   )
 }
