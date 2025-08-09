@@ -90,6 +90,8 @@ const Navbar = () => {
                             </ul>
                         )}
                     </li>
+                    <li><Link to="/blog" className={getLinkClasses('/blog')}>Blog</Link></li>
+
 
                     {isAuthenticated
                         ? <>
@@ -155,6 +157,8 @@ const Navbar = () => {
                             </ul>
                         )}
                     </li>
+                            <li><Link to="/blog" className={getMobileLinkClasses('/blog')} onClick={closeMobileMenu}>Blog</Link></li>
+
                     {isAuthenticated
                         ? <>
                             <li><Link to="/profile" className={getMobileLinkClasses('/profile')} onClick={closeMobileMenu}>Mi Perfil</Link></li>
