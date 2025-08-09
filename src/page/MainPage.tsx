@@ -108,7 +108,7 @@ const MainPage = () => {
         </div>
 
         <div className="text-center mt-8">
-          <Link to={'/catpost/adopción'} className="inline-flex items-center px-6 py-3 border border-transparent 
+          <Link to={'/blog'} className="inline-flex items-center px-6 py-3 border border-transparent 
                                    rounded-md shadow-sm text-base font-medium text-white 
                                    bg-orange-500 hover:bg-orange-600 focus:outline-none 
                                    focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 
