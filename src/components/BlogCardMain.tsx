@@ -63,7 +63,7 @@ const BlogCardMain = ({ post }: BlogCardProps) => {
                     </span>
                 </div>
                 <div className="border-t border-purple-200 pt-4 flex  justify-center">
-                    <Link to={"/"} className="inline-flex items-center text-orange-600 hover:underline font-semibold text-sm">
+                    <Link to={`/blog/${post._id}`} className="inline-flex items-center text-orange-600 hover:underline font-semibold text-sm">
                         Leer →
                     </Link>
                 </div>
