@@ -46,7 +46,7 @@ const AllPosts = () => {
             }
         }
         getCatPots();
-    }, [])
+    }, [type])
     
     const getHeading = (type: string) => {
         switch (type) {
