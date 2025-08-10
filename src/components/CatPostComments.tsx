@@ -88,6 +88,9 @@ const CatPostComments = ({ postData, commentData, setCommentData }: CatPostComme
       const response = await sendMessage(messageFormData);
       if (response.status === 'success') {
         toast.success('Mansaje enviado', { theme: "colored", autoClose: 3000 });
+      }else {
+        // En caso de que el API responda con un estado de error, pero sin lanzar una excepción.
+        toast.error('No se logró enviar el mensaje', { theme: "colored", autoClose: 3000 });
       }
     } catch (error) {
       console.log(error);
