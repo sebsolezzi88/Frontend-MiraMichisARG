@@ -4,6 +4,7 @@ import { capitalize, formatDate } from "../utils/utils";
 import { toast } from "react-toastify";
 import { addCommentToCatPost } from "../api/comment";
 import anonCat from '../assets/anoncat.png';
+import ReactModal from "react-modal";
 
 interface CatPostCommentsProps {
   postData: PostFullData;
@@ -13,27 +14,29 @@ interface CatPostCommentsProps {
 
 const CatPostComments = ({ postData, commentData, setCommentData }: CatPostCommentsProps) => {
 
-  console.log(commentData)
+
+  //Estado para visualicación del modal con el formulario de mensajes
+  const [isFormModalOpen, setIsFormModalOpen] = useState(false);
 
   //Estado para mostrar o ocultar comentarios
   const [isHidden, setIsHidden] = useState<boolean>(true);
   //Estado para creación de comentario
   const [commentFormData, setCommentFormData] = useState<PostCommentFormData>({ text: '' });
 
-  const [avatar,setAvatar] = useState<string>('');
+  const [avatar, setAvatar] = useState<string>('');
 
   //useEffect para obtener la imagen de localStorage
   useEffect(() => {
-     try {
-        const data = localStorage.getItem('userData');
-        const userData = JSON.parse(data!) as UserData;
-        setAvatar(userData.avatarUrl);
-     } catch (error) {
-        toast.error('No se logró obtener Avatar', { theme: "colored", autoClose: 3000 });
-     }
-    
+    try {
+      const data = localStorage.getItem('userData');
+      const userData = JSON.parse(data!) as UserData;
+      setAvatar(userData.avatarUrl);
+    } catch (error) {
+      toast.error('No se logró obtener Avatar', { theme: "colored", autoClose: 3000 });
+    }
+
   }, [])
-  
+
 
 
   // --- Lógica para determinar los colores de la tarjeta y etiquetas ---
@@ -58,6 +61,14 @@ const CatPostComments = ({ postData, commentData, setCommentData }: CatPostComme
     setIsHidden(!isHidden);
   }
 
+  const openFormModal = () => setIsFormModalOpen(true);
+  const closeFormModal = () => setIsFormModalOpen(false);
+
+  const handleSubmitMessage = () => {
+
+    closeFormModal(); // Cierra el modal después de confirmar
+  };
+
   const handletSubmit = async () => {
 
     if (!commentFormData.text || commentFormData.text.trim() === '') {
@@ -72,7 +83,7 @@ const CatPostComments = ({ postData, commentData, setCommentData }: CatPostComme
         setCommentData(prev => [response.comment, ...prev]);
         toast.success('Comentario publicado', { theme: "colored", autoClose: 3000 });
         setCommentFormData({ ...commentFormData, text: '' });
-        
+
       } else {
         toast.error('No se logró agregar tu comentario', { theme: "colored", autoClose: 3000 });
       }
@@ -109,7 +120,9 @@ const CatPostComments = ({ postData, commentData, setCommentData }: CatPostComme
           <div><strong className="font-semibold">Raza:</strong> {postData.breed}</div>
           <div><strong className="font-semibold">Ubicación:</strong> {postData.location.province}, {postData.location.city}</div>
         </div>
-        <button className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300">
+        <button
+          onClick={openFormModal}
+          className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300">
           <svg className="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.036 8-9 8a9.863 9.863 0 01-3-6 9.76 9.76 0 014.225-3.45 11.989 11.989 0 003.215 5.755c0 1.682-3.462 4.8-9 4.8-5.538 0-9-3.318-9-8s4.036-8 9-8a8.584 8.584 0 014.7-1.5c.316-.03.631-.05.946-.07M3 20l13.926-7.857a2.1 2.1 0 012.148-.098l.148.027H21v-2.356a2.1 2.1 0 01-1.286-1.972l-4.915-2.457a2.1 2.1 0 01-.966-.128L3 4"></path></svg>
           Contactar al Dueño
         </button>
@@ -168,6 +181,63 @@ const CatPostComments = ({ postData, commentData, setCommentData }: CatPostComme
           </div>
         </div>
       </div>
+      <ReactModal
+        isOpen={isFormModalOpen}
+        onRequestClose={closeFormModal}
+        contentLabel="Confirmar Eliminación"
+        className="bg-white p-8 rounded shadow-lg max-w-lg mx-auto mt-20"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      >
+        <div className="max-w-xl w-full bg-white rounded-xl shadow-lg p-8 space-y-6">
+          <div className="text-center">
+            <h2 className="text-3xl font-extrabold text-gray-800 mb-2">
+              Enviar Mensaje a  <span className="text-orange-600">{postData.userId.username}</span>
+            </h2>
+            <p className="text-gray-600">
+              Escribe tu mensaje para el creador de la publicación.
+            </p>
+          </div>
+
+          <form action="#" method="POST" className="space-y-4">
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Tu Mensaje</label>
+              <textarea
+                id="message"
+                name="message"
+                rows={6}
+                placeholder="Hola, me gustaría saber más sobre el michi..."
+                className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
+                           focus:ring-orange-500 focus:border-orange-500 sm:text-sm resize-y"
+                required
+              ></textarea>
+              <p className="mt-1 text-xs text-gray-500">Sé claro y conciso para una mejor comunicación.</p>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                className="w-full flex justify-center py-2 px-4 border border-transparent
+                           rounded-md shadow-sm text-sm font-medium text-white
+                           bg-orange-500 hover:bg-orange-600 focus:outline-none
+                           focus:ring-2 focus:ring-offset-2 focus:ring-orange-500
+                           transition duration-300"
+              >
+                Enviar Mensaje
+              </button>
+              <div className="flex justify-end space-x-4 mt-4">
+                <button
+                  onClick={closeFormModal}
+                  className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+                >
+                  Cancelar
+                </button>
+
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </ReactModal>
     </div>
   )
 }
