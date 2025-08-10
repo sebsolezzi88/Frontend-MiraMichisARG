@@ -71,20 +71,22 @@ const CatPostComments = ({ postData, commentData, setCommentData }: CatPostComme
     setIsHidden(!isHidden);
   }
 
-  const openFormModal = () => setIsFormModalOpen(true);
-  const closeFormModal = () => setIsFormModalOpen(false);
-
-  const handleSubmitMessage = async (e: FormEvent) => {
-    e.preventDefault();
-    /* Cargamos datos para enviar el mensaje */
+  const openFormModal = () => {
     setMessageFormData({
       ...messageFormData,
       toUserId: postData.userId._id,
       fromUserId: idUserLogged
     });
+    setIsFormModalOpen(true);
+  }
+  const closeFormModal = () => setIsFormModalOpen(false);
+
+  const handleSubmitMessage = async (e: FormEvent) => {
+    e.preventDefault();
+  
     try {
       const response = await sendMessage(messageFormData);
-      if (response.message === 'success' && response.newMessage) {
+      if (response.status === 'success') {
         toast.success('Mansaje enviado', { theme: "colored", autoClose: 3000 });
       }
     } catch (error) {
