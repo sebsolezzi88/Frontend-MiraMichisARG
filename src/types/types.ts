@@ -199,3 +199,18 @@ export interface ApiBlogGetOneResponse extends ApiResponse{
     blogPost:BlogPost;
 }
 
+//Types para envio de mensajes
+export interface Message{
+  fromUserId: string;
+  toUserId: string;
+  text:string;
+  sentAt: Date;
+  read: boolean;
+}
+//Para usar en el formulario
+export type MessageFormData = Pick<Message,'fromUserId' | 'toUserId' | 'text'>;
+
+//Respuesta al mandar un mensaje
+export interface ApiMessagePostResponse extends ApiResponse{
+    newMessage: Message;
+}
