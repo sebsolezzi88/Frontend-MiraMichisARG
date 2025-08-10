@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { addCommentToCatPost } from "../api/comment";
 import anonCat from '../assets/anoncat.png';
 import ReactModal from "react-modal";
+import { sendMessage } from "../api/message";
 
 interface CatPostCommentsProps {
   postData: PostFullData;
@@ -73,14 +74,31 @@ const CatPostComments = ({ postData, commentData, setCommentData }: CatPostComme
   const openFormModal = () => setIsFormModalOpen(true);
   const closeFormModal = () => setIsFormModalOpen(false);
 
-  const handleSubmitMessage = (e: FormEvent) => {
+  const handleSubmitMessage = async (e: FormEvent) => {
     e.preventDefault();
     /* Cargamos datos para enviar el mensaje */
-    setMessageFormData({...messageFormData,
+    setMessageFormData({
+      ...messageFormData,
       toUserId: postData.userId._id,
       fromUserId: idUserLogged
     });
-    
+    try {
+      const response = await sendMessage(messageFormData);
+      if (response.message === 'success' && response.newMessage) {
+        toast.success('Mansaje enviado', { theme: "colored", autoClose: 3000 });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('No se logró mandar el mensaje', { theme: "colored", autoClose: 3000 });
+    } finally {
+      setMessageFormData({
+        toUserId: '',
+        fromUserId: '',
+        text: ''
+      })
+      closeFormModal();
+    }
+
   };
 
   const handletSubmit = async () => {
