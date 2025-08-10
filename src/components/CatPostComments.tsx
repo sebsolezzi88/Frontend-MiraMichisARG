@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import type { PostComment, PostCommentFormData, PostFullData, UserData } from "../types/types";
+import { useEffect, useState, type FormEvent } from "react";
+import type { MessageFormData, PostComment, PostCommentFormData, PostFullData, UserData } from "../types/types";
 import { capitalize, formatDate } from "../utils/utils";
 import { toast } from "react-toastify";
 import { addCommentToCatPost } from "../api/comment";
@@ -18,12 +18,20 @@ const CatPostComments = ({ postData, commentData, setCommentData }: CatPostComme
   //Estado para visualicación del modal con el formulario de mensajes
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
 
+  //Estado para el formulario de mensaje
+  const [messageFormData, setMessageFormData] = useState<MessageFormData>({
+    toUserId: '',
+    fromUserId: '',
+    text: ''
+  })
+
   //Estado para mostrar o ocultar comentarios
   const [isHidden, setIsHidden] = useState<boolean>(true);
   //Estado para creación de comentario
   const [commentFormData, setCommentFormData] = useState<PostCommentFormData>({ text: '' });
 
-  const [avatar, setAvatar] = useState<string>('');
+  const [avatar, setAvatar] = useState<string>(''); //Estado para el avatar
+  const [idUserLogged, setIdUserLogged] = useState<string>(''); //Estado del usuario logueado
 
   //useEffect para obtener la imagen de localStorage
   useEffect(() => {
@@ -31,6 +39,7 @@ const CatPostComments = ({ postData, commentData, setCommentData }: CatPostComme
       const data = localStorage.getItem('userData');
       const userData = JSON.parse(data!) as UserData;
       setAvatar(userData.avatarUrl);
+      setIdUserLogged(userData.userId);
     } catch (error) {
       toast.error('No se logró obtener Avatar', { theme: "colored", autoClose: 3000 });
     }
@@ -64,9 +73,14 @@ const CatPostComments = ({ postData, commentData, setCommentData }: CatPostComme
   const openFormModal = () => setIsFormModalOpen(true);
   const closeFormModal = () => setIsFormModalOpen(false);
 
-  const handleSubmitMessage = () => {
-
-    closeFormModal(); // Cierra el modal después de confirmar
+  const handleSubmitMessage = (e: FormEvent) => {
+    e.preventDefault();
+    /* Cargamos datos para enviar el mensaje */
+    setMessageFormData({...messageFormData,
+      toUserId: postData.userId._id,
+      fromUserId: idUserLogged
+    });
+    
   };
 
   const handletSubmit = async () => {
@@ -198,12 +212,14 @@ const CatPostComments = ({ postData, commentData, setCommentData }: CatPostComme
             </p>
           </div>
 
-          <form action="#" method="POST" className="space-y-4">
+          <form onSubmit={handleSubmitMessage} className="space-y-4">
             <div>
               <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Tu Mensaje</label>
               <textarea
-                id="message"
-                name="message"
+                onChange={(e) => setMessageFormData({ ...messageFormData, [e.target.name]: e.target.value })}
+                value={messageFormData.text}
+                id="text"
+                name="text"
                 rows={6}
                 placeholder="Hola, me gustaría saber más sobre el michi..."
                 className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
