@@ -176,7 +176,7 @@ const CatPostComments = ({ postData, commentData, setCommentData }: CatPostComme
               ? commentData.map(comment =>
                 <div key={comment._id} className="flex space-x-3">
                   <div className="flex-shrink-0">
-                    <img className="h-8 w-8 rounded-full object-cover" src={comment.userId.avatarUrl} alt="Avatar de Usuario 1" />
+                    <img className="h-8 w-8 rounded-full object-cover" src={comment.userId.avatarUrl || anonCat} alt="Avatar de Usuario 1" />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between">
