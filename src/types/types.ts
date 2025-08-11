@@ -234,3 +234,7 @@ export interface ApiMessagePostResponse extends ApiResponse {
 export interface ApiMessageGetResponse extends ApiResponse {
     receivedMessages: MessageWithEmisorData[];
 }
+//Respuesta al marcar como leido
+export interface ApiMessageMarkReadResponse extends ApiResponse {
+    
+}

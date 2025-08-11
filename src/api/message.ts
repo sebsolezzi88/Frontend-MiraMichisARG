@@ -1,31 +1,31 @@
 import axios from "axios";
-import type { ApiMessageGetResponse, ApiMessagePostResponse, PostCommentFormData } from "../types/types";
+import type { ApiMessageGetResponse, ApiMessageMarkReadResponse, ApiMessagePostResponse, PostCommentFormData } from "../types/types";
 
 
-const URL:string = import.meta.env.VITE_API_URL;
+const URL: string = import.meta.env.VITE_API_URL;
 
 /* Funcion para mandar un mensaje a un usuario */
-export const sendMessage = async (data:PostCommentFormData) =>{
+export const sendMessage = async (data: PostCommentFormData) => {
     const authToken = localStorage.getItem('authToken');
 
-     if (!authToken) {
+    if (!authToken) {
         console.error("No hay token de autenticación disponible. El usuario no está logueado.");
-        throw new Error("No autenticado."); 
+        throw new Error("No autenticado.");
     }
 
-     const headers = {
-        'Content-Type': 'application/json', 
-        'Authorization': `Bearer ${authToken}` 
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken}`
     };
 
     try {
-        
+
         const res = await axios.post<ApiMessagePostResponse>(
-            `${URL}/message`, 
+            `${URL}/message`,
             data,
-            { headers } 
+            { headers }
         );
-        
+
         return res.data;
 
     } catch (error) {
@@ -41,26 +41,26 @@ export const sendMessage = async (data:PostCommentFormData) =>{
 }
 
 //Funcion para obtener los mensajes recibidos
-export const getReceivedMessages = async () =>{
+export const getReceivedMessages = async () => {
     const authToken = localStorage.getItem('authToken');
 
-     if (!authToken) {
+    if (!authToken) {
         console.error("No hay token de autenticación disponible. El usuario no está logueado.");
-        throw new Error("No autenticado."); 
+        throw new Error("No autenticado.");
     }
 
-     const headers = {
-        'Content-Type': 'application/json', 
-        'Authorization': `Bearer ${authToken}` 
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken}`
     };
 
     try {
-        
+
         const res = await axios.get<ApiMessageGetResponse>(
-            `${URL}/message/inbox`, 
-            { headers } 
+            `${URL}/message/inbox`,
+            { headers }
         );
-        
+
         return res.data;
 
     } catch (error) {
@@ -68,6 +68,40 @@ export const getReceivedMessages = async () =>{
         if (axios.isAxiosError(error)) {
             console.error("Error al obtener los mensajes recibidos:", error.response?.data || error.message);
             throw new Error(error.response?.data?.message || "Error desconocido al obtener los mensajes recibidos.");
+        } else {
+            console.error("Error inesperado:", error);
+            throw new Error("Ocurrió un error inesperado.");
+        }
+    }
+}
+
+export const markMessageAsRead = async (id: string) => {
+    const authToken = localStorage.getItem('authToken');
+
+    if (!authToken) {
+        console.error("No hay token de autenticación disponible. El usuario no está logueado.");
+        throw new Error("No autenticado.");
+    }
+
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken}`
+    };
+
+    try {
+
+        const res = await axios.patch<ApiMessageMarkReadResponse>(
+            `${URL}/message/read/${id}`, {},
+            { headers }
+        );
+
+        return res.data;
+
+    } catch (error) {
+        // Manejo de errores (por ejemplo, token inválido, servidor caído, etc.)
+        if (axios.isAxiosError(error)) {
+            console.error("Error al marcar como leido:", error.response?.data || error.message);
+            throw new Error(error.response?.data?.message || "Error desconocido al marcar como leido.");
         } else {
             console.error("Error inesperado:", error);
             throw new Error("Ocurrió un error inesperado.");
