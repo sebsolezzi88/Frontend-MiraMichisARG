@@ -25,6 +25,7 @@ import NewBlogPost from './page/NewBlogPost'
 import EditBlogPost from './page/EditBlogPost'
 import BlogPosts from './components/BlogPosts'
 import BlogPostPage from './page/BlogPostPage'
+import Message from './page/Message'
 
 
 function App() {
@@ -106,6 +107,14 @@ function App() {
           element={
             <ProtectedRouteAdmin>
               <EditBlogPost />
+            </ProtectedRouteAdmin>
+          }
+        />
+        <Route
+          path="/message"
+          element={
+            <ProtectedRouteAdmin>
+              <Message />
             </ProtectedRouteAdmin>
           }
         />
