@@ -41,7 +41,7 @@ export const sendMessage = async (data:PostCommentFormData) =>{
 }
 
 //Funcion para obtener los mensajes recibidos
-export const getReceivedMessage = async () =>{
+export const getReceivedMessages = async () =>{
     const authToken = localStorage.getItem('authToken');
 
      if (!authToken) {
