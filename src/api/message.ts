@@ -56,7 +56,7 @@ export const getReceivedMessage = async () =>{
 
     try {
         
-        const res = await axios.post<ApiMessageGetResponse>(
+        const res = await axios.get<ApiMessageGetResponse>(
             `${URL}/message/inbox`, 
             { headers } 
         );
