@@ -214,3 +214,7 @@ export type MessageFormData = Pick<Message,'fromUserId' | 'toUserId' | 'text'>;
 export interface ApiMessagePostResponse extends ApiResponse{
     newMessage: Message;
 }
+//Respuesta al obtener mensajes
+export interface ApiMessageGetResponse extends ApiResponse{
+    receivedMessages: Message[];
+}
