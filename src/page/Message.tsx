@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import type { Message, UserData } from "../types/types"; // Asumiendo que 'UserData' es la estructura del usuario
+import type { Message, MessageWithEmisorData, UserData } from "../types/types"; // Asumiendo que 'UserData' es la estructura del usuario
 
 import { toast } from "react-toastify";
 import anonCat from '../assets/anoncat.png'; // Un avatar por defecto
 import { getReceivedMessages } from "../api/message";
 
 const MessagePage = () => {
-    const [messages, setMessages] = useState<Message[]>([]);
+    const [messages, setMessages] = useState<MessageWithEmisorData[]>([]);
     const [loading, setLoading] = useState<boolean>(true); // Empezamos en 'true'
     const [error, setError] = useState<string>("");
 
@@ -17,6 +17,7 @@ const MessagePage = () => {
                 const response = await getReceivedMessages();
                 
                 if (response.status === "success" && response.receivedMessages) {
+                    console.log(response.receivedMessages)
                     setMessages(response.receivedMessages);
                 } else {
                     toast.error("No se pudieron obtener los mensajes", { theme: "colored" });
@@ -55,15 +56,12 @@ const MessagePage = () => {
                 >
                     <img
                         className="w-10 h-10 rounded-full object-cover"
-                        // Aquí deberías obtener el avatar del usuario que envía el mensaje.
-                        // Por ahora usamos un avatar por defecto.
-                        src={anonCat}
+                        src={message.fromUserId.avatarUrl || anonCat}
                         alt="Avatar del remitente"
                     />
                     <div className="flex-1">
                         <div className="flex justify-between items-center mb-1">
-                            {/* Deberías reemplazar 'fromUserId' con el nombre de usuario que obtengas de la API */}
-                            <p className="font-semibold text-gray-800">{message.fromUserId}</p>
+                            <p className="font-semibold text-gray-800">{message.fromUserId.username}</p>
                             <span className="text-xs text-gray-500">{formatSentAt(message.sentAt)}</span>
                         </div>
                         <p className={`text-gray-700 ${!message.read ? 'font-medium' : ''}`}>
