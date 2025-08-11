@@ -8,7 +8,7 @@ import { getReceivedMessage } from "../api/message";
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isCatsMenuOpen, setIsCatsMenuOpen] = useState(false); // Nuevo estado para el menú "Gatos"
-    const [unreadMessages, setUnreadMessages] = useState<Message[]>([]); // Estado de los mensajes sin leer
+    const [unreadMessages, setUnreadMessages] = useState<number>(0); // Estado de los mensajes sin leer
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -22,8 +22,9 @@ const Navbar = () => {
         const fetchUnreadMessages = async () => {
             try {
                 const response = await getReceivedMessage(); // Llamamos a la api
+                console.log(response)
                 if(response.status === 'success' && response.receivedMessages){}
-                setUnreadMessages(response.receivedMessages.filter(msg => msg.read === false)); //Buscamos los mensajes no leidos
+                setUnreadMessages(response.receivedMessages.filter(msg => msg.read === false).length); //Buscamos los mensajes no leidos
             } catch (error) {
                 console.error("Error al obtener mensajes no leídos:", error);
             }
@@ -121,6 +122,15 @@ const Navbar = () => {
                     {isAuthenticated
                         ? <>
                             <li><Link to="/profile" className={getLinkClasses('/profile')}>Perfil</Link></li>
+                            <Link to="/messages" className="relative font-medium text-gray-700 hover:text-orange-500">
+                                {/* Icono de mensajes */}
+                                Mensajes
+                                {unreadMessages > 0 && (
+                                    <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                                        {unreadMessages}
+                                    </span>
+                                )}
+                            </Link>
                             <li><button onClick={handleLogoutClick} className={getLinkClasses('/logout')}>Logout</button></li>
                         </>
                         : <>
