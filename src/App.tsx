@@ -113,9 +113,9 @@ function App() {
         <Route
           path="/messages"
           element={
-            <ProtectedRouteAdmin>
+            <ProtectedRoute>
               <MessagePage />
-            </ProtectedRouteAdmin>
+            </ProtectedRoute>
           }
         />
 
