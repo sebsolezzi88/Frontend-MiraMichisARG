@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import type { Message } from "../types/types";
-import { getReceivedMessage } from "../api/message";
+import { getReceivedMessages } from "../api/message";
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -21,7 +21,7 @@ const Navbar = () => {
 
         const fetchUnreadMessages = async () => {
             try {
-                const response = await getReceivedMessage(); // Llamamos a la api
+                const response = await getReceivedMessages(); // Llamamos a la api
                 console.log(response)
                 if(response.status === 'success' && response.receivedMessages){}
                 setUnreadMessages(response.receivedMessages.filter(msg => msg.read === false).length); //Buscamos los mensajes no leidos
