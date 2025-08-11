@@ -215,6 +215,7 @@ export interface FromUserId {
     username: string;
 }
 export interface MessageWithEmisorData {
+    _id:string;
     fromUserId: FromUserId;
     read: boolean;
     sentAt: Date;
