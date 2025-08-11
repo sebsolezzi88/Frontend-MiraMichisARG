@@ -1,16 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
+import type { Message } from "../types/types";
+import { getReceivedMessage } from "../api/message";
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isCatsMenuOpen, setIsCatsMenuOpen] = useState(false); // Nuevo estado para el menú "Gatos"
+    const [unreadMessages, setUnreadMessages] = useState<Message[]>([]); // Estado de los mensajes sin leer
 
     const location = useLocation();
     const navigate = useNavigate();
 
     const { isAuthenticated, logout } = useAuth();
+
+    /* useEffect para consultar si hay mensajes */
+     useEffect(() => {
+        if (!isAuthenticated) return; // Si no está logueado, no hace la llamada
+
+        const fetchUnreadMessages = async () => {
+            try {
+                const response = await getReceivedMessage(); // Llamamos a la api
+                if(response.status === 'success' && response.receivedMessages){}
+                setUnreadMessages(response.receivedMessages.filter(msg => msg.read === false)); //Buscamos los mensajes no leidos
+            } catch (error) {
+                console.error("Error al obtener mensajes no leídos:", error);
+            }
+        };
+        
+        // Ejecuta la primera vez y luego cada 30 segundos
+        fetchUnreadMessages();
+        const intervalId = setInterval(fetchUnreadMessages, 30000); 
+
+        // Limpia el intervalo cuando el componente se desmonta
+        return () => clearInterval(intervalId);
+    }, [isAuthenticated]);
 
     const handleLogoutClick = () => {
         logout();
