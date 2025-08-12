@@ -25,6 +25,32 @@ La plataforma está diseñada para ser intuitiva y accesible, permitiendo a los 
 
 ---
 
+
+
+### 📸 Capturas
+
+![Imagen sitio MiraMichis Principal](https://i.imgur.com/N1N06a2.png)
+
+![Imagen sitio MiraMichis login](https://i.imgur.com/YS6u6px.png)
+
+![Imagen sitio MiraMichis registro](https://i.imgur.com/5bWC3uP.png)
+
+![Imagen sitio MiraMichis Sección blog ](https://i.imgur.com/GA2AZYK.png)
+
+![Imagen sitio MiraMichis perfil de usuario](https://i.imgur.com/WUXtVGK.png)
+
+![Imagen sitio MiraMichis mensajes](https://i.imgur.com/5EPhmrt.png)
+
+
+
+---
+
+### 📝 Notas
+
+Este **Frontend** se complementa y funciona con el Backend de mi repositorio [Backend-MiraMichisARG ](https://github.com/sebsolezzi88/Backend-MiraMichisARG)
+
+---
+
 ### 📄 Licencia
 
 Este proyecto está bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.
