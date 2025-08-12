@@ -53,4 +53,4 @@ Este **Frontend** se complementa y funciona con el Backend de mi repositorio [Ba
 
 ### 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.
+Este proyecto está bajo la Licencia MIT. 
