@@ -77,9 +77,6 @@ const MessagePage = () => {
     setIsFormModalOpen(true);
   };
 
-  const openFormModal = () => {
-    setIsFormModalOpen(true);
-  };
   const closeFormModal = () => {
     setIsFormModalOpen(false);
     setReplyToUsername(""); // Limpiar el nombre al cerrar
