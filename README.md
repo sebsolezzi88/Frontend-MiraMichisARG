@@ -1,69 +1,30 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🐾 MiraMichis ARG 🐈
 
-Currently, two official plugins are available:
+## Descripción del Proyecto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**MiraMichis ARG** es una plataforma dedicada a conectar a la comunidad de amantes de los gatos en Argentina. El proyecto busca ser un punto de encuentro para:
 
-## Expanding the ESLint configuration
+-   **Adopción:** Facilitar la búsqueda de un nuevo hogar para gatos que lo necesitan.
+-   **Gatos Perdidos y Encontrados:** Ayudar a reunir a gatos perdidos con sus dueños, actuando como un tablón de anuncios en tiempo real.
+-   **Noticias y Comunidad:** Publicar blogs y artículos sobre el bienestar de los gatos, eventos y consejos útiles.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+La plataforma está diseñada para ser intuitiva y accesible, permitiendo a los usuarios interactuar de manera segura y eficiente.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### ⚙️ Tecnologías Utilizadas
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+  -   **React:** Biblioteca principal para la interfaz de usuario.
+  -   **TypeScript:** Lenguaje de programación para un código más robusto y escalable.
+  -   **React Router DOM:** Para la navegación entre las diferentes páginas.
+  -   **Tailwind CSS:** Framework de CSS para un rápido desarrollo de estilos.
+  -   **React Toastify:** Para notificaciones y alertas de usuario.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.
