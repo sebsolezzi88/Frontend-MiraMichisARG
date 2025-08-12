@@ -4,7 +4,7 @@ import type {
   MessageFormData,
   MessageWithEmisorData,
 } from "../types/types";
-import { getReceivedMessages, markMessageAsRead } from "../api/message"; // Importamos la nueva función
+import { getReceivedMessages, markMessageAsRead, sendMessage } from "../api/message"; // Importamos la nueva función
 import { toast } from "react-toastify";
 import anonCat from "../assets/anoncat.png";
 import ReactModal from "react-modal";
@@ -96,8 +96,7 @@ const MessagePage = () => {
       const response = await sendMessage(messageFormData);
       if (response.status === "success") {
         toast.success("Mensaje enviado", { theme: "colored", autoClose: 3000 });
-        // Opcional: Podrías recargar los mensajes aquí si quieres ver tu respuesta al instante
-        // fetchMessages();
+        
       } else {
         toast.error(response.message || "No se logró enviar el mensaje", {
           theme: "colored",
